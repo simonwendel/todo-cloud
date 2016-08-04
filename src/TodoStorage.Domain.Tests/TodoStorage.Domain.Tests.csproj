@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ColorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TodoListServiceTests.cs" />
     <Compile Include="TodoListTests.cs" />
   </ItemGroup>
   <ItemGroup>

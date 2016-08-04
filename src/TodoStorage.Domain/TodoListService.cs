@@ -16,16 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+namespace TodoStorage.Domain
+{
+    using System;
 
-[assembly: AssemblyTitle("Todo App Storage Domain Model")]
-[assembly: AssemblyProduct("TodoStorage.Domain")]
-[assembly: AssemblyCopyright("Copyright © Simon Wendel 2016")]
-[assembly: ComVisible(false)]
-[assembly: Guid("8ea6b688-81c0-44d9-b241-7f5361c48c8a")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+    internal class TodoListService : ITodoListService
+    {
+        private readonly ITodoRepository todoRepository;
 
-[assembly: InternalsVisibleTo("TodoStorage.Domain.Tests")]
+        public TodoListService(ITodoRepository todoRepository)
+        {
+            if (todoRepository == null)
+            {
+                throw new ArgumentNullException(nameof(todoRepository));
+            }
+
+            this.todoRepository = todoRepository;
+        }
+    }
+}
