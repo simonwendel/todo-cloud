@@ -23,6 +23,8 @@ namespace TodoStorage.Domain
 
     public class TodoList
     {
+        private List<Todo> items;
+
         public TodoList(Guid collectionKey)
         {
             if (collectionKey.Equals(Guid.Empty))
@@ -31,11 +33,11 @@ namespace TodoStorage.Domain
             }
 
             Key = collectionKey;
-            Items = new List<Todo>();
+            items = new List<Todo>();
         }
 
         public Guid Key { get; private set; }
 
-        public IList<Todo> Items { get; private set; }
+        public IReadOnlyList<Todo> Items => items.AsReadOnly();
     }
 }
