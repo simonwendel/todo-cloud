@@ -18,7 +18,6 @@
 
 namespace TodoStorage.Domain.Tests
 {
-    using System;
     using NUnit.Framework;
 
     [TestFixture]
@@ -27,7 +26,9 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Ctor_GivenNullTodoRepository_ThrowsException()
         {
-            Assert.Throws<ArgumentNullException>(() => new TodoListService(null));
+            TestDelegate constructorCall = () => new TodoListService(null);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
         }
     }
 }

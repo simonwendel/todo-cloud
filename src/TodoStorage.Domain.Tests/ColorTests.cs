@@ -18,7 +18,6 @@
 
 namespace TodoStorage.Domain.Tests
 {
-    using System;
     using NUnit.Framework;
 
     [TestFixture]
@@ -36,13 +35,17 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Ctor_GivenNullColorName_ThrowsException()
         {
-            Assert.Throws<ArgumentNullException>(() => new Color(null, "some value"));
+            TestDelegate constructorCall = () => new Color(null, "some value");
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
         }
 
         [Test]
         public void Ctor_GivenNullColorValue_ThrowsException()
         {
-            Assert.Throws<ArgumentNullException>(() => new Color("some name", null));
+            TestDelegate constructorCall = () => new Color("some name", null);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
         }
     }
 }
