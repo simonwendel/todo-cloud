@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Api", "TodoStor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Api.Tests", "TodoStorage.Api.Tests\TodoStorage.Api.Tests.csproj", "{7343CA9A-384E-4A1B-AE2D-E3AC6C1E2602}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Domain", "TodoStorage.Domain\TodoStorage.Domain.csproj", "{8EA6B688-81C0-44D9-B241-7F5361C48C8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Domain.Tests", "TodoStorage.Domain.Tests\TodoStorage.Domain.Tests.csproj", "{69A126A6-6F7F-4C6B-865E-3984853A8621}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{7343CA9A-384E-4A1B-AE2D-E3AC6C1E2602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7343CA9A-384E-4A1B-AE2D-E3AC6C1E2602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7343CA9A-384E-4A1B-AE2D-E3AC6C1E2602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EA6B688-81C0-44D9-B241-7F5361C48C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EA6B688-81C0-44D9-B241-7F5361C48C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EA6B688-81C0-44D9-B241-7F5361C48C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EA6B688-81C0-44D9-B241-7F5361C48C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A126A6-6F7F-4C6B-865E-3984853A8621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A126A6-6F7F-4C6B-865E-3984853A8621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A126A6-6F7F-4C6B-865E-3984853A8621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A126A6-6F7F-4C6B-865E-3984853A8621}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
