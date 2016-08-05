@@ -26,7 +26,8 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Ctor_GivenNullTodoRepository_ThrowsException()
         {
-            TestDelegate constructorCall = () => new TodoListService(null);
+            TestDelegate constructorCall = 
+                () => new TodoListService(null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }

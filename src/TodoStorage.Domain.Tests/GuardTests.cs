@@ -43,7 +43,8 @@ namespace TodoStorage.Domain.Tests
         public void NullParameter_GivenNullObject_ThrowsExeption()
         {
             object nullObject = null;
-            TestDelegate guardStatement = () => Guard.NullParameter(nullObject);
+            TestDelegate guardStatement = 
+                () => Guard.NullParameter(nullObject);
 
             Assert.That(guardStatement, Throws.ArgumentNullException);
         }
@@ -52,7 +53,8 @@ namespace TodoStorage.Domain.Tests
         public void NullParameter_GivenNullObjectAndParameterName_ThrowsExeption()
         {
             object nullObject = null;
-            TestDelegate guardStatement = () => Guard.NullParameter(nullObject, nameof(nullObject));
+            TestDelegate guardStatement = 
+                () => Guard.NullParameter(nullObject, nameof(nullObject));
 
             Assert.That(guardStatement, Throws.ArgumentNullException);
         }

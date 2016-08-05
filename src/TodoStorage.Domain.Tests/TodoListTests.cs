@@ -28,7 +28,8 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Ctor_GivenEmptyGuid_ThrowsException()
         {
-            TestDelegate constructorCall = () => new TodoList(Guid.Empty);
+            TestDelegate constructorCall = 
+                () => new TodoList(Guid.Empty);
 
             Assert.That(constructorCall, Throws.ArgumentException);
         }
