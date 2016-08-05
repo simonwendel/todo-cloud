@@ -46,7 +46,8 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Ctor_ConstructsEmptyList()
         {
-            var sut = new TodoList(Guid.NewGuid());
+            var key = Guid.NewGuid();
+            var sut = new TodoList(key);
 
             Assert.That(sut.Items, Is.Empty);
         }
