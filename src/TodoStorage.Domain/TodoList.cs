@@ -23,6 +23,8 @@ namespace TodoStorage.Domain
 
     public class TodoList
     {
+        private static TodoList empty;
+
         private List<Todo> items;
 
         public TodoList(Guid collectionKey)
@@ -34,6 +36,21 @@ namespace TodoStorage.Domain
 
             Key = collectionKey;
             items = new List<Todo>();
+        }
+
+        public static TodoList Empty
+        {
+            get
+            {
+                if (empty == null)
+                {
+                    var totallyIrrelevantKey = new Guid("00000000000000000000000000000001");
+                    empty = new TodoList(totallyIrrelevantKey);
+                    empty.Key = Guid.Empty;
+                }
+
+                return empty;
+            }
         }
 
         public Guid Key { get; private set; }
