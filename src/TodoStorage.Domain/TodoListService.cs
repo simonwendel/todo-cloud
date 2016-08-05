@@ -18,18 +18,13 @@
 
 namespace TodoStorage.Domain
 {
-    using System;
-
     internal class TodoListService : ITodoListService
     {
         private readonly ITodoRepository todoRepository;
 
         public TodoListService(ITodoRepository todoRepository)
         {
-            if (todoRepository == null)
-            {
-                throw new ArgumentNullException(nameof(todoRepository));
-            }
+            Guard.NullParameter(todoRepository, nameof(todoRepository));
 
             this.todoRepository = todoRepository;
         }

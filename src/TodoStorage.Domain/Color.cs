@@ -18,21 +18,12 @@
 
 namespace TodoStorage.Domain
 {
-    using System;
-
     public struct Color
     {
         public Color(string colorName, string colorValue)
         {
-            if (colorName == null)
-            {
-                throw new ArgumentNullException(nameof(colorName));
-            }
-
-            if (colorValue == null)
-            {
-                throw new ArgumentNullException(nameof(colorValue));
-            }
+            Guard.NullParameter(colorName, nameof(colorName));
+            Guard.NullParameter(colorValue, nameof(colorValue));
 
             ColorName = colorName;
             ColorValue = colorValue;
