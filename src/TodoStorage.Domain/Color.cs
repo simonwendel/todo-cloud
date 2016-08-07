@@ -20,17 +20,21 @@ namespace TodoStorage.Domain
 {
     public struct Color
     {
+        private readonly string colorName;
+
+        private readonly string colorValue;
+
         public Color(string colorName, string colorValue)
         {
             Guard.NullParameter(colorName, nameof(colorName));
             Guard.NullParameter(colorValue, nameof(colorValue));
 
-            ColorName = colorName;
-            ColorValue = colorValue;
+            this.colorName = colorName;
+            this.colorValue = colorValue;
         }
 
-        public string ColorName { get; private set; }
+        public string ColorName => colorName;
 
-        public string ColorValue { get; private set; }
+        public string ColorValue => colorValue;
     }
 }
