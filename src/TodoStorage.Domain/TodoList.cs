@@ -23,22 +23,13 @@ namespace TodoStorage.Domain
 
     public class TodoList
     {
-        // terse indeed
-        public static readonly TodoList Empty = 
-            new TodoList(Guid.Empty, validateKey: false);
-
         private readonly List<Todo> items;
 
         private readonly Guid key;
 
         public TodoList(Guid collectionKey)
-            : this(collectionKey, validateKey: true)
         {
-        }
-
-        private TodoList(Guid collectionKey, bool validateKey)
-        {
-            if (validateKey && collectionKey.Equals(Guid.Empty))
+            if (collectionKey.Equals(Guid.Empty))
             {
                 throw new ArgumentException("Empty collection key not allowed", nameof(collectionKey));
             }

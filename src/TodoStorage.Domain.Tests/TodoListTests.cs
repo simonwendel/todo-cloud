@@ -51,30 +51,5 @@ namespace TodoStorage.Domain.Tests
 
             Assert.That(sut.Items, Is.Empty);
         }
-
-        [Test]
-        public void Empty_ConstructsEmptyList()
-        {
-            var empty = TodoList.Empty;
-
-            Assert.That(empty.Items, Is.Empty);
-        }
-
-        [Test]
-        public void Empty_HasEmptyGuid()
-        {
-            var empty = TodoList.Empty;
-
-            Assert.That(empty.Key, Is.EqualTo(Guid.Empty));
-        }
-
-        [Test]
-        public void Empty_HasSingletonScope()
-        {
-            var empty1 = TodoList.Empty;
-            var empty2 = TodoList.Empty;
-
-            Assert.That(empty2, Is.SameAs(empty1));
-        }
     }
 }
