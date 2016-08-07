@@ -18,27 +18,19 @@
 
 namespace TodoStorage.Domain
 {
-    using System;
     using System.Collections.Generic;
 
     public class TodoList
     {
         private readonly List<Todo> items;
 
-        private readonly Guid key;
-
-        public TodoList(Guid collectionKey)
+        public TodoList(CollectionKey collectionKey)
         {
-            if (collectionKey.Equals(Guid.Empty))
-            {
-                throw new ArgumentException("Empty collection key not allowed", nameof(collectionKey));
-            }
-
-            key = collectionKey;
+            Key = collectionKey;
             items = new List<Todo>();
         }
 
-        public Guid Key => key;
+        public CollectionKey Key { get; private set; }
 
         public IReadOnlyList<Todo> Items => items.AsReadOnly();
     }

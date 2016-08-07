@@ -18,8 +18,6 @@
 
 namespace TodoStorage.Domain
 {
-    using System;
-
     internal class TodoListService : ITodoListService
     {
         private readonly ITodoListRepository todoRepository;
@@ -31,13 +29,8 @@ namespace TodoStorage.Domain
             this.todoRepository = todoRepository;
         }
 
-        public TodoList GetList(Guid collectionKey)
+        public TodoList GetList(CollectionKey collectionKey)
         {
-            if (collectionKey.Equals(Guid.Empty))
-            {
-                throw new ArgumentException("Empty collection key not allowed", nameof(collectionKey));
-            }
-
             return todoRepository.Get(collectionKey);
         }
     }

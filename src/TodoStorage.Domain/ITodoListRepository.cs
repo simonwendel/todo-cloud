@@ -18,10 +18,8 @@
 
 namespace TodoStorage.Domain
 {
-    using System;
-
     internal interface ITodoListRepository
     {
-        TodoList Get(Guid collectionKey);
+        TodoList Get(CollectionKey collectionKey);
     }
 }

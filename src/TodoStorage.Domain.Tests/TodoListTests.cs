@@ -26,18 +26,9 @@ namespace TodoStorage.Domain.Tests
     public class TodoListTests
     {
         [Test]
-        public void Ctor_GivenEmptyGuid_ThrowsException()
-        {
-            TestDelegate constructorCall = 
-                () => new TodoList(Guid.Empty);
-
-            Assert.That(constructorCall, Throws.ArgumentException);
-        }
-
-        [Test]
         public void Ctor_GivenListKey_ConstructsListWithKey()
         {
-            var key = Guid.NewGuid();
+            var key = new CollectionKey(Guid.NewGuid());
             var sut = new TodoList(key);
 
             Assert.That(sut.Key, Is.EqualTo(key));
@@ -46,7 +37,7 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Ctor_ConstructsEmptyList()
         {
-            var key = Guid.NewGuid();
+            var key = new CollectionKey(Guid.NewGuid());
             var sut = new TodoList(key);
 
             Assert.That(sut.Items, Is.Empty);

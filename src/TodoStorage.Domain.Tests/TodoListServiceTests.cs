@@ -46,22 +46,13 @@ namespace TodoStorage.Domain.Tests
         }
 
         [Test]
-        public void GetList_GivenEmptyGuidCollectionKey_ThrowsException()
-        {
-            TestDelegate retrieveByEmptyKey =
-                () => sut.GetList(Guid.Empty);
-
-            Assert.That(retrieveByEmptyKey, Throws.ArgumentException);
-        }
-
-        [Test]
         public void GetList_GivenCollectionKey_ReturnsFromRepository()
         {
-            var expectedList = new TodoList(Guid.NewGuid());
-            var collectionKey = Guid.NewGuid();
+            var collectionKey = new CollectionKey(Guid.NewGuid());
+            var expectedList = new TodoList(collectionKey);
 
             mockRepository
-                .Setup(r => r.Get(It.Is<Guid>(key => key == collectionKey)))
+                .Setup(r => r.Get(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
                 .Returns(expectedList);
 
             var actualList = sut.GetList(collectionKey);
