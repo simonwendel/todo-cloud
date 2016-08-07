@@ -58,6 +58,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CollectionKeyTests.cs" />
     <Compile Include="ColorTests.cs" />
     <Compile Include="GuardTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

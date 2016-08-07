@@ -35,6 +35,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionKey.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="ITodoListService.cs" />
