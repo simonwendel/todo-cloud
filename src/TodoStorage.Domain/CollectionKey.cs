@@ -22,6 +22,8 @@ namespace TodoStorage.Domain
 
     public class CollectionKey
     {
+        private readonly Guid identifier;
+        
         public CollectionKey(Guid identifier)
         {
             if (identifier.Equals(Guid.Empty))
@@ -29,9 +31,9 @@ namespace TodoStorage.Domain
                 throw new ArgumentException("Empty collection key identifier not allowed", nameof(identifier));
             }
 
-            Identifier = identifier;
+            this.identifier = identifier;
         }
 
-        public Guid Identifier { get; private set; }
+        public Guid Identifier => identifier;
     }
 }
