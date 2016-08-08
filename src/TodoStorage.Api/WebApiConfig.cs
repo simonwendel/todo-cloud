@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Api
 {
+    using System;
     using System.Web.Http;
     using Newtonsoft.Json.Serialization;
 
@@ -25,6 +26,11 @@ namespace TodoStorage.Api
     {
         public static void Register(HttpConfiguration config)
         {
+            if (config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
