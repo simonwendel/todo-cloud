@@ -49,5 +49,23 @@ namespace TodoStorage.Domain.Tests
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
+
+        [Test]
+        public void Ctor_GivenEmptyColorName_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new Color(string.Empty, "some value");
+
+            Assert.That(constructorCall, Throws.ArgumentException);
+        }
+
+        [Test]
+        public void Ctor_GivenEmptyColorValue_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new Color("some name", string.Empty);
+
+            Assert.That(constructorCall, Throws.ArgumentException);
+        }
     }
 }

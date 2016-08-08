@@ -26,8 +26,8 @@ namespace TodoStorage.Domain
 
         public Color(string colorName, string colorValue)
         {
-            Guard.NullParameter(colorName, nameof(colorName));
-            Guard.NullParameter(colorValue, nameof(colorValue));
+            Guard.EmptyString(colorName, nameof(colorName));
+            Guard.EmptyString(colorValue, nameof(colorValue));
 
             this.colorName = colorName;
             this.colorValue = colorValue;
