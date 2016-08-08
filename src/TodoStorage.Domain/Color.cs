@@ -18,7 +18,7 @@
 
 namespace TodoStorage.Domain
 {
-    public struct Color
+    public class Color
     {
         private readonly string colorName;
 

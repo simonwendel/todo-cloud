@@ -69,6 +69,6 @@ namespace TodoStorage.Domain
 
         public DateTime? NextOccurrence { get; set; }
 
-        public Color? Color { get; set; }
+        public Color Color { get; set; }
     }
 }
