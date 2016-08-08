@@ -44,7 +44,7 @@ namespace TodoStorage.Domain
     ///     isa: 'whole',
     ///     optional: true
     /// },
-    /// nextOccurrance: {
+    /// nextOccurrence: {
     ///     isa: 'date',
     ///     optional: true
     /// },
@@ -67,7 +67,7 @@ namespace TodoStorage.Domain
 
         public int? Recurring { get; set; }
 
-        public DateTime? NextOccurrance { get; set; }
+        public DateTime? NextOccurrence { get; set; }
 
         public Color? Color { get; set; }
     }
