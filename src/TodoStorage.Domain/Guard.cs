@@ -22,7 +22,7 @@ namespace TodoStorage.Domain
     using System.Diagnostics;
 
     /// <summary>
-    /// Convenience for enforcing invariants and responding by throwing an adequate exception.
+    /// Convenience class for enforcing invariants and responding by throwing an adequate exception.
     /// </summary>
     internal static class Guard
     {
