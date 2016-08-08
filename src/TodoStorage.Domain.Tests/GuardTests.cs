@@ -58,5 +58,33 @@ namespace TodoStorage.Domain.Tests
 
             Assert.That(guardStatement, Throws.ArgumentNullException);
         }
+
+        [Test]
+        public void EmptyString_GivenNullString_ThrowsException()
+        {
+            string nullString = null;
+            TestDelegate guardStatement =
+                () => Guard.EmptyString(nullString, nameof(nullString));
+
+            Assert.That(guardStatement, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void EmptyString_GivenEmptyString_ThrowsException()
+        {
+            string emptyString = string.Empty;
+            TestDelegate guardStatement =
+                () => Guard.EmptyString(emptyString, nameof(emptyString));
+
+            Assert.That(guardStatement, Throws.ArgumentException);
+        }
+
+        [Test]
+        public void EmptyString_GivenNonEmptyString_DoesNothing()
+        {
+            string nonEmptyString = "not empty";
+
+            Guard.EmptyString(nonEmptyString, nameof(nonEmptyString));
+        }
     }
 }

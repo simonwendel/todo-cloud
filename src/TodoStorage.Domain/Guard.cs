@@ -40,5 +40,27 @@ namespace TodoStorage.Domain
                 throw new ArgumentNullException(parameterName);
             }
         }
+
+        /// <summary>
+        /// Will check a string for <c>null</c> or <c>string.Empty</c> and responding by throwing an 
+        /// adequate exception.
+        /// </summary>
+        /// <param name="parameter">Parameter to check for <c>null</c> or <c>string.Empty</c>.</param>
+        /// <param name="parameterName">Name of the parameter to include in an exception, if thrown.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">When <paramref name="parameter"/> is <c>string.Empty</c>.</exception>
+        [DebuggerHidden]
+        public static void EmptyString(string parameter, string parameterName = null)
+        {
+            if (parameter == null)
+            {
+                throw new ArgumentNullException(parameterName);
+            }
+
+            if (string.IsNullOrEmpty(parameter))
+            {
+                throw new ArgumentException(message: null, paramName: parameterName);
+            }
+        }
     }
 }
