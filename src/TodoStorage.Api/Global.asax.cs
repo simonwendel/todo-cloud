@@ -18,10 +18,15 @@
 
 namespace TodoStorage.Api
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Http;
 
     public class WebApiApplication : System.Web.HttpApplication
     {
+        [SuppressMessage(
+            "Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "Application bootup will break if static.")]
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
