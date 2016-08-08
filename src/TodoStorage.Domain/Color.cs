@@ -36,5 +36,17 @@ namespace TodoStorage.Domain
         public string ColorName => colorName;
 
         public string ColorValue => colorValue;
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var otherColor = obj as Color;
+            return ColorName.Equals(otherColor.ColorName)
+                && ColorValue.Equals(otherColor.ColorValue);
+        }
     }
 }

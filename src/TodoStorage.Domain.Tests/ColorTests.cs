@@ -67,5 +67,41 @@ namespace TodoStorage.Domain.Tests
 
             Assert.That(constructorCall, Throws.ArgumentException);
         }
+
+        [Test]
+        public void Equals_GivenSameObject_ReturnsTrue()
+        {
+            var sut = new Color("Name", "Value");
+
+            Assert.That(sut.Equals(sut), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
+        {
+            var color = new Color("Name", "Value");
+            var sut = new Color("Name", "Value");
+
+            Assert.That(sut.Equals(color), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
+        {
+            var color1 = new Color("Name2", "Value");
+            var color2 = new Color("Name", "Value2");
+            var sut = new Color("Name", "Value");
+
+            Assert.That(sut.Equals(color1), Is.False);
+            Assert.That(sut.Equals(color2), Is.False);
+        }
+
+        [Test]
+        public void Equals_GivenNull_ReturnsFalse()
+        {
+            var sut = new Color("Name", "Value");
+
+            Assert.That(sut.Equals(null), Is.False);
+        }
     }
 }
