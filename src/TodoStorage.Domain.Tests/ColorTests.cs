@@ -103,5 +103,23 @@ namespace TodoStorage.Domain.Tests
 
             Assert.That(sut.Equals(null), Is.False);
         }
+
+        [Test]
+        public void GetHashCode_ReturnsHashByProperties()
+        {
+            var sut = new Color("A Color Name", "A Color Value");
+            var start = 17;
+            var multiplier = 486187739;
+
+            int hash;
+            unchecked
+            {
+                hash = start;
+                hash = (hash * multiplier) + sut.ColorName.GetHashCode();
+                hash = (hash * multiplier) + sut.ColorValue.GetHashCode();
+            }
+
+            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
+        }
     }
 }

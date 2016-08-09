@@ -48,5 +48,16 @@ namespace TodoStorage.Domain
             return ColorName.Equals(otherColor.ColorName)
                 && ColorValue.Equals(otherColor.ColorValue);
         }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = 17;
+                hash = (hash * 486187739) + colorName.GetHashCode();
+                hash = (hash * 486187739) + colorValue.GetHashCode();
+                return hash;
+            }
+        }
     }
 }
