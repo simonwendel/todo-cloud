@@ -24,8 +24,19 @@ namespace TodoStorage.Domain
     /// <summary>
     /// Convenience class for enforcing invariants and responding by throwing an adequate exception.
     /// </summary>
-    internal static class Guard
+    public static class Guard
     {
+        /// <summary>
+        /// Will check for a <c>null</c> parameter and throwing <see cref="ArgumentNullException"/> if so.
+        /// </summary>
+        /// <param name="parameter">The object to check for null condition.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
+        [DebuggerHidden]
+        public static void NullParameter(object parameter)
+        {
+            NullParameter(parameter, parameterName: null);
+        }
+
         /// <summary>
         /// Will check for a <c>null</c> parameter and throwing <see cref="ArgumentNullException"/> if so.
         /// </summary>
@@ -33,7 +44,7 @@ namespace TodoStorage.Domain
         /// <param name="parameterName">Name of the parameter to include in an exception, if thrown.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         [DebuggerHidden]
-        public static void NullParameter(object parameter, string parameterName = null)
+        public static void NullParameter(object parameter, string parameterName)
         {
             if (parameter == null)
             {
@@ -46,11 +57,24 @@ namespace TodoStorage.Domain
         /// adequate exception.
         /// </summary>
         /// <param name="parameter">Parameter to check for <c>null</c> or <c>string.Empty</c>.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">When <paramref name="parameter"/> is <c>string.Empty</c>.</exception>
+        [DebuggerHidden]
+        public static void EmptyString(string parameter)
+        {
+            EmptyString(parameter, parameterName: null);
+        }
+
+        /// <summary>
+        /// Will check a string for <c>null</c> or <c>string.Empty</c> and responding by throwing an
+        /// adequate exception.
+        /// </summary>
+        /// <param name="parameter">Parameter to check for <c>null</c> or <c>string.Empty</c>.</param>
         /// <param name="parameterName">Name of the parameter to include in an exception, if thrown.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">When <paramref name="parameter"/> is <c>string.Empty</c>.</exception>
         [DebuggerHidden]
-        public static void EmptyString(string parameter, string parameterName = null)
+        public static void EmptyString(string parameter, string parameterName)
         {
             if (parameter == null)
             {
