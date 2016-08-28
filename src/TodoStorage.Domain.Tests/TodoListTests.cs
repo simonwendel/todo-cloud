@@ -29,18 +29,19 @@ namespace TodoStorage.Domain.Tests
         public void Ctor_GivenListKey_ConstructsListWithKey()
         {
             var key = new CollectionKey(Guid.NewGuid());
-            var sut = new TodoList(key);
+            var sut = new TodoList(key, new Todo[0]);
 
             Assert.That(sut.Key, Is.EqualTo(key));
         }
 
         [Test]
-        public void Ctor_ConstructsEmptyList()
+        public void Ctor_GivenTodoItems_ConstructsNonEmptyList()
         {
             var key = new CollectionKey(Guid.NewGuid());
-            var sut = new TodoList(key);
+            var todos = new[] { new Todo(), new Todo() };
+            var sut = new TodoList(key, todos);
 
-            Assert.That(sut.Items, Is.Empty);
+            Assert.That(sut.Items, Is.EquivalentTo(todos));
         }
     }
 }

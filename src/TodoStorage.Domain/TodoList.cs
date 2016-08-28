@@ -24,10 +24,10 @@ namespace TodoStorage.Domain
     {
         private readonly List<Todo> items;
 
-        internal TodoList(CollectionKey collectionKey)
+        internal TodoList(CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
         {
             Key = collectionKey;
-            items = new List<Todo>();
+            items = new List<Todo>(itemsTodo);
         }
 
         public CollectionKey Key { get; private set; }
