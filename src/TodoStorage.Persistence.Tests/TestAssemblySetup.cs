@@ -27,10 +27,5 @@ namespace TodoStorage.Persistence.Tests
         public void RunBeforeAnyTests()
         {
         }
-
-        [OneTimeTearDown]
-        public void RunAfterAnyTests()
-        {
-        }
     }
 }
