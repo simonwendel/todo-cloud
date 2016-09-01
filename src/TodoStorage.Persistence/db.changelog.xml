@@ -27,4 +27,7 @@
       </column>
     </createTable>
   </changeSet>
+  <changeSet id="2" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <renameTable oldTableName="TodoItems" newTableName="TodoItem" />
+  </changeSet>
 </databaseChangeLog>
