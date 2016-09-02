@@ -21,7 +21,7 @@ namespace TodoStorage.Persistence.Tests
     using NUnit.Framework;
 
     [SetUpFixture]
-    public class TestAssemblySetup
+    internal class TestAssemblySetup
     {
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
