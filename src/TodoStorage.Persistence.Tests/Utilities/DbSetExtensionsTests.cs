@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Persistence.Tests
+namespace TodoStorage.Persistence.Tests.Utilities
 {
     using System.Collections.Generic;
     using System.Data.Entity;
