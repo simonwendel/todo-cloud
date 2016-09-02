@@ -24,7 +24,7 @@ namespace TodoStorage.Persistence.Tests.Utilities
     using NUnit.Framework;
 
     [TestFixture]
-    public class DbSetExtensionsTests
+    internal class DbSetExtensionsTests
     {
         [Test]
         public void Clear_GivenNullDbSet_ThrowsException()
