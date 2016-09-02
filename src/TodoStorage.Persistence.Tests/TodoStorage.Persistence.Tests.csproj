@@ -76,6 +76,7 @@
     <Compile Include="Seed\Data.cs" />
     <Compile Include="Utilities\DbSetExtensions.cs" />
     <Compile Include="Utilities\DbSetExtensionsTests.cs" />
+    <Compile Include="Seed\DatabaseSeeder.cs" />
     <Compile Include="TestAssemblySetup.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
