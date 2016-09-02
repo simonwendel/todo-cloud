@@ -73,6 +73,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Seed\Data.cs" />
     <Compile Include="Utilities\DbSetExtensions.cs" />
     <Compile Include="Utilities\DbSetExtensionsTests.cs" />
     <Compile Include="TestAssemblySetup.cs" />
