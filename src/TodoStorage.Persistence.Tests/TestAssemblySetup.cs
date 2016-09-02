@@ -19,6 +19,7 @@
 namespace TodoStorage.Persistence.Tests
 {
     using NUnit.Framework;
+    using Seed;
 
     [SetUpFixture]
     internal class TestAssemblySetup
@@ -26,6 +27,8 @@ namespace TodoStorage.Persistence.Tests
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
         {
+            var seeder = new DatabaseSeeder();
+            seeder.InjectSeed();
         }
     }
 }
