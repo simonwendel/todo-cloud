@@ -70,5 +70,22 @@ namespace TodoStorage.Domain
         public DateTime? NextOccurrence { get; set; }
 
         public Color Color { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var otherTodo = obj as Todo;
+            return Id.Equals(otherTodo.Id)
+                && Title.Equals(otherTodo.Title)
+                && Description.Equals(otherTodo.Description)
+                && Created.Equals(otherTodo.Created)
+                && Recurring.Equals(otherTodo.Recurring)
+                && NextOccurrence.Equals(otherTodo.NextOccurrence)
+                && Color.Equals(otherTodo.Color);
+        }
     }
 }

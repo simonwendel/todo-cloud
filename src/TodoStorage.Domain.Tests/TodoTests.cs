@@ -1,0 +1,93 @@
+﻿/*
+ * Todo Storage for wifeys Todo app.
+ * Copyright (C) 2016  Simon Wendel
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+namespace TodoStorage.Domain.Tests
+{
+    using System;
+    using NUnit.Framework;
+    using Ploeh.AutoFixture;
+    using Utilities;
+
+    [TestFixture]
+    public class TodoTests
+    {
+        private Todo sut;
+
+        private Todo sameProperties;
+
+        private Todo[] someDiffering;
+
+        [SetUp]
+        public void Setup()
+        {
+            var fixture = new Fixture();
+
+            var created = fixture.Create<DateTime>();
+
+            fixture.Customize<Todo>(c => c
+                .With(t => t.Id, 6)
+                .With(t => t.Title, "T1")
+                .With(t => t.Description, "D1")
+                .With(t => t.Created, created)
+                .With(t => t.Color, new Color("CN1", "CV1"))
+                .With(t => t.Recurring, 4)
+                .With(t => t.NextOccurrence, created.AddDays(3)));
+
+            sut = fixture.Create<Todo>();
+            sameProperties = fixture.Create<Todo>();
+
+            someDiffering = new Todo[]
+            {
+                fixture.Create<Todo>().SetProperty(t => t.Id, 7),
+                fixture.Create<Todo>().SetProperty(t => t.Title, "T2"),
+                fixture.Create<Todo>().SetProperty(t => t.Description, "D2"),
+                fixture.Create<Todo>().SetProperty(t => t.Created, created.AddDays(1)),
+                fixture.Create<Todo>().SetProperty(t => t.Color, new Color("CN2", "CV1")),
+                fixture.Create<Todo>().SetProperty(t => t.Recurring, 5),
+                fixture.Create<Todo>().SetProperty(t => t.NextOccurrence, created.AddDays(4))
+            };
+        }
+
+        [Test]
+        public void Equals_GivenSameObject_ReturnsTrue()
+        {
+            Assert.That(sut.Equals(sut), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
+        {
+            Assert.That(sut.Equals(sameProperties), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenNull_ReturnsFalse()
+        {
+            Assert.That(sut.Equals(null), Is.False);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
+        {
+            foreach (var otherTodo in someDiffering)
+            {
+                Assert.That(sut.Equals(otherTodo), Is.False);
+            }
+        }
+    }
+}
