@@ -19,6 +19,7 @@
 namespace TodoStorage.Domain
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public class TodoList
     {
@@ -33,5 +34,17 @@ namespace TodoStorage.Domain
         public CollectionKey Key { get; private set; }
 
         public IReadOnlyList<Todo> Items => items.AsReadOnly();
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var otherTodoList = obj as TodoList;
+            return Key.Equals(otherTodoList.Key)
+                && Items.SequenceEqual(otherTodoList.Items);
+        }
     }
 }
