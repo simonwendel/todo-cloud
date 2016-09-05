@@ -41,5 +41,39 @@ namespace TodoStorage.Domain.Tests
 
             Assert.That(sut.Identifier, Is.EqualTo(identifier));
         }
+
+        [Test]
+        public void Equals_GivenSameObject_ReturnsTrue()
+        {
+            var sut = new CollectionKey(Guid.NewGuid());
+
+            Assert.That(sut.Equals(sut), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
+        {
+            var sut = new CollectionKey(Guid.NewGuid());
+            var sameProperties = new CollectionKey(sut.Identifier);
+
+            Assert.That(sut.Equals(sameProperties), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenNull_ReturnsFalse()
+        {
+            var sut = new CollectionKey(Guid.NewGuid());
+
+            Assert.That(sut.Equals(null), Is.False);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
+        {
+            var sut = new CollectionKey(Guid.NewGuid());
+            var differingProperties = new CollectionKey(Guid.NewGuid());
+
+            Assert.That(sut.Equals(differingProperties), Is.False);
+        }
     }
 }

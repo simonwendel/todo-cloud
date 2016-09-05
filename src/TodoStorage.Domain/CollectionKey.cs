@@ -35,5 +35,16 @@ namespace TodoStorage.Domain
         }
 
         public Guid Identifier => identifier;
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var otherCollectionKey = obj as CollectionKey;
+            return Identifier.Equals(otherCollectionKey.Identifier);
+        }
     }
 }
