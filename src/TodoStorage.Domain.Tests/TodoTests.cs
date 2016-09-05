@@ -89,5 +89,27 @@ namespace TodoStorage.Domain.Tests
                 Assert.That(sut.Equals(otherTodo), Is.False);
             }
         }
+
+        [Test]
+        public void GetHashCode_ReturnsHashByProperties()
+        {
+            var start = 17;
+            var multiplier = 486187739;
+
+            int hash;
+            unchecked
+            {
+                hash = start;
+                hash = (hash * multiplier) + sut.Id.GetHashCode();
+                hash = (hash * multiplier) + sut.Title.GetHashCode();
+                hash = (hash * multiplier) + sut.Description.GetHashCode();
+                hash = (hash * multiplier) + sut.Created.GetHashCode();
+                hash = (hash * multiplier) + sut.Recurring.GetHashCode();
+                hash = (hash * multiplier) + sut.NextOccurrence.GetHashCode();
+                hash = (hash * multiplier) + sut.Color.GetHashCode();
+            }
+
+            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
+        }
     }
 }

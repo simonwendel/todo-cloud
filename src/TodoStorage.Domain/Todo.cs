@@ -87,5 +87,21 @@ namespace TodoStorage.Domain
                 && NextOccurrence.Equals(otherTodo.NextOccurrence)
                 && Color.Equals(otherTodo.Color);
         }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = 17;
+                hash = (hash * 486187739) + Id.GetHashCode();
+                hash = (hash * 486187739) + Title.GetHashCode();
+                hash = (hash * 486187739) + Description.GetHashCode();
+                hash = (hash * 486187739) + Created.GetHashCode();
+                hash = (hash * 486187739) + Recurring.GetHashCode();
+                hash = (hash * 486187739) + NextOccurrence.GetHashCode();
+                hash = (hash * 486187739) + Color.GetHashCode();
+                return hash;
+            }
+        }
     }
 }
