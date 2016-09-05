@@ -46,5 +46,19 @@ namespace TodoStorage.Domain
             return Key.Equals(otherTodoList.Key)
                 && Items.SequenceEqual(otherTodoList.Items);
         }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = (17 * 486187739) + Key.GetHashCode();
+                foreach (var todoItem in Items)
+                {
+                    hash = (hash * 486187739) + todoItem.GetHashCode();
+                }
+
+                return hash;
+            }
+        }
     }
 }

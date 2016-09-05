@@ -20,6 +20,7 @@ namespace TodoStorage.Domain.Tests
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Domain;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
@@ -92,6 +93,24 @@ namespace TodoStorage.Domain.Tests
             {
                 Assert.That(sut.Equals(otherTodoList), Is.False);
             }
+        }
+
+        [Test]
+        public void GetHashCode_ReturnsHashByProperties()
+        {
+            var start = 17;
+            var multiplier = 486187739;
+
+            int hash;
+            unchecked
+            {
+                var seed = (start * multiplier) + sut.Key.GetHashCode();
+                hash = sut.Items.Aggregate(
+                    seed,
+                    (h, todo) => unchecked((h * multiplier) + todo.GetHashCode()));
+            }
+
+            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
         }
     }
 }
