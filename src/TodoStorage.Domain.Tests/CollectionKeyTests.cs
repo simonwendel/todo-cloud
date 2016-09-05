@@ -75,5 +75,23 @@ namespace TodoStorage.Domain.Tests
 
             Assert.That(sut.Equals(differingProperties), Is.False);
         }
+
+        [Test]
+        public void GetHashCode_ReturnsHashByProperties()
+        {
+            var sut = new CollectionKey(Guid.NewGuid());
+
+            var start = 17;
+            var multiplier = 486187739;
+
+            int hash;
+            unchecked
+            {
+                hash = start;
+                hash = (hash * multiplier) + sut.Identifier.GetHashCode();
+            }
+
+            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
+        }
     }
 }

@@ -46,5 +46,13 @@ namespace TodoStorage.Domain
             var otherCollectionKey = obj as CollectionKey;
             return Identifier.Equals(otherCollectionKey.Identifier);
         }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (17 * 486187739) + Identifier.GetHashCode();
+            }
+        }
     }
 }
