@@ -27,7 +27,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TodoStorage.Persistence.Tests.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="TodoItem">
+        <EntityType Name="TodoItem" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -42,7 +42,7 @@
           <Property Name="ColorValue" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityContainer Name="TodoStorage" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TodoItems" EntityType="Self.TodoItem" />
+          <EntitySet Name="TodoItems" EntityType="Self.TodoItem" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>

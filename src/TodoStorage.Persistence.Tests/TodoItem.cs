@@ -12,7 +12,7 @@ namespace TodoStorage.Persistence.Tests
     using System;
     using System.Collections.Generic;
     
-    public partial class TodoItem
+    internal partial class TodoItem
     {
         public int Id { get; set; }
         public System.Guid StorageKey { get; set; }

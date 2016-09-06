@@ -18,6 +18,7 @@ namespace TodoStorage.Persistence.Tests
         public TodoStorage()
             : base("name=TodoStorage")
         {
+            TodoItems = Set<TodoItem>();
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -25,6 +26,6 @@ namespace TodoStorage.Persistence.Tests
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<TodoItem> TodoItems { get; set; }
+        internal virtual DbSet<TodoItem> TodoItems { get; set; }
     }
 }
