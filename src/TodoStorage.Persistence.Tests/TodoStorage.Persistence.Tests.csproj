@@ -73,6 +73,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Seed\Data.cs" />
     <Compile Include="Utilities\DbSetExtensions.cs" />
     <Compile Include="Utilities\DbSetExtensionsTests.cs" />
