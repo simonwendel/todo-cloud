@@ -21,7 +21,7 @@ namespace TodoStorage.Domain.Tests
     using NUnit.Framework;
 
     [TestFixture]
-    public class GuardTests
+    internal class GuardTests
     {
         [Test]
         public void NullParameter_GivenNonNullObject_DoesNothing()

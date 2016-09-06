@@ -21,7 +21,7 @@ namespace TodoStorage.Domain.Tests
     using NUnit.Framework;
 
     [TestFixture]
-    public class ColorTests
+    internal class ColorTests
     {
         [Test]
         public void Ctor_GivenNameAndValue_SetsProperties()

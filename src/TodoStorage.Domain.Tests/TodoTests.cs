@@ -24,7 +24,7 @@ namespace TodoStorage.Domain.Tests
     using Utilities;
 
     [TestFixture]
-    public class TodoTests
+    internal class TodoTests
     {
         private Todo sut;
 

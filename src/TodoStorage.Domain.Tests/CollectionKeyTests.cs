@@ -22,7 +22,7 @@ namespace TodoStorage.Domain.Tests
     using NUnit.Framework;
 
     [TestFixture]
-    public class CollectionKeyTests
+    internal class CollectionKeyTests
     {
         [Test]
         public void Ctor_GivenEmptyGuid_ThrowsException()

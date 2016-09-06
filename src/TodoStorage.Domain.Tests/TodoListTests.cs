@@ -26,7 +26,7 @@ namespace TodoStorage.Domain.Tests
     using Ploeh.AutoFixture;
 
     [TestFixture]
-    public class TodoListTests
+    internal class TodoListTests
     {
         private CollectionKey key;
 

@@ -23,7 +23,7 @@ namespace TodoStorage.Domain.Tests
     using NUnit.Framework;
 
     [TestFixture]
-    public class TodoListServiceTests
+    internal class TodoListServiceTests
     {
         private TodoListService sut;
 
