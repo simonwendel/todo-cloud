@@ -73,6 +73,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ConnectionStringResolverTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Seed\Data.cs" />
     <Compile Include="Utilities\DbSetExtensions.cs" />
@@ -132,6 +133,10 @@
     <ProjectReference Include="..\TodoStorage.Domain\TodoStorage.Domain.csproj">
       <Project>{8EA6B688-81C0-44D9-B241-7F5361C48C8A}</Project>
       <Name>TodoStorage.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TodoStorage.Persistence\TodoStorage.Persistence.csproj">
+      <Project>{d327172c-35dc-4566-9c3f-7f947aaf71e9}</Project>
+      <Name>TodoStorage.Persistence</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

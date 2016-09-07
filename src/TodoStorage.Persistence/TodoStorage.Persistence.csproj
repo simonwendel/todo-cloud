@@ -33,11 +33,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionStringResolver.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IConnectionStringResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="db.changelog.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TodoStorage.Domain\TodoStorage.Domain.csproj">
+      <Project>{8EA6B688-81C0-44D9-B241-7F5361C48C8A}</Project>
+      <Name>TodoStorage.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
