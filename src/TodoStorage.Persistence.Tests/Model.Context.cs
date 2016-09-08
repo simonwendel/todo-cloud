@@ -13,10 +13,10 @@ namespace TodoStorage.Persistence.Tests
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TodoStorage : DbContext
+    public partial class TodoStorageSeedContext : DbContext
     {
-        public TodoStorage()
-            : base("name=TodoStorage")
+        public TodoStorageSeedContext()
+            : base("name=TodoStorageSeedContext")
         {
             TodoItems = Set<TodoItem>();
         }

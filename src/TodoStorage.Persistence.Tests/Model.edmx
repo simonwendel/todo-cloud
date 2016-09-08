@@ -41,7 +41,7 @@
           <Property Name="ColorName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ColorValue" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="TodoStorage" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TodoStorageSeedContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TodoItems" EntityType="Self.TodoItem" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityContainer>
       </Schema>
@@ -49,7 +49,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TodoStoragePersistenceTestsModelStoreContainer" CdmEntityContainer="TodoStorage">
+        <EntityContainerMapping StorageEntityContainer="TodoStoragePersistenceTestsModelStoreContainer" CdmEntityContainer="TodoStorageSeedContext">
           <EntitySetMapping Name="TodoItems">
             <EntityTypeMapping TypeName="TodoStorage.Persistence.Tests.Model.TodoItem">
               <MappingFragment StoreEntitySet="TodoItem">

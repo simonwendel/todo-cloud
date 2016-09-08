@@ -24,7 +24,7 @@ namespace TodoStorage.Persistence.Tests.Seed
     {
         public void InjectSeed()
         {
-            using (var context = new TodoStorage())
+            using (var context = new TodoStorageSeedContext())
             {
                 context.TodoItems.Clear();
 
