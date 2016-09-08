@@ -16,17 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+namespace TodoStorage.Persistence
+{
+    using System.Data;
 
-[assembly: AssemblyTitle("Todo App Storage Persistence Model and Infrastructure")]
-[assembly: AssemblyProduct("TodoStorage.Persistence")]
-[assembly: AssemblyCopyright("Copyright © Simon Wendel 2016")]
-[assembly: ComVisible(false)]
-[assembly: Guid("d327172c-35dc-4566-9c3f-7f947aaf71e9")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-
-[assembly: InternalsVisibleTo("TodoStorage.Persistence.Tests")]
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+    internal interface IDbConnectionFactory
+    {
+        IDbConnection GetConnection();
+    }
+}
