@@ -52,7 +52,7 @@ namespace TodoStorage.Domain.Tests
             var expectedList = new TodoList(collectionKey, new Todo[0]);
 
             mockRepository
-                .Setup(r => r.Get(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
+                .Setup(r => r.GetList(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
                 .Returns(expectedList);
 
             var actualList = sut.GetList(collectionKey);

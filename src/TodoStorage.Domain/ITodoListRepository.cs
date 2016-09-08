@@ -20,6 +20,6 @@ namespace TodoStorage.Domain
 {
     public interface ITodoListRepository
     {
-        TodoList Get(CollectionKey collectionKey);
+        TodoList GetList(CollectionKey collectionKey);
     }
 }

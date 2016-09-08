@@ -31,7 +31,7 @@ namespace TodoStorage.Domain
 
         public TodoList GetList(CollectionKey collectionKey)
         {
-            return todoRepository.Get(collectionKey);
+            return todoRepository.GetList(collectionKey);
         }
     }
 }
