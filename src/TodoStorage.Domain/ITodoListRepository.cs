@@ -18,7 +18,7 @@
 
 namespace TodoStorage.Domain
 {
-    internal interface ITodoListRepository
+    public interface ITodoListRepository
     {
         TodoList Get(CollectionKey collectionKey);
     }
