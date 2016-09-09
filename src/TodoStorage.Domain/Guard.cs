@@ -32,7 +32,7 @@ namespace TodoStorage.Domain
         /// <param name="parameter">The object to check for null condition.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         [DebuggerHidden]
-        public static void NullParameter(object parameter)
+        public static void NullParameter([ValidatedNotNull] object parameter)
         {
             NullParameter(parameter, parameterName: null);
         }
@@ -44,7 +44,7 @@ namespace TodoStorage.Domain
         /// <param name="parameterName">Name of the parameter to include in an exception, if thrown.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         [DebuggerHidden]
-        public static void NullParameter(object parameter, string parameterName)
+        public static void NullParameter([ValidatedNotNull] object parameter, string parameterName)
         {
             if (parameter == null)
             {
@@ -60,7 +60,7 @@ namespace TodoStorage.Domain
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">When <paramref name="parameter"/> is <c>string.Empty</c>.</exception>
         [DebuggerHidden]
-        public static void EmptyString(string parameter)
+        public static void EmptyString([ValidatedNotNull] string parameter)
         {
             EmptyString(parameter, parameterName: null);
         }
@@ -74,7 +74,7 @@ namespace TodoStorage.Domain
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">When <paramref name="parameter"/> is <c>string.Empty</c>.</exception>
         [DebuggerHidden]
-        public static void EmptyString(string parameter, string parameterName)
+        public static void EmptyString([ValidatedNotNull] string parameter, string parameterName)
         {
             if (parameter == null)
             {
