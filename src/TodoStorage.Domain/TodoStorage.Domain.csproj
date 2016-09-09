@@ -47,6 +47,7 @@
     <Compile Include="Todo.cs" />
     <Compile Include="TodoList.cs" />
     <Compile Include="TodoListService.cs" />
+    <Compile Include="ValidatedNotNullAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
