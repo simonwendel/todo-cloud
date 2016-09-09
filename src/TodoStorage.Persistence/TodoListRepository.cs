@@ -18,7 +18,6 @@
 
 namespace TodoStorage.Persistence
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Dapper;
     using Domain;
@@ -52,7 +51,6 @@ ORDER BY
             this.connectionFactory = connectionFactory;
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "I am.")]
         public TodoList GetList(CollectionKey collectionKey)
         {
             Guard.NullParameter(collectionKey, nameof(collectionKey));
