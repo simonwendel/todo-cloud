@@ -16,8 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Tests
+namespace TodoStorage.Domain.Tests.Data
 {
+    using Domain.Data;
     using NUnit.Framework;
 
     [TestFixture]

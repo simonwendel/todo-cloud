@@ -16,24 +16,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain
+namespace TodoStorage.Domain.Data
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    public class TodoList
+    public class Color
     {
-        private readonly List<Todo> items;
+        private readonly string colorName;
 
-        public TodoList(CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
+        private readonly string colorValue;
+
+        public Color(string colorName, string colorValue)
         {
-            Key = collectionKey;
-            items = new List<Todo>(itemsTodo);
+            Guard.EmptyString(colorName, nameof(colorName));
+            Guard.EmptyString(colorValue, nameof(colorValue));
+
+            this.colorName = colorName;
+            this.colorValue = colorValue;
         }
 
-        public CollectionKey Key { get; private set; }
+        public string ColorName => colorName;
 
-        public IReadOnlyList<Todo> Items => items.AsReadOnly();
+        public string ColorValue => colorValue;
 
         public override bool Equals(object obj)
         {
@@ -42,21 +44,18 @@ namespace TodoStorage.Domain
                 return false;
             }
 
-            var otherTodoList = obj as TodoList;
-            return Key.Equals(otherTodoList.Key)
-                && Items.SequenceEqual(otherTodoList.Items);
+            var otherColor = obj as Color;
+            return ColorName.Equals(otherColor.ColorName)
+                && ColorValue.Equals(otherColor.ColorValue);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hash = (17 * 486187739) + Key.GetHashCode();
-                foreach (var todoItem in Items)
-                {
-                    hash = (hash * 486187739) + todoItem.GetHashCode();
-                }
-
+                var hash = 17;
+                hash = (hash * 486187739) + colorName.GetHashCode();
+                hash = (hash * 486187739) + colorValue.GetHashCode();
                 return hash;
             }
         }

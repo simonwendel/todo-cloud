@@ -37,16 +37,16 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectionKey.cs" />
-    <Compile Include="Color.cs" />
+    <Compile Include="Data\CollectionKey.cs" />
+    <Compile Include="Data\Color.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Guard.cs" />
-    <Compile Include="ITodoListService.cs" />
-    <Compile Include="ITodoListRepository.cs" />
+    <Compile Include="Data\ITodoListService.cs" />
+    <Compile Include="Data\ITodoListRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Todo.cs" />
-    <Compile Include="TodoList.cs" />
-    <Compile Include="TodoListService.cs" />
+    <Compile Include="Data\Todo.cs" />
+    <Compile Include="Data\TodoList.cs" />
+    <Compile Include="Data\TodoListService.cs" />
     <Compile Include="ValidatedNotNullAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

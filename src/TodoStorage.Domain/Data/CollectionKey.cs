@@ -16,26 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain
+namespace TodoStorage.Domain.Data
 {
-    public class Color
+    using System;
+
+    public class CollectionKey
     {
-        private readonly string colorName;
-
-        private readonly string colorValue;
-
-        public Color(string colorName, string colorValue)
+        private readonly Guid identifier;
+        
+        public CollectionKey(Guid identifier)
         {
-            Guard.EmptyString(colorName, nameof(colorName));
-            Guard.EmptyString(colorValue, nameof(colorValue));
+            if (identifier.Equals(Guid.Empty))
+            {
+                throw new ArgumentException("Empty collection key identifier not allowed", nameof(identifier));
+            }
 
-            this.colorName = colorName;
-            this.colorValue = colorValue;
+            this.identifier = identifier;
         }
 
-        public string ColorName => colorName;
-
-        public string ColorValue => colorValue;
+        public Guid Identifier => identifier;
 
         public override bool Equals(object obj)
         {
@@ -44,19 +43,15 @@ namespace TodoStorage.Domain
                 return false;
             }
 
-            var otherColor = obj as Color;
-            return ColorName.Equals(otherColor.ColorName)
-                && ColorValue.Equals(otherColor.ColorValue);
+            var otherCollectionKey = obj as CollectionKey;
+            return Identifier.Equals(otherCollectionKey.Identifier);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hash = 17;
-                hash = (hash * 486187739) + colorName.GetHashCode();
-                hash = (hash * 486187739) + colorValue.GetHashCode();
-                return hash;
+                return (17 * 486187739) + Identifier.GetHashCode();
             }
         }
     }

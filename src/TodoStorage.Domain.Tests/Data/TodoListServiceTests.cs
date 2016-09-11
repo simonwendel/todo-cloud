@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Tests
+namespace TodoStorage.Domain.Tests.Data
 {
     using System;
+    using Domain.Data;
     using Moq;
     using NUnit.Framework;
 

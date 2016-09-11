@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain
+namespace TodoStorage.Domain.Data
 {
-    public interface ITodoListRepository
+    public interface ITodoListService
     {
         TodoList GetList(CollectionKey collectionKey);
     }
