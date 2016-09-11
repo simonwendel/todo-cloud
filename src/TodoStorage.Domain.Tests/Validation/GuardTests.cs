@@ -18,8 +18,8 @@
 
 namespace TodoStorage.Domain.Tests.Validation
 {
-    using NUnit.Framework;
     using Domain.Validation;
+    using NUnit.Framework;
 
     [TestFixture]
     internal class GuardTests
