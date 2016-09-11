@@ -40,7 +40,7 @@
     <Compile Include="Data\CollectionKey.cs" />
     <Compile Include="Data\Color.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Validation\AccessControl.cs" />
+    <Compile Include="Validation\AccessControlService.cs" />
     <Compile Include="Validation\Guard.cs" />
     <Compile Include="Data\ITodoListService.cs" />
     <Compile Include="Data\ITodoListRepository.cs" />
@@ -48,7 +48,7 @@
     <Compile Include="Data\Todo.cs" />
     <Compile Include="Data\TodoList.cs" />
     <Compile Include="Data\TodoListService.cs" />
-    <Compile Include="Validation\IAccessControl.cs" />
+    <Compile Include="Validation\IAccessControlService.cs" />
     <Compile Include="Validation\IAccessControlRepository.cs" />
     <Compile Include="Validation\ValidatedNotNullAttribute.cs" />
   </ItemGroup>

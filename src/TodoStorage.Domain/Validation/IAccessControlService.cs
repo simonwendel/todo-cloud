@@ -20,22 +20,8 @@ namespace TodoStorage.Domain.Validation
 {
     using Data;
 
-    internal class AccessControl : IAccessControl
+    internal interface IAccessControlService
     {
-        private readonly IAccessControlRepository repository;
-
-        public AccessControl(IAccessControlRepository repository)
-        {
-            Guard.NullParameter(repository, nameof(repository));
-
-            this.repository = repository;
-        }
-
-        public bool IsOwnerOf(CollectionKey ownerKey, int todoId)
-        {
-            Guard.NullParameter(ownerKey, nameof(ownerKey));
-
-            return repository.IsOwnerOf(ownerKey, todoId);
-        }
+        bool IsOwnerOf(CollectionKey ownerKey, int todoId); 
     }
 }

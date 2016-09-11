@@ -25,11 +25,11 @@ namespace TodoStorage.Domain.Tests.Validation
     using Ploeh.AutoFixture;
 
     [TestFixture]
-    internal class AccessControlTests
+    internal class AccessControlServiceTests
     {
         private CollectionKey key;
 
-        private AccessControl sut;
+        private AccessControlService sut;
 
         private Mock<IAccessControlRepository> mockRepository;
 
@@ -41,14 +41,14 @@ namespace TodoStorage.Domain.Tests.Validation
 
             mockRepository = new Mock<IAccessControlRepository>();
 
-            sut = new AccessControl(mockRepository.Object);
+            sut = new AccessControlService(mockRepository.Object);
         }
 
         [Test]
         public void Ctor_GivenNullAccessControlRepository_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new AccessControl(null);
+                () => new AccessControlService(null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
