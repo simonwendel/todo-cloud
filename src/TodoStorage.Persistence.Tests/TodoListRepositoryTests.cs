@@ -25,16 +25,14 @@ namespace TodoStorage.Persistence.Tests
     [TestFixture]
     internal class TodoListRepositoryTests
     {
-        private SqlServerConnectionFactory connectionFactory;
-
         private TodoListRepository sut;
 
         [SetUp]
         public void Setup()
         {
             var resolver = new ConnectionStringResolver("TodoStorage");
+            var connectionFactory = new SqlServerConnectionFactory(resolver);
 
-            connectionFactory = new SqlServerConnectionFactory(resolver);
             sut = new TodoListRepository(connectionFactory);
         }
 
