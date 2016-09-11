@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Data\CollectionKeyTests.cs" />
     <Compile Include="Data\ColorTests.cs" />
+    <Compile Include="Validation\AccessControlTests.cs" />
     <Compile Include="Validation\GuardTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\TodoListServiceTests.cs" />
