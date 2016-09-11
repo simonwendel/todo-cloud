@@ -40,14 +40,14 @@
     <Compile Include="Data\CollectionKey.cs" />
     <Compile Include="Data\Color.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Guard.cs" />
+    <Compile Include="Validation\Guard.cs" />
     <Compile Include="Data\ITodoListService.cs" />
     <Compile Include="Data\ITodoListRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\Todo.cs" />
     <Compile Include="Data\TodoList.cs" />
     <Compile Include="Data\TodoListService.cs" />
-    <Compile Include="ValidatedNotNullAttribute.cs" />
+    <Compile Include="Validation\ValidatedNotNullAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">

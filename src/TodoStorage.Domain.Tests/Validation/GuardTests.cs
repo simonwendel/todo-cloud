@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Tests
+namespace TodoStorage.Domain.Tests.Validation
 {
     using NUnit.Framework;
+    using Domain.Validation;
 
     [TestFixture]
     internal class GuardTests

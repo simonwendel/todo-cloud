@@ -21,6 +21,7 @@ namespace TodoStorage.Domain.Tests.Utilities
     using System;
     using System.Linq.Expressions;
     using System.Reflection;
+    using Domain.Validation;
 
     internal static class ObjectExtensions
     {

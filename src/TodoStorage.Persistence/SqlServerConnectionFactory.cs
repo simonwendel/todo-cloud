@@ -20,7 +20,7 @@ namespace TodoStorage.Persistence
 {
     using System.Data;
     using System.Data.SqlClient;
-    using Domain;
+    using Domain.Validation;
 
     internal class SqlServerConnectionFactory : IDbConnectionFactory
     {

@@ -19,7 +19,7 @@
 namespace TodoStorage.Persistence.Tests.Utilities
 {
     using System.Data.Entity;
-    using Domain;
+    using Domain.Validation;
 
     internal static class DbSetExtensions
     {
