@@ -37,11 +37,18 @@ namespace TodoStorage.Persistence.Tests.Seed
                 new TodoItem { Title = "Should not be found (2)", Description = "Some kind of description 5.", ColorName = "Röd", ColorValue = "Red", Created = new SqlDateTime(DateTime.Now).Value, NextOccurrence = new SqlDateTime(DateTime.Now.AddDays(1)).Value, Recurring = 1, StorageKey = Guid.NewGuid() }
             };
 
-        public static TodoList TestList => new TodoList(TestCollectionKey, DomainObjects);
+        public static TodoList TestList => new TodoList(TestCollectionKey, OwnedByTestKey);
 
-        private static IList<Todo> DomainObjects => 
-            PersistedItems
-                .Where(item => item.StorageKey.Equals(TestCollectionKey.Identifier))
+        public static IList<Todo> OwnedByTestKey =>
+            GetTodoItems(item => item.StorageKey.Equals(TestCollectionKey.Identifier));
+
+        public static IList<Todo> NotOwnedByTestKey =>
+            GetTodoItems(item => !item.StorageKey.Equals(TestCollectionKey.Identifier));
+
+        private static IList<Todo> GetTodoItems(Func<TodoItem, bool> predicate)
+        {
+            return PersistedItems
+                .Where(predicate)
                 .OrderBy(item => item.Id)
                 .Select(item =>
                     new Todo
@@ -55,5 +62,6 @@ namespace TodoStorage.Persistence.Tests.Seed
                         NextOccurrence = item.NextOccurrence
                     })
                 .ToList();
+        }
     }
 }
