@@ -20,7 +20,7 @@ namespace TodoStorage.Domain.Validation
 {
     using Data;
 
-    internal interface IAccessControlRepository
+    public interface IAccessControlRepository
     {
         bool IsOwnerOf(CollectionKey ownerKey, int todoId);
     }
