@@ -47,6 +47,15 @@ namespace TodoStorage.Domain.Tests.Data
         }
 
         [Test]
+        public void GetList_GivenNullCollectionKey_ThrowsException()
+        {
+            TestDelegate methodCall =
+                () => sut.GetList(null);
+
+            Assert.That(methodCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
         public void GetList_GivenCollectionKey_ReturnsFromRepository()
         {
             var collectionKey = new CollectionKey(Guid.NewGuid());

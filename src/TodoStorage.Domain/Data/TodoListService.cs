@@ -33,6 +33,8 @@ namespace TodoStorage.Domain.Data
 
         public TodoList GetList(CollectionKey collectionKey)
         {
+            Guard.NullParameter(collectionKey, nameof(collectionKey));
+
             return todoRepository.GetList(collectionKey);
         }
     }
