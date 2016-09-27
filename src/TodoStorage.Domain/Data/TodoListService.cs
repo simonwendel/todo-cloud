@@ -22,9 +22,9 @@ namespace TodoStorage.Domain.Data
 
     internal class TodoListService : ITodoListService
     {
-        private readonly ITodoListRepository todoRepository;
+        private readonly ITodoRepository todoRepository;
 
-        public TodoListService(ITodoListRepository todoRepository)
+        public TodoListService(ITodoRepository todoRepository)
         {
             Guard.NullParameter(todoRepository, nameof(todoRepository));
 

@@ -28,12 +28,12 @@ namespace TodoStorage.Domain.Tests.Data
     {
         private TodoListService sut;
 
-        private Mock<ITodoListRepository> mockRepository;
+        private Mock<ITodoRepository> mockRepository;
 
         [SetUp]
         public void Setup()
         {
-            mockRepository = new Mock<ITodoListRepository>();
+            mockRepository = new Mock<ITodoRepository>();
             sut = new TodoListService(mockRepository.Object);
         }
 

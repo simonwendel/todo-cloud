@@ -23,9 +23,9 @@ namespace TodoStorage.Persistence.Tests
     using Ploeh.AutoFixture;
 
     [TestFixture]
-    internal class TodoListRepositoryTests
+    internal class TodoRepositoryTests
     {
-        private TodoListRepository sut;
+        private TodoRepository sut;
 
         [SetUp]
         public void Setup()
@@ -33,14 +33,14 @@ namespace TodoStorage.Persistence.Tests
             var resolver = new ConnectionStringResolver("TodoStorage");
             var connectionFactory = new SqlServerConnectionFactory(resolver);
 
-            sut = new TodoListRepository(connectionFactory);
+            sut = new TodoRepository(connectionFactory);
         }
 
         [Test]
         public void Ctor_GivenNullDbConnectionFactory_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new TodoListRepository(null);
+                () => new TodoRepository(null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }

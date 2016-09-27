@@ -81,7 +81,7 @@
     <Compile Include="ConnectionStringResolverTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Seed\Data.cs" />
-    <Compile Include="TodoListRepositoryTests.cs" />
+    <Compile Include="TodoRepositoryTests.cs" />
     <Compile Include="Utilities\DbSetExtensions.cs" />
     <Compile Include="Utilities\DbSetExtensionsTests.cs" />
     <Compile Include="SqlServerConnectionFactoryTests.cs" />

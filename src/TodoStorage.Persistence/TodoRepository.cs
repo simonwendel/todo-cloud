@@ -23,7 +23,7 @@ namespace TodoStorage.Persistence
     using Domain.Data;
     using Domain.Validation;
 
-    internal class TodoListRepository : ITodoListRepository
+    internal class TodoRepository : ITodoRepository
     {
         private const string TodoSelectionSql = @"
 SELECT
@@ -45,7 +45,7 @@ ORDER BY
 
         private readonly IDbConnectionFactory connectionFactory;
 
-        public TodoListRepository(IDbConnectionFactory connectionFactory)
+        public TodoRepository(IDbConnectionFactory connectionFactory)
         {
             Guard.NullParameter(connectionFactory, nameof(connectionFactory));
 
