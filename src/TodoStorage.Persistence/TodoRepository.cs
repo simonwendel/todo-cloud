@@ -77,14 +77,14 @@ ORDER BY
                 return connection
                     .Query<Todo, Color, Todo>(
                         TodoSelectionSql,
-                        MapTodoProperties,
+                        AttachColorTypeObjectsToTodo,
                         whereConstraint,
                         splitOn: "ColorName")
                     .ToList();
             }
         }
 
-        private static Todo MapTodoProperties(Todo todo, Color color)
+        private static Todo AttachColorTypeObjectsToTodo(Todo todo, Color color)
         {
             todo.Color = color;
             return todo;
