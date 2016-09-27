@@ -23,15 +23,17 @@ namespace TodoStorage.Domain.Data
 
     public class TodoList
     {
+        private readonly CollectionKey key;
+
         private readonly List<Todo> items;
 
         internal TodoList(CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
         {
-            Key = collectionKey;
+            key = collectionKey;
             items = new List<Todo>(itemsTodo);
         }
 
-        public CollectionKey Key { get; private set; }
+        public CollectionKey Key => key;
 
         public IReadOnlyList<Todo> Items => items.AsReadOnly();
 
