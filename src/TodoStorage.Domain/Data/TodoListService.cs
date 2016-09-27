@@ -35,7 +35,8 @@ namespace TodoStorage.Domain.Data
         {
             Guard.NullParameter(collectionKey, nameof(collectionKey));
 
-            return todoRepository.GetList(collectionKey);
+            var todo = todoRepository.GetTodo(collectionKey);
+            return new TodoList(collectionKey, todo);
         }
     }
 }

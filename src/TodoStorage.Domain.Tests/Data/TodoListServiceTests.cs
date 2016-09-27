@@ -18,10 +18,11 @@
 
 namespace TodoStorage.Domain.Tests.Data
 {
-    using System;
+    using System.Linq;
     using Domain.Data;
     using Moq;
     using NUnit.Framework;
+    using Ploeh.AutoFixture;
 
     [TestFixture]
     internal class TodoListServiceTests
@@ -56,18 +57,21 @@ namespace TodoStorage.Domain.Tests.Data
         }
 
         [Test]
-        public void GetList_GivenCollectionKey_ReturnsFromRepository()
+        public void GetList_GivenCollectionKey_ConstructsFromRepository()
         {
-            var collectionKey = new CollectionKey(Guid.NewGuid());
-            var expectedList = new TodoList(collectionKey, new Todo[0]);
+            var fixture = new Fixture();
+            var collectionKey = fixture.Create<CollectionKey>();
+            var todoItems = fixture.CreateMany<Todo>().ToList();
+
+            var expected = new TodoList(collectionKey, todoItems);
 
             mockRepository
-                .Setup(r => r.GetList(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
-                .Returns(expectedList);
+                .Setup(r => r.GetTodo(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
+                .Returns(todoItems);
 
-            var actualList = sut.GetList(collectionKey);
+            var actual = sut.GetList(collectionKey);
 
-            Assert.That(actualList, Is.SameAs(expectedList));
+            Assert.That(actual, Is.EqualTo(expected));
             mockRepository.VerifyAll();
         }
     }
