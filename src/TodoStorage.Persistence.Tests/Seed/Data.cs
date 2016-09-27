@@ -37,8 +37,6 @@ namespace TodoStorage.Persistence.Tests.Seed
                 new TodoItem { Title = "Should not be found (2)", Description = "Some kind of description 5.", ColorName = "Röd", ColorValue = "Red", Created = new SqlDateTime(DateTime.Now).Value, NextOccurrence = new SqlDateTime(DateTime.Now.AddDays(1)).Value, Recurring = 1, StorageKey = Guid.NewGuid() }
             };
 
-        public static TodoList TestList => new TodoList(TestCollectionKey, OwnedByTestKey);
-
         public static IList<Todo> OwnedByTestKey =>
             GetTodoItems(item => item.StorageKey.Equals(TestCollectionKey.Identifier));
 
