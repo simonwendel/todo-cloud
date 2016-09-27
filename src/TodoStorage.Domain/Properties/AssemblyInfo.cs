@@ -29,4 +29,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: InternalsVisibleTo("TodoStorage.Domain.Tests")]
+
+// for enabling use of Moq
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
