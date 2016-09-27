@@ -25,7 +25,7 @@ namespace TodoStorage.Domain.Data
     {
         private readonly List<Todo> items;
 
-        public TodoList(CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
+        internal TodoList(CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
         {
             Key = collectionKey;
             items = new List<Todo>(itemsTodo);
