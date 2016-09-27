@@ -75,5 +75,36 @@ namespace TodoStorage.Persistence.Tests
 
             Assert.That(actual.Equals(expected));
         }
+
+        [Test]
+        public void GetTodo_GivenNullCollectionKey_ThrowsException()
+        {
+            TestDelegate getTodoCall =
+                 () => sut.GetTodo(null);
+
+            Assert.That(getTodoCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void GetTodo_GivenNonPersistedCollectionKey_ReturnsEmptyList()
+        {
+            var fixture = new Fixture();
+            var key = fixture.Create<CollectionKey>();
+
+            var actual = sut.GetTodo(key);
+
+            Assert.That(actual, Is.Empty);
+        }
+
+        [Test]
+        public void GetTodo_GivenCollectionKey_ReturnsTodo()
+        {
+            var key = Seed.Data.TestCollectionKey;
+            var expected = Seed.Data.OwnedByTestKey;
+
+            var actual = sut.GetTodo(key);
+
+            Assert.That(actual, Is.EquivalentTo(expected));
+        }
     }
 }

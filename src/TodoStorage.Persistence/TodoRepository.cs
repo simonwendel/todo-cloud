@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Persistence
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Dapper;
     using Domain.Data;
@@ -56,21 +57,30 @@ ORDER BY
         {
             Guard.NullParameter(collectionKey, nameof(collectionKey));
 
+            var todos = GetTodo(collectionKey);
+
+            if (todos.Count() == 0)
+            {
+                return null;
+            }
+
+            return new TodoList(collectionKey, todos);
+        }
+
+        public IList<Todo> GetTodo(CollectionKey collectionKey)
+        {
+            Guard.NullParameter(collectionKey, nameof(collectionKey));
+
             using (var connection = connectionFactory.GetConnection())
             {
                 var whereConstraint = new { StorageKey = collectionKey.Identifier };
-                var todos = connection.Query<Todo, Color, Todo>(
-                    TodoSelectionSql,
-                    MapTodoProperties,
-                    whereConstraint,
-                    splitOn: "ColorName");
-
-                if (todos.Count() == 0)
-                {
-                    return null;
-                }
-
-                return new TodoList(collectionKey, todos);
+                return connection
+                    .Query<Todo, Color, Todo>(
+                        TodoSelectionSql,
+                        MapTodoProperties,
+                        whereConstraint,
+                        splitOn: "ColorName")
+                    .ToList();
             }
         }
 
