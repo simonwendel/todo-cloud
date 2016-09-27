@@ -46,37 +46,6 @@ namespace TodoStorage.Persistence.Tests
         }
 
         [Test]
-        public void GetList_GivenNullCollectionKey_ThrowsException()
-        {
-            TestDelegate getListCall =
-                 () => sut.GetList(null);
-
-            Assert.That(getListCall, Throws.ArgumentNullException);
-        }
-
-        [Test]
-        public void GetList_GivenNonPersistedCollectionKey_ReturnsNull()
-        {
-            var fixture = new Fixture();
-            var key = fixture.Create<CollectionKey>();
-
-            var actual = sut.GetList(key);
-
-            Assert.That(actual, Is.Null);
-        }
-
-        [Test]
-        public void GetList_GivenCollectionKey_ReturnsTodoList()
-        {
-            var key = Seed.Data.TestCollectionKey;
-            var expected = Seed.Data.TestList;
-
-            var actual = sut.GetList(key);
-
-            Assert.That(actual.Equals(expected));
-        }
-
-        [Test]
         public void GetTodo_GivenNullCollectionKey_ThrowsException()
         {
             TestDelegate getTodoCall =

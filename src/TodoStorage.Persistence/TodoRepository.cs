@@ -53,20 +53,6 @@ ORDER BY
             this.connectionFactory = connectionFactory;
         }
 
-        public TodoList GetList(CollectionKey collectionKey)
-        {
-            Guard.NullParameter(collectionKey, nameof(collectionKey));
-
-            var todos = GetTodo(collectionKey);
-
-            if (todos.Count() == 0)
-            {
-                return null;
-            }
-
-            return new TodoList(collectionKey, todos);
-        }
-
         public IList<Todo> GetTodo(CollectionKey collectionKey)
         {
             Guard.NullParameter(collectionKey, nameof(collectionKey));

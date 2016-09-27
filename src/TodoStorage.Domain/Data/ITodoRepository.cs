@@ -22,8 +22,6 @@ namespace TodoStorage.Domain.Data
 
     public interface ITodoRepository
     {
-        TodoList GetList(CollectionKey collectionKey);
-
         IList<Todo> GetTodo(CollectionKey collectionKey);
     }
 }
