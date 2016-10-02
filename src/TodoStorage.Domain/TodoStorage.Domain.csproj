@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Data\CollectionKey.cs" />
     <Compile Include="Data\Color.cs" />
+    <Compile Include="Data\ITodoListFactory.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Validation\AccessControlException.cs" />
     <Compile Include="Validation\AccessControlService.cs" />

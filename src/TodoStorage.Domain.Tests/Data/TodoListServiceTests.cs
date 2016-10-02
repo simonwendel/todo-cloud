@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Domain.Tests.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Domain.Data;
     using Moq;
@@ -31,18 +32,30 @@ namespace TodoStorage.Domain.Tests.Data
 
         private Mock<ITodoRepository> mockRepository;
 
+        private Mock<ITodoListFactory> mockFactory;
+
         [SetUp]
         public void Setup()
         {
             mockRepository = new Mock<ITodoRepository>();
-            sut = new TodoListService(mockRepository.Object);
+            mockFactory = new Mock<ITodoListFactory>();
+            sut = new TodoListService(mockRepository.Object, mockFactory.Object);
         }
 
         [Test]
         public void Ctor_GivenNullTodoRepository_ThrowsException()
         {
             TestDelegate constructorCall = 
-                () => new TodoListService(null);
+                () => new TodoListService(null, mockFactory.Object);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Ctor_GivenNullTodoListFactory_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new TodoListService(mockRepository.Object, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -69,10 +82,17 @@ namespace TodoStorage.Domain.Tests.Data
                 .Setup(r => r.GetTodo(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
                 .Returns(todoItems);
 
+            mockFactory
+                .Setup(f => f.Create(
+                    It.Is<CollectionKey>(key => key.Equals(collectionKey)),
+                    It.Is<IEnumerable<Todo>>(t => t.Equals(todoItems))))
+                .Returns(expected);
+
             var actual = sut.GetList(collectionKey);
 
             Assert.That(actual, Is.EqualTo(expected));
             mockRepository.VerifyAll();
+            mockFactory.VerifyAll();
         }
     }
 }
