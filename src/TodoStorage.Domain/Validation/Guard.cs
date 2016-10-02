@@ -76,10 +76,7 @@ namespace TodoStorage.Domain.Validation
         [DebuggerHidden]
         public static void EmptyString([ValidatedNotNull] string parameter, string parameterName)
         {
-            if (parameter == null)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
+            NullParameter(parameter, parameterName);
 
             if (string.IsNullOrEmpty(parameter))
             {
