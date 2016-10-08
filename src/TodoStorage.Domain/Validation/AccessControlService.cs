@@ -31,11 +31,11 @@ namespace TodoStorage.Domain.Validation
             this.repository = repository;
         }
 
-        public bool IsOwnerOf(CollectionKey ownerKey, int todoId)
+        public bool IsOwnerOf(CollectionKey ownerKey, Todo todo)
         {
             Guard.NullParameter(ownerKey, nameof(ownerKey));
 
-            return repository.IsOwnerOf(ownerKey, todoId);
+            return repository.IsOwnerOf(ownerKey, todo.Id.Value);
         }
     }
 }

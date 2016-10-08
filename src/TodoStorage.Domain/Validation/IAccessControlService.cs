@@ -22,6 +22,6 @@ namespace TodoStorage.Domain.Validation
 
     internal interface IAccessControlService
     {
-        bool IsOwnerOf(CollectionKey ownerKey, int todoId); 
+        bool IsOwnerOf(CollectionKey ownerKey, Todo todo);
     }
 }

@@ -29,6 +29,8 @@ namespace TodoStorage.Domain.Tests.Validation
     {
         private CollectionKey key;
 
+        private Todo todo;
+
         private AccessControlService sut;
 
         private Mock<IAccessControlRepository> mockRepository;
@@ -38,6 +40,7 @@ namespace TodoStorage.Domain.Tests.Validation
         {
             var fixture = new Fixture();
             key = fixture.Create<CollectionKey>();
+            todo = fixture.Create<Todo>();
 
             mockRepository = new Mock<IAccessControlRepository>();
 
@@ -57,7 +60,7 @@ namespace TodoStorage.Domain.Tests.Validation
         public void IsOwnerOf_GivenNullCollectionKey_ThrowsException()
         {
             TestDelegate methodCall =
-                () => sut.IsOwnerOf(null, 18);
+                () => sut.IsOwnerOf(null, todo);
 
             Assert.That(methodCall, Throws.ArgumentNullException);
         }
@@ -67,7 +70,7 @@ namespace TodoStorage.Domain.Tests.Validation
         {
             SetupIfOwner(true);
 
-            Assert.That(sut.IsOwnerOf(key, 1227), Is.True);
+            Assert.That(sut.IsOwnerOf(key, todo), Is.True);
             mockRepository.VerifyAll();
         }
 
@@ -76,14 +79,14 @@ namespace TodoStorage.Domain.Tests.Validation
         {
             SetupIfOwner(false);
 
-            Assert.That(sut.IsOwnerOf(key, 1227), Is.False);
+            Assert.That(sut.IsOwnerOf(key, todo), Is.False);
             mockRepository.VerifyAll();
         }
 
         private void SetupIfOwner(bool keyIsOwner)
         {
             mockRepository
-                .Setup(repo => repo.IsOwnerOf(It.IsAny<CollectionKey>(), It.IsAny<int>()))
+                .Setup(repo => repo.IsOwnerOf(It.IsAny<CollectionKey>(), It.Is<int>(i => i == todo.Id)))
                 .Returns(keyIsOwner);
         }
     }
