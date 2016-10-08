@@ -35,7 +35,12 @@ namespace TodoStorage.Domain.Validation
         {
             Guard.NullParameter(ownerKey, nameof(ownerKey));
 
-            return repository.IsOwnerOf(ownerKey, todo.Id.Value);
+            if(todo.Id.HasValue)
+            {
+                return repository.IsOwnerOf(ownerKey, todo.Id.Value);
+            }
+
+            return false;
         }
     }
 }

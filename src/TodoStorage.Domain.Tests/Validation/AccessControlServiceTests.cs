@@ -66,6 +66,17 @@ namespace TodoStorage.Domain.Tests.Validation
         }
 
         [Test]
+        public void IsOwnerOf_IfTodoHasNullId_ReturnsFalse()
+        {
+            var notPersistedTodo = new Todo
+            {
+                Id = null
+            };
+
+            Assert.That(sut.IsOwnerOf(key, notPersistedTodo), Is.False);
+        }
+
+        [Test]
         public void IsOwnerOf_IfOwnerFromRepository_ReturnsTrue()
         {
             SetupIfOwner(true);
