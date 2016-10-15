@@ -60,9 +60,9 @@ namespace TodoStorage.Domain.Validation
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">When <paramref name="parameter"/> is <c>string.Empty</c>.</exception>
         [DebuggerHidden]
-        public static void EmptyString([ValidatedNotNull] string parameter)
+        public static void EnsureNonempty([ValidatedNotNull] string parameter)
         {
-            EmptyString(parameter, parameterName: null);
+            EnsureNonempty(parameter, parameterName: null);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace TodoStorage.Domain.Validation
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">When <paramref name="parameter"/> is <c>string.Empty</c>.</exception>
         [DebuggerHidden]
-        public static void EmptyString([ValidatedNotNull] string parameter, string parameterName)
+        public static void EnsureNonempty([ValidatedNotNull] string parameter, string parameterName)
         {
             EnsureNotNull(parameter, parameterName);
 

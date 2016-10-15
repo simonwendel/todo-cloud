@@ -28,8 +28,8 @@ namespace TodoStorage.Domain.Data
 
         public Color(string colorName, string colorValue)
         {
-            Guard.EmptyString(colorName, nameof(colorName));
-            Guard.EmptyString(colorValue, nameof(colorValue));
+            Guard.EnsureNonempty(colorName, nameof(colorName));
+            Guard.EnsureNonempty(colorValue, nameof(colorValue));
 
             this.colorName = colorName;
             this.colorValue = colorValue;
