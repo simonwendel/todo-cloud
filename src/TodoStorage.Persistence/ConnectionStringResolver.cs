@@ -28,7 +28,7 @@ namespace TodoStorage.Persistence
 
         public ConnectionStringResolver(string connectionStringName)
         {
-            Guard.NullParameter(connectionStringName, nameof(connectionStringName));
+            Guard.EnsureNotNull(connectionStringName, nameof(connectionStringName));
 
             var config = ConfigurationManager.ConnectionStrings[connectionStringName];
             if (config == null)

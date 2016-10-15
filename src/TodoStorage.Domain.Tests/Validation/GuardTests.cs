@@ -25,37 +25,37 @@ namespace TodoStorage.Domain.Tests.Validation
     internal class GuardTests
     {
         [Test]
-        public void NullParameter_GivenNonNullObject_DoesNothing()
+        public void EnsureNotNull_GivenNonNullObject_DoesNothing()
         {
             var nonNullObject = new object();
 
-            Guard.NullParameter(nonNullObject);
+            Guard.EnsureNotNull(nonNullObject);
         }
 
         [Test]
-        public void NullParameter_GivenNonNullObjectAndParameterName_DoesNothing()
+        public void EnsureNotNull_GivenNonNullObjectAndParameterName_DoesNothing()
         {
             var nonNullObject = new object();
 
-            Guard.NullParameter(nonNullObject, nameof(nonNullObject));
+            Guard.EnsureNotNull(nonNullObject, nameof(nonNullObject));
         }
 
         [Test]
-        public void NullParameter_GivenNullObject_ThrowsExeption()
+        public void EnsureNotNull_GivenNullObject_ThrowsExeption()
         {
             object nullObject = null;
             TestDelegate guardStatement = 
-                () => Guard.NullParameter(nullObject);
+                () => Guard.EnsureNotNull(nullObject);
 
             Assert.That(guardStatement, Throws.ArgumentNullException);
         }
 
         [Test]
-        public void NullParameter_GivenNullObjectAndParameterName_ThrowsExeption()
+        public void EnsureNotNull_GivenNullObjectAndParameterName_ThrowsExeption()
         {
             object nullObject = null;
             TestDelegate guardStatement = 
-                () => Guard.NullParameter(nullObject, nameof(nullObject));
+                () => Guard.EnsureNotNull(nullObject, nameof(nullObject));
 
             Assert.That(guardStatement, Throws.ArgumentNullException);
         }

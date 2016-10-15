@@ -27,7 +27,7 @@ namespace TodoStorage.Domain.Tests.Utilities
     {
         public static TTarget SetProperty<TTarget, TProperty>(this TTarget target, Expression<Func<TTarget, TProperty>> selector, TProperty value)
         {
-            Guard.NullParameter(selector, nameof(selector));
+            Guard.EnsureNotNull(selector, nameof(selector));
 
             var memberSelector = selector.Body as MemberExpression;
             if (memberSelector != null)

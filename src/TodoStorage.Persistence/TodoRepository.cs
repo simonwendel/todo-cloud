@@ -48,14 +48,14 @@ ORDER BY
 
         public TodoRepository(IDbConnectionFactory connectionFactory)
         {
-            Guard.NullParameter(connectionFactory, nameof(connectionFactory));
+            Guard.EnsureNotNull(connectionFactory, nameof(connectionFactory));
 
             this.connectionFactory = connectionFactory;
         }
 
         public IList<Todo> GetTodo(CollectionKey collectionKey)
         {
-            Guard.NullParameter(collectionKey, nameof(collectionKey));
+            Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 
             using (var connection = connectionFactory.GetConnection())
             {

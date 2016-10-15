@@ -26,14 +26,14 @@ namespace TodoStorage.Domain.Validation
 
         public AccessControlService(IAccessControlRepository repository)
         {
-            Guard.NullParameter(repository, nameof(repository));
+            Guard.EnsureNotNull(repository, nameof(repository));
 
             this.repository = repository;
         }
 
         public bool IsOwnerOf(CollectionKey ownerKey, Todo todo)
         {
-            Guard.NullParameter(ownerKey, nameof(ownerKey));
+            Guard.EnsureNotNull(ownerKey, nameof(ownerKey));
 
             if(todo.Id.HasValue)
             {

@@ -25,8 +25,8 @@ namespace TodoStorage.Domain.Data
     {
         public TodoList Create(CollectionKey collectionKey, IEnumerable<Todo> todoItems)
         {
-            Guard.NullParameter(collectionKey, nameof(collectionKey));
-            Guard.NullParameter(todoItems, nameof(todoItems));
+            Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
+            Guard.EnsureNotNull(todoItems, nameof(todoItems));
 
             return new TodoList(collectionKey, todoItems);
         }

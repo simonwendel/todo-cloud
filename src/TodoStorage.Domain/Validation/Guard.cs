@@ -32,9 +32,9 @@ namespace TodoStorage.Domain.Validation
         /// <param name="parameter">The object to check for null condition.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         [DebuggerHidden]
-        public static void NullParameter([ValidatedNotNull] object parameter)
+        public static void EnsureNotNull([ValidatedNotNull] object parameter)
         {
-            NullParameter(parameter, parameterName: null);
+            EnsureNotNull(parameter, parameterName: null);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace TodoStorage.Domain.Validation
         /// <param name="parameterName">Name of the parameter to include in an exception, if thrown.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="parameter"/> is <c>null</c>.</exception>
         [DebuggerHidden]
-        public static void NullParameter([ValidatedNotNull] object parameter, string parameterName)
+        public static void EnsureNotNull([ValidatedNotNull] object parameter, string parameterName)
         {
             if (parameter == null)
             {
@@ -76,7 +76,7 @@ namespace TodoStorage.Domain.Validation
         [DebuggerHidden]
         public static void EmptyString([ValidatedNotNull] string parameter, string parameterName)
         {
-            NullParameter(parameter, parameterName);
+            EnsureNotNull(parameter, parameterName);
 
             if (string.IsNullOrEmpty(parameter))
             {

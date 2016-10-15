@@ -39,14 +39,14 @@ END";
 
         public AccessControlRepository(IDbConnectionFactory connectionFactory)
         {
-            Guard.NullParameter(connectionFactory, nameof(connectionFactory));
+            Guard.EnsureNotNull(connectionFactory, nameof(connectionFactory));
 
             this.connectionFactory = connectionFactory;
         }
 
         public bool IsOwnerOf(CollectionKey ownerKey, int todoId)
         {
-            Guard.NullParameter(ownerKey, nameof(ownerKey));
+            Guard.EnsureNotNull(ownerKey, nameof(ownerKey));
 
             using (var connection = connectionFactory.GetConnection())
             {

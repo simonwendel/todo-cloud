@@ -28,8 +28,8 @@ namespace TodoStorage.Domain.Data
 
         public TodoListService(ITodoRepository todoRepository, ITodoListFactory listFactory)
         {
-            Guard.NullParameter(todoRepository, nameof(todoRepository));
-            Guard.NullParameter(listFactory, nameof(listFactory));
+            Guard.EnsureNotNull(todoRepository, nameof(todoRepository));
+            Guard.EnsureNotNull(listFactory, nameof(listFactory));
 
             this.todoRepository = todoRepository;
             this.listFactory = listFactory;
@@ -37,7 +37,7 @@ namespace TodoStorage.Domain.Data
 
         public TodoList GetList(CollectionKey collectionKey)
         {
-            Guard.NullParameter(collectionKey, nameof(collectionKey));
+            Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 
             var todo = todoRepository.GetTodo(collectionKey);
             var list = listFactory.Create(collectionKey, todo);

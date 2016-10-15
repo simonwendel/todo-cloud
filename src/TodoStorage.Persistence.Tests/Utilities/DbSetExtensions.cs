@@ -25,7 +25,7 @@ namespace TodoStorage.Persistence.Tests.Utilities
     {
         public static void Clear<T>(this DbSet<T> set) where T : class
         {
-            Guard.NullParameter(set, nameof(set));
+            Guard.EnsureNotNull(set, nameof(set));
             set.RemoveRange(set);
         }
     }

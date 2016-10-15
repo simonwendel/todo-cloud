@@ -28,7 +28,7 @@ namespace TodoStorage.Persistence
 
         public SqlServerConnectionFactory(IConnectionStringResolver connectionStringResolver)
         {
-            Guard.NullParameter(connectionStringResolver, nameof(connectionStringResolver));
+            Guard.EnsureNotNull(connectionStringResolver, nameof(connectionStringResolver));
 
             connectionString = connectionStringResolver.ConnectionString;
         }
