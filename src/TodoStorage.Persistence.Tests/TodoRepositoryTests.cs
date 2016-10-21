@@ -18,9 +18,11 @@
 
 namespace TodoStorage.Persistence.Tests
 {
+    using System.Linq;
     using Domain.Data;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
+    using Seed;
 
     [TestFixture]
     internal class TodoRepositoryTests
@@ -30,6 +32,9 @@ namespace TodoStorage.Persistence.Tests
         [SetUp]
         public void Setup()
         {
+            var seeder = new DatabaseSeeder();
+            seeder.InjectSeed();
+
             var resolver = new ConnectionStringResolver("TodoStorage");
             var connectionFactory = new SqlServerConnectionFactory(resolver);
 
@@ -74,6 +79,38 @@ namespace TodoStorage.Persistence.Tests
             var actual = sut.GetTodo(key);
 
             Assert.That(actual, Is.EquivalentTo(expected));
+        }
+
+        [Test]
+        public void Delete_GivenId_DeletesTodoAndReturnsTrue()
+        {
+            var first = Seed.Data.OwnedByTestKey.First();
+            Seed.Data.OwnedByTestKey.Remove(first);
+
+            var id = first.Id;
+
+            var expectedLeft = Seed.Data.OwnedByTestKey.Count - 1;
+            var key = Seed.Data.TestCollectionKey;
+
+            var succeeded = sut.Delete(id.Value);
+            var actualLeft = sut.GetTodo(key).Count;
+
+            Assert.That(succeeded, Is.True);
+            Assert.That(actualLeft, Is.EqualTo(expectedLeft));
+        }
+
+        [Test]
+        public void Delete_GivenNonExistentId_DoesntDeleteAndReturnsFalse()
+        {
+            var id = Seed.Data.OwnedByTestKey.Sum(t => t.Id.Value) + 1;
+            var expectedLeft = Seed.Data.OwnedByTestKey.Count;
+            var key = Seed.Data.TestCollectionKey;
+
+            var succeeded = sut.Delete(id);
+            var actualLeft = sut.GetTodo(key).Count;
+
+            Assert.That(succeeded, Is.False);
+            Assert.That(actualLeft, Is.EqualTo(expectedLeft));
         }
     }
 }

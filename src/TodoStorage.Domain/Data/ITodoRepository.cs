@@ -23,5 +23,7 @@ namespace TodoStorage.Domain.Data
     public interface ITodoRepository
     {
         IList<Todo> GetTodo(CollectionKey collectionKey);
+
+        bool Delete(int id);
     }
 }

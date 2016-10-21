@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Persistence
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Dapper;
@@ -44,6 +45,12 @@ WHERE
 ORDER BY
     [Id]";
 
+        private const string TodoDeletionSql = @"
+DELETE FROM
+    [TodoItem]
+WHERE
+    [Id] = @Id";
+
         private readonly IDbConnectionFactory connectionFactory;
 
         public TodoRepository(IDbConnectionFactory connectionFactory)
@@ -67,6 +74,15 @@ ORDER BY
                         whereConstraint,
                         splitOn: "ColorName")
                     .ToList();
+            }
+        }
+
+        public bool Delete(int id)
+        {
+            using (var connection = connectionFactory.GetConnection())
+            {
+                var rowsAffected = connection.Execute(TodoDeletionSql, new { Id = id });
+                return rowsAffected != 0;
             }
         }
 
