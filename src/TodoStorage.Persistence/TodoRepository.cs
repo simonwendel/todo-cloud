@@ -18,7 +18,6 @@
 
 namespace TodoStorage.Persistence
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Dapper;
@@ -27,30 +26,6 @@ namespace TodoStorage.Persistence
 
     internal class TodoRepository : ITodoRepository
     {
-        private const string TodoSelectionSql = @"
-SELECT
-    [Id],
-    [StorageKey],
-    [Title],
-    [Description],
-    [Created],
-    [Recurring],
-    [NextOccurrence],
-    [ColorName],
-    [ColorValue]
-FROM
-    [TodoItem]
-WHERE
-    [StorageKey] = @StorageKey
-ORDER BY
-    [Id]";
-
-        private const string TodoDeletionSql = @"
-DELETE FROM
-    [TodoItem]
-WHERE
-    [Id] = @Id";
-
         private readonly IDbConnectionFactory connectionFactory;
 
         public TodoRepository(IDbConnectionFactory connectionFactory)
@@ -69,7 +44,7 @@ WHERE
                 var whereConstraint = new { StorageKey = collectionKey.Identifier };
                 return connection
                     .Query<Todo, Color, Todo>(
-                        TodoSelectionSql,
+                        TodoSql.SelectMany,
                         AttachColorTypeObjectToTodo,
                         whereConstraint,
                         splitOn: "ColorName")
@@ -81,7 +56,7 @@ WHERE
         {
             using (var connection = connectionFactory.GetConnection())
             {
-                var rowsAffected = connection.Execute(TodoDeletionSql, new { Id = id });
+                var rowsAffected = connection.Execute(TodoSql.Delete, new { Id = id });
                 return rowsAffected != 0;
             }
         }
@@ -90,6 +65,33 @@ WHERE
         {
             todo.Color = color;
             return todo;
+        }
+
+        private static class TodoSql
+        {
+            public const string SelectMany = @"
+SELECT
+    [Id],
+    [StorageKey],
+    [Title],
+    [Description],
+    [Created],
+    [Recurring],
+    [NextOccurrence],
+    [ColorName],
+    [ColorValue]
+FROM
+    [TodoItem]
+WHERE
+    [StorageKey] = @StorageKey
+ORDER BY
+    [Id]";
+
+            public const string Delete = @"
+DELETE FROM
+    [TodoItem]
+WHERE
+    [Id] = @Id";
         }
     }
 }
