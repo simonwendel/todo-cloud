@@ -20,11 +20,19 @@ namespace TodoStorage.Persistence.Tests
 {
     using System.Linq;
     using NUnit.Framework;
+    using Seed;
 
     [TestFixture]
     internal class AccessControlRepositoryTests
     {
         private AccessControlRepository sut;
+
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            var seeder = new DatabaseSeeder();
+            seeder.InjectSeed();
+        }
 
         [SetUp]
         public void Setup()
