@@ -82,6 +82,8 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Seed\Data.cs" />
     <Compile Include="TodoRepositoryTests.cs" />
+    <Compile Include="Utilities\DateTimeExtensions.cs" />
+    <Compile Include="Utilities\DateTimeExtensionsTests.cs" />
     <Compile Include="Utilities\DbSetExtensions.cs" />
     <Compile Include="Utilities\DbSetExtensionsTests.cs" />
     <Compile Include="SqlServerConnectionFactoryTests.cs" />
