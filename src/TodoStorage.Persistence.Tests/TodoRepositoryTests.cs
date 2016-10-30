@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Persistence.Tests
 {
+    using System.Data.SqlTypes;
     using System.Linq;
     using Domain.Data;
     using NUnit.Framework;
@@ -111,6 +112,67 @@ namespace TodoStorage.Persistence.Tests
 
             Assert.That(succeeded, Is.False);
             Assert.That(actualLeft, Is.EqualTo(expectedLeft));
+        }
+
+        [Test]
+        public void Add_GivenNullTodo_ThrowsException()
+        {
+            var fixture = new Fixture();
+            var collectionKey = fixture.Create<CollectionKey>();
+
+            TestDelegate addCall =
+                () => sut.Add(null, collectionKey);
+
+            Assert.That(addCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Add_GivenNullCollectionKey_ThrowsException()
+        {
+            var fixture = new Fixture();
+            var todo = fixture.Create<Todo>();
+
+            TestDelegate addCall =
+                () => sut.Add(todo, null);
+
+            Assert.That(addCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Add_GivenTodoAndCollectionKey_PersistsTodo()
+        {
+            var fixture = new Fixture();
+            var todo = fixture.Create<Todo>();
+            todo.Color = new Color("cname", "cvalue");
+            todo.Created = new SqlDateTime(todo.Created.Value).Value;
+            todo.NextOccurrence = new SqlDateTime(todo.NextOccurrence.Value).Value;
+
+            var collectionKey = fixture.Create<CollectionKey>();
+
+            var prior = sut.GetTodo(collectionKey);
+            todo = sut.Add(todo, collectionKey);
+            var persisted = sut.GetTodo(collectionKey);
+
+            Assert.That(prior, Is.Empty);
+            Assert.That(persisted, Is.EquivalentTo(new[] { todo }));
+        }
+
+        [Test]
+        public void Add_GivenTodoAndCollectionKey_UpdatesIdOfTodo()
+        {
+            var fixture = new Fixture();
+            var todo = fixture.Create<Todo>();
+            todo.Id = -1;
+            todo.Color = new Color("cname", "cvalue");
+
+            var oldId = todo.Id;
+
+            var collectionKey = fixture.Create<CollectionKey>();
+
+            var persisted = sut.Add(todo, collectionKey);
+
+            Assert.That(persisted.Id, Is.Not.EqualTo(oldId));
+            Assert.That(persisted, Is.EqualTo(todo));
         }
     }
 }

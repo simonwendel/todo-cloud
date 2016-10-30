@@ -24,6 +24,8 @@ namespace TodoStorage.Domain.Data
     {
         IList<Todo> GetTodo(CollectionKey collectionKey);
 
+        Todo Add(Todo todo, CollectionKey collectionKey);
+
         bool Delete(int id);
     }
 }
