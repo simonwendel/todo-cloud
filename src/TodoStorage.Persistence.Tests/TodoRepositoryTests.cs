@@ -30,6 +30,10 @@ namespace TodoStorage.Persistence.Tests
     {
         private TodoRepository sut;
 
+        private CollectionKey collectionKey;
+
+        private Todo newTodo;
+
         [SetUp]
         public void Setup()
         {
@@ -38,6 +42,15 @@ namespace TodoStorage.Persistence.Tests
 
             var resolver = new ConnectionStringResolver("TodoStorage");
             var connectionFactory = new SqlServerConnectionFactory(resolver);
+
+            var fixture = new Fixture();
+            newTodo = fixture.Create<Todo>();
+            newTodo.Color = new Color("cname", "cvalue");
+
+            newTodo.Created = newTodo.Created.SqlNormalize();
+            newTodo.NextOccurrence = newTodo.NextOccurrence.SqlNormalize();
+
+            collectionKey = fixture.Create<CollectionKey>();
 
             sut = new TodoRepository(connectionFactory);
         }
@@ -63,10 +76,7 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void GetTodo_GivenNonPersistedCollectionKey_ReturnsEmptyList()
         {
-            var fixture = new Fixture();
-            var key = fixture.Create<CollectionKey>();
-
-            var actual = sut.GetTodo(key);
+            var actual = sut.GetTodo(collectionKey);
 
             Assert.That(actual, Is.Empty);
         }
@@ -117,9 +127,6 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Add_GivenNullTodo_ThrowsException()
         {
-            var fixture = new Fixture();
-            var collectionKey = fixture.Create<CollectionKey>();
-
             TestDelegate addCall =
                 () => sut.Add(null, collectionKey);
 
@@ -129,11 +136,8 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Add_GivenNullCollectionKey_ThrowsException()
         {
-            var fixture = new Fixture();
-            var todo = fixture.Create<Todo>();
-
             TestDelegate addCall =
-                () => sut.Add(todo, null);
+                () => sut.Add(newTodo, null);
 
             Assert.That(addCall, Throws.ArgumentNullException);
         }
@@ -141,17 +145,8 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Add_GivenTodoAndCollectionKey_PersistsTodo()
         {
-            var fixture = new Fixture();
-            var todo = fixture.Create<Todo>();
-            todo.Color = new Color("cname", "cvalue");
-
-            todo.Created = todo.Created.SqlNormalize();
-            todo.NextOccurrence = todo.NextOccurrence.SqlNormalize();
-
-            var collectionKey = fixture.Create<CollectionKey>();
-
             var prior = sut.GetTodo(collectionKey);
-            todo = sut.Add(todo, collectionKey);
+            var todo = sut.Add(newTodo, collectionKey);
             var persisted = sut.GetTodo(collectionKey);
 
             Assert.That(prior, Is.Empty);
@@ -161,19 +156,13 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Add_GivenTodoAndCollectionKey_UpdatesIdOfTodo()
         {
-            var fixture = new Fixture();
-            var todo = fixture.Create<Todo>();
-            todo.Id = -1;
-            todo.Color = new Color("cname", "cvalue");
+            newTodo.Id = -1;
+            var oldId = newTodo.Id;
 
-            var oldId = todo.Id;
-
-            var collectionKey = fixture.Create<CollectionKey>();
-
-            var persisted = sut.Add(todo, collectionKey);
+            var persisted = sut.Add(newTodo, collectionKey);
 
             Assert.That(persisted.Id, Is.Not.EqualTo(oldId));
-            Assert.That(persisted, Is.EqualTo(todo));
+            Assert.That(persisted, Is.EqualTo(newTodo));
         }
     }
 }
