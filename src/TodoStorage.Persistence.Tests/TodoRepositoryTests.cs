@@ -34,6 +34,8 @@ namespace TodoStorage.Persistence.Tests
 
         private Todo newTodo;
 
+        private int nonPersistedId;
+
         [SetUp]
         public void Setup()
         {
@@ -43,8 +45,11 @@ namespace TodoStorage.Persistence.Tests
             var resolver = new ConnectionStringResolver("TodoStorage");
             var connectionFactory = new SqlServerConnectionFactory(resolver);
 
+            nonPersistedId = Seed.Data.OwnedByTestKey.Sum(t => t.Id.Value) + 1;
+
             var fixture = new Fixture();
             newTodo = fixture.Create<Todo>();
+            newTodo.Id = nonPersistedId;
             newTodo.Color = new Color("cname", "cvalue");
 
             newTodo.Created = newTodo.Created.SqlNormalize();
@@ -113,11 +118,10 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Delete_GivenNonExistentId_DoesntDeleteAndReturnsFalse()
         {
-            var id = Seed.Data.OwnedByTestKey.Sum(t => t.Id.Value) + 1;
             var expectedLeft = Seed.Data.OwnedByTestKey.Count;
             var key = Seed.Data.TestCollectionKey;
 
-            var succeeded = sut.Delete(id);
+            var succeeded = sut.Delete(nonPersistedId);
             var actualLeft = sut.GetTodo(key).Count;
 
             Assert.That(succeeded, Is.False);
@@ -156,7 +160,6 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Add_GivenTodoAndCollectionKey_UpdatesIdOfTodo()
         {
-            newTodo.Id = -1;
             var oldId = newTodo.Id;
 
             var persisted = sut.Add(newTodo, collectionKey);
