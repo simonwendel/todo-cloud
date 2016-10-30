@@ -18,12 +18,12 @@
 
 namespace TodoStorage.Persistence.Tests
 {
-    using System.Data.SqlTypes;
     using System.Linq;
     using Domain.Data;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
     using Seed;
+    using Utilities;
 
     [TestFixture]
     internal class TodoRepositoryTests
@@ -144,8 +144,9 @@ namespace TodoStorage.Persistence.Tests
             var fixture = new Fixture();
             var todo = fixture.Create<Todo>();
             todo.Color = new Color("cname", "cvalue");
-            todo.Created = new SqlDateTime(todo.Created.Value).Value;
-            todo.NextOccurrence = new SqlDateTime(todo.NextOccurrence.Value).Value;
+
+            todo.Created = todo.Created.SqlNormalize();
+            todo.NextOccurrence = todo.NextOccurrence.SqlNormalize();
 
             var collectionKey = fixture.Create<CollectionKey>();
 
