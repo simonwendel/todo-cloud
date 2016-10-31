@@ -77,8 +77,6 @@
     <Compile Include="Data\TodoListServiceTests.cs" />
     <Compile Include="Data\TodoListTests.cs" />
     <Compile Include="Data\TodoTests.cs" />
-    <Compile Include="Utilities\ObjectExtensions.cs" />
-    <Compile Include="Utilities\ObjectExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
