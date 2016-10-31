@@ -1,13 +1,5 @@
 <StyleCopSettings Version="105">
   <GlobalSettings>
-    <CollectionProperty Name="RecognizedWords">
-      <Value>bootstrapper</Value>
-      <Value>bootstrappers</Value>
-      <Value>ninject</Value>
-      <Value>sierpinskish</Value>
-      <Value>sierpiński</Value>
-      <Value>linq</Value>
-    </CollectionProperty>
     <StringProperty Name="MergeSettingsFiles">NoMerge</StringProperty>
   </GlobalSettings>
   <Parsers>
