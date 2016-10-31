@@ -48,7 +48,6 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Validation\AccessControlException.cs" />
     <Compile Include="Validation\AccessControlService.cs" />
-    <Compile Include="Validation\Guard.cs" />
     <Compile Include="Data\ITodoListService.cs" />
     <Compile Include="Data\ITodoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

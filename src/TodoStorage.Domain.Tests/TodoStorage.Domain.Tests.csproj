@@ -72,7 +72,6 @@
     <Compile Include="Data\ColorTests.cs" />
     <Compile Include="Data\TodoListFactoryTests.cs" />
     <Compile Include="Validation\AccessControlServiceTests.cs" />
-    <Compile Include="Validation\GuardTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\TodoListServiceTests.cs" />
     <Compile Include="Data\TodoListTests.cs" />
