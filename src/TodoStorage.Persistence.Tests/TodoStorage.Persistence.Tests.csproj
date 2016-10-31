@@ -61,6 +61,10 @@
       <HintPath>..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimonWendel.GuardStatements, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimonWendel.GuardStatements.1.0.0\lib\net45\SimonWendel.GuardStatements.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SimonWendel.ObjectExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SimonWendel.ObjectExtensions.1.0.0\lib\net45\SimonWendel.ObjectExtensions.dll</HintPath>
       <Private>True</Private>
