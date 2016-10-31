@@ -23,6 +23,7 @@ namespace TodoStorage.Persistence.Tests
     using NUnit.Framework;
     using Ploeh.AutoFixture;
     using Seed;
+    using SimonWendel.ObjectExtensions;
     using Utilities;
 
     [TestFixture]
@@ -49,11 +50,11 @@ namespace TodoStorage.Persistence.Tests
 
             var fixture = new Fixture();
             newTodo = fixture.Create<Todo>();
-            newTodo.Id = nonPersistedId;
-            newTodo.Color = new Color("cname", "cvalue");
-
-            newTodo.Created = newTodo.Created.SqlNormalize();
-            newTodo.NextOccurrence = newTodo.NextOccurrence.SqlNormalize();
+            newTodo
+                .SetProperty(t => t.Id, nonPersistedId)
+                .SetProperty(t => t.Color, new Color("cname", "cvalue"))
+                .SetProperty(t => t.Created, newTodo.Created.SqlNormalize())
+                .SetProperty(t => t.NextOccurrence, newTodo.NextOccurrence.SqlNormalize());
 
             collectionKey = fixture.Create<CollectionKey>();
 
