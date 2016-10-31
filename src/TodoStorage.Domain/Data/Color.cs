@@ -18,7 +18,7 @@
 
 namespace TodoStorage.Domain.Data
 {
-    using Validation;
+    using SimonWendel.GuardStatements;
 
     public class Color
     {

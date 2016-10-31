@@ -19,7 +19,7 @@
 namespace TodoStorage.Domain.Data
 {
     using System.Collections.Generic;
-    using Validation;
+    using SimonWendel.GuardStatements;
 
     internal class TodoListFactory : ITodoListFactory
     {

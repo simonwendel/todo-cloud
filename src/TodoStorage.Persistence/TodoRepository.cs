@@ -22,7 +22,7 @@ namespace TodoStorage.Persistence
     using System.Linq;
     using Dapper;
     using Domain.Data;
-    using Domain.Validation;
+    using SimonWendel.GuardStatements;
 
     internal class TodoRepository : ITodoRepository
     {

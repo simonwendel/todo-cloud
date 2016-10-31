@@ -20,7 +20,7 @@ namespace TodoStorage.Persistence
 {
     using System;
     using System.Configuration;
-    using Domain.Validation;
+    using SimonWendel.GuardStatements;
 
     internal class ConnectionStringResolver : IConnectionStringResolver
     {
