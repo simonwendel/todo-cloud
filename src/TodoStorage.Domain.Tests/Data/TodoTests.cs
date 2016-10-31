@@ -22,7 +22,7 @@ namespace TodoStorage.Domain.Tests.Data
     using Domain.Data;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
-    using Utilities;
+    using SimonWendel.ObjectExtensions;
 
     [TestFixture]
     internal class TodoTests
