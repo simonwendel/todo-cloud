@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{92019FCC-E106-4324-AA17-C9F1CCF3231B}"
 	ProjectSection(SolutionItems) = preProject
 		CustomDictionary.xml = CustomDictionary.xml
+		TodoStorage.runsettings = TodoStorage.runsettings
 	EndProjectSection
 EndProject
 Global
