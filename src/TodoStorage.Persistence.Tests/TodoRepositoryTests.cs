@@ -31,7 +31,7 @@ namespace TodoStorage.Persistence.Tests
     {
         private TodoRepository sut;
 
-        private CollectionKey collectionKey;
+        private CollectionKey nonPersistedCollectionKey;
 
         private Todo newTodo;
 
@@ -62,7 +62,7 @@ namespace TodoStorage.Persistence.Tests
 
             persistedTodo = Seed.Data.OwnedByTestKey.First();
 
-            collectionKey = fixture.Create<CollectionKey>();
+            nonPersistedCollectionKey = fixture.Create<CollectionKey>();
 
             sut = new TodoRepository(connectionFactory);
         }
@@ -88,7 +88,7 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void GetTodo_GivenNonPersistedCollectionKey_ReturnsEmptyList()
         {
-            var actual = sut.GetTodo(collectionKey);
+            var actual = sut.GetTodo(nonPersistedCollectionKey);
 
             Assert.That(actual, Is.Empty);
         }
@@ -138,7 +138,7 @@ namespace TodoStorage.Persistence.Tests
         public void Add_GivenNullTodo_ThrowsException()
         {
             TestDelegate addCall =
-                () => sut.Add(null, collectionKey);
+                () => sut.Add(null, nonPersistedCollectionKey);
 
             Assert.That(addCall, Throws.ArgumentNullException);
         }
@@ -155,9 +155,9 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Add_GivenTodoAndCollectionKey_PersistsTodo()
         {
-            var prior = sut.GetTodo(collectionKey);
-            var todo = sut.Add(newTodo, collectionKey);
-            var persisted = sut.GetTodo(collectionKey);
+            var prior = sut.GetTodo(nonPersistedCollectionKey);
+            var todo = sut.Add(newTodo, nonPersistedCollectionKey);
+            var persisted = sut.GetTodo(nonPersistedCollectionKey);
 
             Assert.That(prior, Is.Empty);
             Assert.That(persisted, Is.EquivalentTo(new[] { todo }));
@@ -168,7 +168,7 @@ namespace TodoStorage.Persistence.Tests
         {
             var oldId = newTodo.Id;
 
-            var persisted = sut.Add(newTodo, collectionKey);
+            var persisted = sut.Add(newTodo, nonPersistedCollectionKey);
 
             Assert.That(persisted.Id, Is.Not.EqualTo(oldId));
             Assert.That(persisted, Is.EqualTo(newTodo));
