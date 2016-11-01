@@ -87,6 +87,29 @@ namespace TodoStorage.Persistence
             }
         }
 
+        public bool Update(Todo todo)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+
+            using (var connection = connectionFactory.GetConnection())
+            {
+                var rowsAffected = connection.Execute(
+                    TodoSql.Update,
+                    new
+                    {
+                        Id = todo.Id,
+                        Title = todo.Title,
+                        Description = todo.Description,
+                        Created = todo.Created,
+                        Recurring = todo.Recurring,
+                        NextOccurrence = todo.NextOccurrence,
+                        ColorName = todo.Color.ColorName,
+                        ColorValue = todo.Color.ColorValue
+                    });
+                return rowsAffected != 0;
+            }
+        }
+
         private static Todo AttachColorTypeObjectToTodo(Todo todo, Color color)
         {
             todo.Color = color;
@@ -136,6 +159,19 @@ VALUES (
     @ColorValue
 );
 SELECT CAST(SCOPE_IDENTITY() as INT)";
+
+            public const string Update = @"
+UPDATE [TodoItem]
+SET
+    [Title] = @Title,
+    [Description] = @Description,
+    [Created] = @Created,
+    [Recurring] = @Recurring,
+    [NextOccurrence] = @NextOccurrence,
+    [ColorName] = @ColorName,
+    [ColorValue] = @ColorValue
+WHERE
+    [Id] = @Id";
 
             public const string Delete = @"
 DELETE FROM

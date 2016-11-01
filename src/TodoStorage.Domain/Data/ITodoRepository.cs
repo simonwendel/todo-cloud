@@ -26,6 +26,8 @@ namespace TodoStorage.Domain.Data
 
         Todo Add(Todo todo, CollectionKey collectionKey);
 
+        bool Update(Todo todo);
+
         bool Delete(int id);
     }
 }

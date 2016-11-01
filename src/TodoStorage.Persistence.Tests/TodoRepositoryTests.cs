@@ -173,5 +173,39 @@ namespace TodoStorage.Persistence.Tests
             Assert.That(persisted.Id, Is.Not.EqualTo(oldId));
             Assert.That(persisted, Is.EqualTo(newTodo));
         }
+
+        [Test]
+        public void Update_GivenNullTodo_ThrowsException()
+        {
+            TestDelegate updateCall =
+                () => sut.Update(null);
+
+            Assert.That(updateCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Update_GivenNonPersistedTodo_DoesntPersistAndReturnsFalse()
+        {
+            var didUpdate = sut.Update(newTodo);
+            var todosNow = sut.GetTodo(Seed.Data.TestCollectionKey);
+
+            Assert.That(didUpdate, Is.False);
+            Assert.That(todosNow, Is.Not.Empty);
+            CollectionAssert.DoesNotContain(todosNow, newTodo);
+        }
+
+        [Test]
+        public void Update_GivenPersistedTodo_PersistsChangesAndReturnsTrue()
+        {
+            // use persisted id with totally new data
+            var changedTodo = newTodo.SetProperty(t => t.Id, persistedTodo.Id);
+
+            var didUpdate = sut.Update(changedTodo);
+            var todosNow = sut.GetTodo(Seed.Data.TestCollectionKey);
+
+            Assert.That(didUpdate, Is.True);
+            Assert.That(todosNow, Is.Not.Empty);
+            CollectionAssert.Contains(todosNow, changedTodo);
+        }
     }
 }
