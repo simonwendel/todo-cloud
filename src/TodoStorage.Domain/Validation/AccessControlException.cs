@@ -19,9 +19,11 @@
 namespace TodoStorage.Domain.Validation
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.Serialization;
 
     [Serializable]
+    [ExcludeFromCodeCoverage]
     public class AccessControlException : Exception
     {
         public AccessControlException()
