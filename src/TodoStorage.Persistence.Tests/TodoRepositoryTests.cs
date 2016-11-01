@@ -35,6 +35,8 @@ namespace TodoStorage.Persistence.Tests
 
         private Todo newTodo;
 
+        private Todo persistedTodo;
+
         private int nonPersistedId;
 
         [SetUp]
@@ -55,6 +57,10 @@ namespace TodoStorage.Persistence.Tests
                 .SetProperty(t => t.Color, new Color("cname", "cvalue"))
                 .SetProperty(t => t.Created, newTodo.Created.SqlNormalize())
                 .SetProperty(t => t.NextOccurrence, newTodo.NextOccurrence.SqlNormalize());
+
+            newTodo.Id = nonPersistedId;
+
+            persistedTodo = Seed.Data.OwnedByTestKey.First();
 
             collectionKey = fixture.Create<CollectionKey>();
 
@@ -101,10 +107,9 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Delete_GivenId_DeletesTodoAndReturnsTrue()
         {
-            var first = Seed.Data.OwnedByTestKey.First();
-            Seed.Data.OwnedByTestKey.Remove(first);
+            Seed.Data.OwnedByTestKey.Remove(persistedTodo);
 
-            var id = first.Id;
+            var id = persistedTodo.Id;
 
             var expectedLeft = Seed.Data.OwnedByTestKey.Count - 1;
             var key = Seed.Data.TestCollectionKey;
