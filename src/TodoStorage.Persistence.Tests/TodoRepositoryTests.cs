@@ -47,24 +47,21 @@ namespace TodoStorage.Persistence.Tests
 
             var resolver = new ConnectionStringResolver("TodoStorage");
             var connectionFactory = new SqlServerConnectionFactory(resolver);
-
-            nonPersistedId = Seed.Data.OwnedByTestKey.Sum(t => t.Id.Value) + 1;
+            sut = new TodoRepository(connectionFactory);
 
             var fixture = new Fixture();
+
+            nonPersistedCollectionKey = fixture.Create<CollectionKey>();
+
+            persistedTodo = Seed.Data.OwnedByTestKey.First();
+            nonPersistedId = Seed.Data.OwnedByTestKey.Sum(t => t.Id.Value) + 1;
+
             newTodo = fixture.Create<Todo>();
             newTodo
                 .SetProperty(t => t.Id, nonPersistedId)
                 .SetProperty(t => t.Color, new Color("cname", "cvalue"))
                 .SetProperty(t => t.Created, newTodo.Created.SqlNormalize())
                 .SetProperty(t => t.NextOccurrence, newTodo.NextOccurrence.SqlNormalize());
-
-            newTodo.Id = nonPersistedId;
-
-            persistedTodo = Seed.Data.OwnedByTestKey.First();
-
-            nonPersistedCollectionKey = fixture.Create<CollectionKey>();
-
-            sut = new TodoRepository(connectionFactory);
         }
 
         [Test]
