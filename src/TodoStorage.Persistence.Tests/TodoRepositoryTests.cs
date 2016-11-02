@@ -74,29 +74,29 @@ namespace TodoStorage.Persistence.Tests
         }
 
         [Test]
-        public void GetTodo_GivenNullCollectionKey_ThrowsException()
+        public void GetAll_GivenNullCollectionKey_ThrowsException()
         {
-            TestDelegate getTodoCall =
-                 () => sut.GetTodo(null);
+            TestDelegate getAllCall =
+                 () => sut.GetAll(null);
 
-            Assert.That(getTodoCall, Throws.ArgumentNullException);
+            Assert.That(getAllCall, Throws.ArgumentNullException);
         }
 
         [Test]
-        public void GetTodo_GivenNonPersistedCollectionKey_ReturnsEmptyList()
+        public void GetAll_GivenNonPersistedCollectionKey_ReturnsEmptyList()
         {
-            var actual = sut.GetTodo(nonPersistedCollectionKey);
+            var actual = sut.GetAll(nonPersistedCollectionKey);
 
             Assert.That(actual, Is.Empty);
         }
 
         [Test]
-        public void GetTodo_GivenCollectionKey_ReturnsTodo()
+        public void GetAll_GivenCollectionKey_ReturnsTodo()
         {
             var key = Seed.Data.TestCollectionKey;
             var expected = Seed.Data.OwnedByTestKey;
 
-            var actual = sut.GetTodo(key);
+            var actual = sut.GetAll(key);
 
             Assert.That(actual, Is.EquivalentTo(expected));
         }
@@ -112,7 +112,7 @@ namespace TodoStorage.Persistence.Tests
             var key = Seed.Data.TestCollectionKey;
 
             var succeeded = sut.Delete(id.Value);
-            var actualLeft = sut.GetTodo(key).Count;
+            var actualLeft = sut.GetAll(key).Count;
 
             Assert.That(succeeded, Is.True);
             Assert.That(actualLeft, Is.EqualTo(expectedLeft));
@@ -125,7 +125,7 @@ namespace TodoStorage.Persistence.Tests
             var key = Seed.Data.TestCollectionKey;
 
             var succeeded = sut.Delete(nonPersistedId);
-            var actualLeft = sut.GetTodo(key).Count;
+            var actualLeft = sut.GetAll(key).Count;
 
             Assert.That(succeeded, Is.False);
             Assert.That(actualLeft, Is.EqualTo(expectedLeft));
@@ -152,9 +152,9 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Add_GivenTodoAndCollectionKey_PersistsTodo()
         {
-            var prior = sut.GetTodo(nonPersistedCollectionKey);
+            var prior = sut.GetAll(nonPersistedCollectionKey);
             var todo = sut.Add(newTodo, nonPersistedCollectionKey);
-            var persisted = sut.GetTodo(nonPersistedCollectionKey);
+            var persisted = sut.GetAll(nonPersistedCollectionKey);
 
             Assert.That(prior, Is.Empty);
             Assert.That(persisted, Is.EquivalentTo(new[] { todo }));
@@ -184,7 +184,7 @@ namespace TodoStorage.Persistence.Tests
         public void Update_GivenNonPersistedTodo_DoesntPersistAndReturnsFalse()
         {
             var didUpdate = sut.Update(newTodo);
-            var todosNow = sut.GetTodo(Seed.Data.TestCollectionKey);
+            var todosNow = sut.GetAll(Seed.Data.TestCollectionKey);
 
             Assert.That(didUpdate, Is.False);
             Assert.That(todosNow, Is.Not.Empty);
@@ -198,7 +198,7 @@ namespace TodoStorage.Persistence.Tests
             var changedTodo = newTodo.SetProperty(t => t.Id, persistedTodo.Id);
 
             var didUpdate = sut.Update(changedTodo);
-            var todosNow = sut.GetTodo(Seed.Data.TestCollectionKey);
+            var todosNow = sut.GetAll(Seed.Data.TestCollectionKey);
 
             Assert.That(didUpdate, Is.True);
             Assert.That(todosNow, Is.Not.Empty);

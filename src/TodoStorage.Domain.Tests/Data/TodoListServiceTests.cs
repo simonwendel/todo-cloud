@@ -79,7 +79,7 @@ namespace TodoStorage.Domain.Tests.Data
             var expected = new TodoList(collectionKey, todoItems);
 
             mockRepository
-                .Setup(r => r.GetTodo(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
+                .Setup(r => r.GetAll(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
                 .Returns(todoItems);
 
             mockFactory

@@ -39,7 +39,7 @@ namespace TodoStorage.Domain.Data
         {
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 
-            var todo = todoRepository.GetTodo(collectionKey);
+            var todo = todoRepository.GetAll(collectionKey);
             var list = listFactory.Create(collectionKey, todo);
             return list;
         }

@@ -35,7 +35,7 @@ namespace TodoStorage.Persistence
             this.connectionFactory = connectionFactory;
         }
 
-        public IList<Todo> GetTodo(CollectionKey collectionKey)
+        public IList<Todo> GetAll(CollectionKey collectionKey)
         {
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 

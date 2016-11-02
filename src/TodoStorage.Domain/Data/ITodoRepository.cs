@@ -22,7 +22,7 @@ namespace TodoStorage.Domain.Data
 
     public interface ITodoRepository
     {
-        IList<Todo> GetTodo(CollectionKey collectionKey);
+        IList<Todo> GetAll(CollectionKey collectionKey);
 
         Todo Add(Todo todo, CollectionKey collectionKey);
 
