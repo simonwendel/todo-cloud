@@ -44,7 +44,7 @@ namespace TodoStorage.Persistence
                 var whereConstraint = new { StorageKey = collectionKey.Identifier };
                 return connection
                     .Query<Todo, Color, Todo>(
-                        TodoSql.SelectMany,
+                        TodoRepositorySql.SelectMany,
                         AttachColorTypeObjectToTodo,
                         whereConstraint,
                         splitOn: "ColorName")
@@ -56,7 +56,7 @@ namespace TodoStorage.Persistence
         {
             using (var connection = connectionFactory.GetConnection())
             {
-                var rowsAffected = connection.Execute(TodoSql.Delete, new { Id = id });
+                var rowsAffected = connection.Execute(TodoRepositorySql.Delete, new { Id = id });
                 return rowsAffected != 0;
             }
         }
@@ -69,7 +69,7 @@ namespace TodoStorage.Persistence
             using (var connection = connectionFactory.GetConnection())
             {
                 var insertedId = connection.Query<int>(
-                    TodoSql.Add,
+                    TodoRepositorySql.Add,
                     new
                     {
                         StorageKey = collectionKey.Identifier,
@@ -94,7 +94,7 @@ namespace TodoStorage.Persistence
             using (var connection = connectionFactory.GetConnection())
             {
                 var rowsAffected = connection.Execute(
-                    TodoSql.Update,
+                    TodoRepositorySql.Update,
                     new
                     {
                         Id = todo.Id,
@@ -114,70 +114,6 @@ namespace TodoStorage.Persistence
         {
             todo.Color = color;
             return todo;
-        }
-
-        private static class TodoSql
-        {
-            public const string SelectMany = @"
-SELECT
-    [Id],
-    [StorageKey],
-    [Title],
-    [Description],
-    [Created],
-    [Recurring],
-    [NextOccurrence],
-    [ColorName],
-    [ColorValue]
-FROM
-    [TodoItem]
-WHERE
-    [StorageKey] = @StorageKey
-ORDER BY
-    [Id]";
-
-            public const string Add = @"
-INSERT INTO
-    [TodoItem] (
-        [StorageKey],
-        [Title],
-        [Description],
-        [Created],
-        [Recurring],
-        [NextOccurrence],
-        [ColorName],
-        [ColorValue]
-    )
-VALUES (
-    @StorageKey,
-    @Title,
-    @Description,
-    @Created,
-    @Recurring,
-    @NextOccurrence,
-    @ColorName,
-    @ColorValue
-);
-SELECT CAST(SCOPE_IDENTITY() as INT)";
-
-            public const string Update = @"
-UPDATE [TodoItem]
-SET
-    [Title] = @Title,
-    [Description] = @Description,
-    [Created] = @Created,
-    [Recurring] = @Recurring,
-    [NextOccurrence] = @NextOccurrence,
-    [ColorName] = @ColorName,
-    [ColorValue] = @ColorValue
-WHERE
-    [Id] = @Id";
-
-            public const string Delete = @"
-DELETE FROM
-    [TodoItem]
-WHERE
-    [Id] = @Id";
         }
     }
 }
