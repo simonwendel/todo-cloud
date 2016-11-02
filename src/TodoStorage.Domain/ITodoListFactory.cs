@@ -16,33 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Validation
+namespace TodoStorage.Domain
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Runtime.Serialization;
+    using System.Collections.Generic;
 
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class AccessControlException : Exception
+    internal interface ITodoListFactory
     {
-        public AccessControlException()
-        {
-        }
-
-        public AccessControlException(string message)
-            : base(message)
-        {
-        }
-
-        public AccessControlException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
-
-        protected AccessControlException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
+        TodoList Create(CollectionKey collectionKey, IEnumerable<Todo> todoItems);
     }
 }

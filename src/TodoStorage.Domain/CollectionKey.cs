@@ -16,26 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Data
+namespace TodoStorage.Domain
 {
-    using System.Collections.Generic;
-    using System.Linq;
+    using System;
 
-    public class TodoList
+    public class CollectionKey
     {
-        private readonly CollectionKey key;
-
-        private readonly List<Todo> items;
-
-        internal TodoList(CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
+        private readonly Guid identifier;
+        
+        public CollectionKey(Guid identifier)
         {
-            key = collectionKey;
-            items = new List<Todo>(itemsTodo);
+            if (identifier.Equals(Guid.Empty))
+            {
+                throw new ArgumentException("Empty collection key identifier not allowed", nameof(identifier));
+            }
+
+            this.identifier = identifier;
         }
 
-        public CollectionKey Key => key;
-
-        public IReadOnlyList<Todo> Items => items.AsReadOnly();
+        public Guid Identifier => identifier;
 
         public override bool Equals(object obj)
         {
@@ -44,22 +43,15 @@ namespace TodoStorage.Domain.Data
                 return false;
             }
 
-            var otherTodoList = obj as TodoList;
-            return Key.Equals(otherTodoList.Key)
-                && Items.SequenceEqual(otherTodoList.Items);
+            var otherCollectionKey = obj as CollectionKey;
+            return Identifier.Equals(otherCollectionKey.Identifier);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                var hash = (17 * 486187739) + Key.GetHashCode();
-                foreach (var todoItem in Items)
-                {
-                    hash = (hash * 486187739) + todoItem.GetHashCode();
-                }
-
-                return hash;
+                return (17 * 486187739) + Identifier.GetHashCode();
             }
         }
     }

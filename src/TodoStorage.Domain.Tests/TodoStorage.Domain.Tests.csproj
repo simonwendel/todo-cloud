@@ -68,14 +68,14 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Data\CollectionKeyTests.cs" />
-    <Compile Include="Data\ColorTests.cs" />
-    <Compile Include="Data\TodoListFactoryTests.cs" />
-    <Compile Include="Validation\AccessControlServiceTests.cs" />
+    <Compile Include="CollectionKeyTests.cs" />
+    <Compile Include="ColorTests.cs" />
+    <Compile Include="TodoListFactoryTests.cs" />
+    <Compile Include="AccessControlServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\TodoListServiceTests.cs" />
-    <Compile Include="Data\TodoListTests.cs" />
-    <Compile Include="Data\TodoTests.cs" />
+    <Compile Include="TodoListServiceTests.cs" />
+    <Compile Include="TodoListTests.cs" />
+    <Compile Include="TodoTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -19,8 +19,7 @@
 namespace TodoStorage.Persistence
 {
     using Dapper;
-    using Domain.Data;
-    using Domain.Validation;
+    using Domain;
     using SimonWendel.GuardStatements;
 
     internal class AccessControlRepository : IAccessControlRepository

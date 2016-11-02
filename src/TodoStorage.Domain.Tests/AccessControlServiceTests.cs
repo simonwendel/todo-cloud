@@ -16,10 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Tests.Validation
+namespace TodoStorage.Domain.Tests
 {
-    using Domain.Data;
-    using Domain.Validation;
+    using Domain;
     using Moq;
     using NUnit.Framework;
     using Ploeh.AutoFixture;

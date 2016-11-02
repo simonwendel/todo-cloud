@@ -16,12 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Data
+namespace TodoStorage.Domain
 {
-    using System.Collections.Generic;
-
-    internal interface ITodoListFactory
+    public interface IAccessControlRepository
     {
-        TodoList Create(CollectionKey collectionKey, IEnumerable<Todo> todoItems);
+        bool IsOwnerOf(CollectionKey ownerKey, int todoId);
     }
 }

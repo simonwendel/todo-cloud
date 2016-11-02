@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Tests.Data
+namespace TodoStorage.Domain.Tests
 {
     using System;
-    using Domain.Data;
+    using Domain;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
     using SimonWendel.ObjectExtensions;

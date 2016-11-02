@@ -16,32 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Validation
+namespace TodoStorage.Domain
 {
-    using Data;
-    using SimonWendel.GuardStatements;
-
-    internal class AccessControlService : IAccessControlService
+    public interface ITodoListService
     {
-        private readonly IAccessControlRepository repository;
-
-        public AccessControlService(IAccessControlRepository repository)
-        {
-            Guard.EnsureNotNull(repository, nameof(repository));
-
-            this.repository = repository;
-        }
-
-        public bool IsOwnerOf(CollectionKey ownerKey, Todo todo)
-        {
-            Guard.EnsureNotNull(ownerKey, nameof(ownerKey));
-
-            if (todo.Id.HasValue)
-            {
-                return repository.IsOwnerOf(ownerKey, todo.Id.Value);
-            }
-
-            return false;
-        }
+        TodoList GetList(CollectionKey collectionKey);
     }
 }

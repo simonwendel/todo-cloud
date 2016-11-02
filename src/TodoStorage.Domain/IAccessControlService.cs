@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Data
+namespace TodoStorage.Domain
 {
-    public interface ITodoListService
+    internal interface IAccessControlService
     {
-        TodoList GetList(CollectionKey collectionKey);
+        bool IsOwnerOf(CollectionKey ownerKey, Todo todo);
     }
 }

@@ -21,7 +21,7 @@ namespace TodoStorage.Persistence
     using System.Collections.Generic;
     using System.Linq;
     using Dapper;
-    using Domain.Data;
+    using Domain;
     using SimonWendel.GuardStatements;
 
     internal class TodoRepository : ITodoRepository

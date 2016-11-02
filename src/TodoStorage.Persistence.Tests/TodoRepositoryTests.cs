@@ -19,7 +19,7 @@
 namespace TodoStorage.Persistence.Tests
 {
     using System.Linq;
-    using Domain.Data;
+    using Domain;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
     using Seed;

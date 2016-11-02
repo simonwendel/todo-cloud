@@ -16,12 +16,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Domain.Validation
+namespace TodoStorage.Domain
 {
-    using Data;
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.Serialization;
 
-    internal interface IAccessControlService
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class AccessControlException : Exception
     {
-        bool IsOwnerOf(CollectionKey ownerKey, Todo todo);
+        public AccessControlException()
+        {
+        }
+
+        public AccessControlException(string message)
+            : base(message)
+        {
+        }
+
+        public AccessControlException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+
+        protected AccessControlException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
     }
 }

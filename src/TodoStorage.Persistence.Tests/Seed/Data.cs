@@ -21,7 +21,7 @@ namespace TodoStorage.Persistence.Tests.Seed
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Domain.Data;
+    using Domain;
     using Utilities;
 
     internal static class Data
