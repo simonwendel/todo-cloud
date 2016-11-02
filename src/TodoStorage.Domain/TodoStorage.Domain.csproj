@@ -56,7 +56,6 @@
     <Compile Include="Data\TodoListService.cs" />
     <Compile Include="Validation\IAccessControlService.cs" />
     <Compile Include="Validation\IAccessControlRepository.cs" />
-    <Compile Include="Validation\ValidatedNotNullAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
