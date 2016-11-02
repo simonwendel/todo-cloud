@@ -33,9 +33,9 @@ namespace TodoStorage.Domain
             items = new List<Todo>(itemsTodo);
         }
 
-        public CollectionKey Key => key;
-
         public IReadOnlyList<Todo> Items => items.AsReadOnly();
+
+        internal CollectionKey Key => key;
 
         public override bool Equals(object obj)
         {
