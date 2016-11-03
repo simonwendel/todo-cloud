@@ -44,6 +44,7 @@
     <Compile Include="CollectionKey.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="ITodoListFactory.cs" />
+    <Compile Include="ITodoService.cs" />
     <Compile Include="TodoListFactory.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="AccessControlException.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="TodoListService.cs" />
     <Compile Include="IAccessControlService.cs" />
     <Compile Include="IAccessControlRepository.cs" />
+    <Compile Include="TodoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
