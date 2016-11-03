@@ -32,7 +32,7 @@ namespace TodoStorage.Domain.Tests
 
         private AccessControlService sut;
 
-        private Mock<IAccessControlRepository> mockRepository;
+        private Mock<IAccessControlRepository> accessControlRepository;
 
         [SetUp]
         public void Setup()
@@ -41,9 +41,9 @@ namespace TodoStorage.Domain.Tests
             key = fixture.Create<CollectionKey>();
             todo = fixture.Create<Todo>();
 
-            mockRepository = new Mock<IAccessControlRepository>();
+            accessControlRepository = new Mock<IAccessControlRepository>();
 
-            sut = new AccessControlService(mockRepository.Object);
+            sut = new AccessControlService(accessControlRepository.Object);
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace TodoStorage.Domain.Tests
             SetupIfOwner(true);
 
             Assert.That(sut.IsOwnerOf(key, todo), Is.True);
-            mockRepository.VerifyAll();
+            accessControlRepository.VerifyAll();
         }
 
         [Test]
@@ -90,12 +90,12 @@ namespace TodoStorage.Domain.Tests
             SetupIfOwner(false);
 
             Assert.That(sut.IsOwnerOf(key, todo), Is.False);
-            mockRepository.VerifyAll();
+            accessControlRepository.VerifyAll();
         }
 
         private void SetupIfOwner(bool keyIsOwner)
         {
-            mockRepository
+            accessControlRepository
                 .Setup(repo => repo.IsOwnerOf(It.IsAny<CollectionKey>(), It.Is<int>(i => i == todo.Id)))
                 .Returns(keyIsOwner);
         }

@@ -37,14 +37,14 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Ctor_GivenConnectionStringResolver_GetsConnectionString()
         {
-            var mockResolver = new Mock<IConnectionStringResolver>();
-            mockResolver
+            var connectionStringResolver = new Mock<IConnectionStringResolver>();
+            connectionStringResolver
                 .SetupGet(r => r.ConnectionString)
                 .Returns("whatever");
 
-            var sut = new SqlServerConnectionFactory(mockResolver.Object);
+            var sut = new SqlServerConnectionFactory(connectionStringResolver.Object);
 
-            mockResolver.VerifyAll();
+            connectionStringResolver.VerifyAll();
         }
 
         [Test]

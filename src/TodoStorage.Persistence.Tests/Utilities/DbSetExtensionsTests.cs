@@ -37,20 +37,20 @@ namespace TodoStorage.Persistence.Tests.Utilities
         [Test]
         public void Clear_GivenDbSet_CallsRemoveRangeWithSelf()
         {
-            var mockSet = new Mock<DbSet<object>>();
+            var dataSet = new Mock<DbSet<object>>();
             IEnumerable<object> parameter = null;
 
-            mockSet
+            dataSet
                 .Setup(db => db.RemoveRange(It.IsAny<IEnumerable<object>>()))
                 .Callback((IEnumerable<object> param) =>
                 {
                     parameter = param;
                 });
 
-            mockSet.Object.Clear();
+            dataSet.Object.Clear();
 
-            Assert.That(parameter, Is.SameAs(mockSet.Object));
-            mockSet.VerifyAll();
+            Assert.That(parameter, Is.SameAs(dataSet.Object));
+            dataSet.VerifyAll();
         }
     }
 }
