@@ -23,5 +23,7 @@ namespace TodoStorage.Domain
     internal interface ITodoService
     {
         IList<Todo> GetAll(CollectionKey collectionKey);
+
+        Todo Add(Todo todo, CollectionKey collectionKey);
     }
 }

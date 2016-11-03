@@ -35,6 +35,10 @@ namespace TodoStorage.Domain.Tests
 
         private IList<Todo> listOfTodos;
 
+        private Todo newTodo;
+
+        private Todo persistedTodo;
+
         [SetUp]
         public void Setup()
         {
@@ -43,10 +47,17 @@ namespace TodoStorage.Domain.Tests
             collectionKey = fixture.Create<CollectionKey>();
             listOfTodos = fixture.CreateMany<Todo>().ToList();
 
+            newTodo = fixture.Create<Todo>();
+            persistedTodo = fixture.Create<Todo>();
+
             todoRepository = new Mock<ITodoRepository>();
             todoRepository
                 .Setup(r => r.GetAll(It.IsAny<CollectionKey>()))
                 .Returns(listOfTodos);
+
+            todoRepository
+                .Setup(r => r.Add(It.IsAny<Todo>(), It.IsAny<CollectionKey>()))
+                .Returns(persistedTodo);
 
             sut = new TodoService(todoRepository.Object);
         }
@@ -80,6 +91,41 @@ namespace TodoStorage.Domain.Tests
             Assert.That(actualTodos, Is.SameAs(listOfTodos));
             todoRepository.Verify(
                 r => r.GetAll(It.Is<CollectionKey>(c => c.Equals(collectionKey))), 
+                Times.Once);
+        }
+
+        [Test]
+        public void Add_GivenNullTodo_ThrowsException()
+        {
+            TestDelegate addCall =
+                () => sut.Add(null, collectionKey);
+
+            Assert.That(addCall, Throws.ArgumentNullException);
+            todoRepository.Verify(
+                r => r.Add(It.IsAny<Todo>(), It.IsAny<CollectionKey>()),
+                Times.Never);
+        }
+
+        [Test]
+        public void Add_GivenNullCollectionKey_ThrowsException()
+        {
+            TestDelegate addCall =
+                () => sut.Add(newTodo, null);
+
+            Assert.That(addCall, Throws.ArgumentNullException);
+            todoRepository.Verify(
+                r => r.Add(It.IsAny<Todo>(), It.IsAny<CollectionKey>()),
+                Times.Never);
+        }
+
+        [Test]
+        public void Add_GivenTodoAndCollectionKey_PersistsToRepo()
+        {
+            var actualTodo = sut.Add(newTodo, collectionKey);
+
+            Assert.That(actualTodo, Is.SameAs(persistedTodo));
+            todoRepository.Verify(
+                r => r.Add(It.Is<Todo>(t => t == newTodo), It.Is<CollectionKey>(k => k == collectionKey)),
                 Times.Once);
         }
     }

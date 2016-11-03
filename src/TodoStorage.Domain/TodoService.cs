@@ -38,5 +38,13 @@ namespace TodoStorage.Domain
 
             return todoRepository.GetAll(collectionKey);
         }
+
+        public Todo Add(Todo todo, CollectionKey collectionKey)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+            Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
+
+            return todoRepository.Add(todo, collectionKey);
+        }
     }
 }
