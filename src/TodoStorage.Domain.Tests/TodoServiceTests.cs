@@ -68,7 +68,7 @@ namespace TodoStorage.Domain.Tests
 
             Assert.That(getAllCall, Throws.ArgumentNullException);
             todoRepository.Verify(
-                r => r.GetAll(It.Is<CollectionKey>(c => c.Equals(collectionKey))),
+                r => r.GetAll(It.IsAny<CollectionKey>()),
                 Times.Never);
         }
 
