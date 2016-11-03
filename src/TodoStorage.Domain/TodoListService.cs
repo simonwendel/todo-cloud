@@ -22,16 +22,16 @@ namespace TodoStorage.Domain
 
     internal class TodoListService : ITodoListService
     {
-        private readonly ITodoRepository todoRepository;
+        private readonly ITodoService todoService;
 
         private readonly ITodoListFactory listFactory;
 
-        public TodoListService(ITodoRepository todoRepository, ITodoListFactory listFactory)
+        public TodoListService(ITodoService todoService, ITodoListFactory listFactory)
         {
-            Guard.EnsureNotNull(todoRepository, nameof(todoRepository));
+            Guard.EnsureNotNull(todoService, nameof(todoService));
             Guard.EnsureNotNull(listFactory, nameof(listFactory));
 
-            this.todoRepository = todoRepository;
+            this.todoService = todoService;
             this.listFactory = listFactory;
         }
 
@@ -39,7 +39,7 @@ namespace TodoStorage.Domain
         {
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 
-            var todo = todoRepository.GetAll(collectionKey);
+            var todo = todoService.GetAll(collectionKey);
             var list = listFactory.Create(collectionKey, todo);
             return list;
         }

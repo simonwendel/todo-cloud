@@ -30,20 +30,20 @@ namespace TodoStorage.Domain.Tests
     {
         private TodoListService sut;
 
-        private Mock<ITodoRepository> mockRepository;
+        private Mock<ITodoService> todoService;
 
         private Mock<ITodoListFactory> mockFactory;
 
         [SetUp]
         public void Setup()
         {
-            mockRepository = new Mock<ITodoRepository>();
+            todoService = new Mock<ITodoService>();
             mockFactory = new Mock<ITodoListFactory>();
-            sut = new TodoListService(mockRepository.Object, mockFactory.Object);
+            sut = new TodoListService(todoService.Object, mockFactory.Object);
         }
 
         [Test]
-        public void Ctor_GivenNullTodoRepository_ThrowsException()
+        public void Ctor_GivenNullTodoService_ThrowsException()
         {
             TestDelegate constructorCall = 
                 () => new TodoListService(null, mockFactory.Object);
@@ -55,7 +55,7 @@ namespace TodoStorage.Domain.Tests
         public void Ctor_GivenNullTodoListFactory_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new TodoListService(mockRepository.Object, null);
+                () => new TodoListService(todoService.Object, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -70,7 +70,7 @@ namespace TodoStorage.Domain.Tests
         }
 
         [Test]
-        public void GetList_GivenCollectionKey_ConstructsFromRepository()
+        public void GetList_GivenCollectionKey_ConstructsFromTodoService()
         {
             var fixture = new Fixture();
             var collectionKey = fixture.Create<CollectionKey>();
@@ -78,7 +78,7 @@ namespace TodoStorage.Domain.Tests
 
             var expected = new TodoList(collectionKey, todoItems);
 
-            mockRepository
+            todoService
                 .Setup(r => r.GetAll(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
                 .Returns(todoItems);
 
@@ -91,7 +91,7 @@ namespace TodoStorage.Domain.Tests
             var actual = sut.GetList(collectionKey);
 
             Assert.That(actual, Is.EqualTo(expected));
-            mockRepository.VerifyAll();
+            todoService.VerifyAll();
             mockFactory.VerifyAll();
         }
     }
