@@ -52,22 +52,6 @@ namespace TodoStorage.Persistence
             }
         }
 
-        public bool Delete(Todo todo)
-        {
-            Guard.EnsureNotNull(todo, nameof(todo));
-
-            if (todo.Id.HasValue == false)
-            {
-                return false;
-            }
-
-            using (var connection = connectionFactory.GetConnection())
-            {
-                var rowsAffected = connection.Execute(TodoRepositorySql.Delete, new { Id = todo.Id.Value });
-                return rowsAffected != 0;
-            }
-        }
-
         public Todo Add(Todo todo, CollectionKey collectionKey)
         {
             Guard.EnsureNotNull(todo, nameof(todo));
@@ -113,6 +97,22 @@ namespace TodoStorage.Persistence
                         ColorName = todo.Color.ColorName,
                         ColorValue = todo.Color.ColorValue
                     });
+                return rowsAffected != 0;
+            }
+        }
+
+        public bool Delete(Todo todo)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+
+            if (todo.Id.HasValue == false)
+            {
+                return false;
+            }
+
+            using (var connection = connectionFactory.GetConnection())
+            {
+                var rowsAffected = connection.Execute(TodoRepositorySql.Delete, new { Id = todo.Id.Value });
                 return rowsAffected != 0;
             }
         }
