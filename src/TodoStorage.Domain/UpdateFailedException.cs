@@ -52,11 +52,7 @@ namespace TodoStorage.Domain
         {
         }
 
-        [SuppressMessage(
-            "Microsoft.Design", 
-            "CA1032:ImplementStandardExceptionConstructors",
-            Justification = "Only the domain should ever be allowed to instantiate this class.")]
-        internal UpdateFailedException(SerializationInfo info, StreamingContext context)
+        protected UpdateFailedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
