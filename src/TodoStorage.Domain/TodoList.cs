@@ -20,6 +20,7 @@ namespace TodoStorage.Domain
 {
     using System.Collections.Generic;
     using System.Linq;
+    using SimonWendel.GuardStatements;
 
     public class TodoList
     {
@@ -29,6 +30,9 @@ namespace TodoStorage.Domain
 
         internal TodoList(CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
         {
+            Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
+            Guard.EnsureNotNull(itemsTodo, nameof(itemsTodo));
+
             key = collectionKey;
             items = new List<Todo>(itemsTodo);
         }

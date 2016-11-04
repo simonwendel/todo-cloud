@@ -60,6 +60,24 @@ namespace TodoStorage.Domain.Tests
         }
 
         [Test]
+        public void Ctor_GivenNullListKey_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new TodoList(null, todos);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Ctor_GivenNullTodoItems_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new TodoList(key, null);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
         public void Ctor_GivenListKey_ConstructsListWithKey()
         {
             Assert.That(sut.Key, Is.EqualTo(key));
