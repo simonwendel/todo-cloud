@@ -18,7 +18,6 @@
 
 namespace TodoStorage.Domain.Tests
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Domain;
@@ -43,7 +42,7 @@ namespace TodoStorage.Domain.Tests
         {
             var fixture = new Fixture();
 
-            key = new CollectionKey(Guid.NewGuid());
+            key = fixture.Create<CollectionKey>();
             todos = fixture.CreateMany<Todo>();
 
             sut = new TodoList(key, todos);
@@ -51,7 +50,7 @@ namespace TodoStorage.Domain.Tests
             sameProperties = new TodoList(key, todos);
             someDiffering = new[]
             {
-                new TodoList(new CollectionKey(Guid.NewGuid()), todos),
+                new TodoList(fixture.Create<CollectionKey>(), todos),
                 new TodoList(key, fixture.CreateMany<Todo>())
             };
         }
