@@ -23,9 +23,9 @@ namespace TodoStorage.Domain
 
     internal class TodoService : ITodoService
     {
-        private IAccessControlService accessControlService;
+        private readonly IAccessControlService accessControlService;
 
-        private ITodoRepository todoRepository;
+        private readonly ITodoRepository todoRepository;
 
         public TodoService(IAccessControlService accessControlService, ITodoRepository todoRepository)
         {
