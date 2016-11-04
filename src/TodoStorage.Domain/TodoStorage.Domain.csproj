@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CollectionKey.cs" />
     <Compile Include="Color.cs" />
+    <Compile Include="DeleteFailedException.cs" />
     <Compile Include="ITodoListFactory.cs" />
     <Compile Include="ITodoService.cs" />
     <Compile Include="TodoListFactory.cs" />
