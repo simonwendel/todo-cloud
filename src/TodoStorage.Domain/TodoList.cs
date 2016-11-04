@@ -24,12 +24,15 @@ namespace TodoStorage.Domain
 
     public class TodoList
     {
+        private readonly ITodoService todoService;
+
         private readonly CollectionKey key;
 
         private readonly List<Todo> items;
 
-        internal TodoList(CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
+        internal TodoList(ITodoService todoService, CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
         {
+            Guard.EnsureNotNull(todoService, nameof(todoService));
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
             Guard.EnsureNotNull(itemsTodo, nameof(itemsTodo));
 

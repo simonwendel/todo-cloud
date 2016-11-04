@@ -76,7 +76,7 @@ namespace TodoStorage.Domain.Tests
             var collectionKey = fixture.Create<CollectionKey>();
             var todoItems = fixture.CreateMany<Todo>().ToList();
 
-            var expected = new TodoList(collectionKey, todoItems);
+            var expected = new TodoList(Mock.Of<ITodoService>(), collectionKey, todoItems);
 
             todoService
                 .Setup(r => r.GetAll(It.Is<CollectionKey>(key => key.Equals(collectionKey))))

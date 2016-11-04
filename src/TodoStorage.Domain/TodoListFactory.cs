@@ -23,12 +23,21 @@ namespace TodoStorage.Domain
 
     internal class TodoListFactory : ITodoListFactory
     {
+        private readonly ITodoService todoService;
+
+        public TodoListFactory(ITodoService todoService)
+        {
+            Guard.EnsureNotNull(todoService, nameof(todoService));
+
+            this.todoService = todoService;
+        }
+
         public TodoList Create(CollectionKey collectionKey, IEnumerable<Todo> todoItems)
         {
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
             Guard.EnsureNotNull(todoItems, nameof(todoItems));
 
-            return new TodoList(collectionKey, todoItems);
+            return new TodoList(todoService, collectionKey, todoItems);
         }
     }
 }

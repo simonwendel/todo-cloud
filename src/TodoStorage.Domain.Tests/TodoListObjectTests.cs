@@ -21,6 +21,7 @@ namespace TodoStorage.Domain.Tests
     using System.Collections.Generic;
     using System.Linq;
     using Domain;
+    using Moq;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
 
@@ -31,6 +32,8 @@ namespace TodoStorage.Domain.Tests
     [TestFixture]
     internal class TodoListObjectTests
     {
+        private ITodoService todoService;
+
         private CollectionKey key;
 
         private IEnumerable<Todo> todos;
@@ -44,26 +47,37 @@ namespace TodoStorage.Domain.Tests
         [SetUp]
         public void Setup()
         {
+            todoService = Mock.Of<ITodoService>();
+
             var fixture = new Fixture();
 
             key = fixture.Create<CollectionKey>();
             todos = fixture.CreateMany<Todo>();
 
-            sut = new TodoList(key, todos);
+            sut = new TodoList(todoService, key, todos);
 
-            sameProperties = new TodoList(key, todos);
+            sameProperties = new TodoList(todoService, key, todos);
             someDiffering = new[]
             {
-                new TodoList(fixture.Create<CollectionKey>(), todos),
-                new TodoList(key, fixture.CreateMany<Todo>())
+                new TodoList(todoService, fixture.Create<CollectionKey>(), todos),
+                new TodoList(todoService, key, fixture.CreateMany<Todo>())
             };
+        }
+
+        [Test]
+        public void Ctor_GivenNullTodoService_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new TodoList(null, key, todos);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
         }
 
         [Test]
         public void Ctor_GivenNullListKey_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new TodoList(null, todos);
+                () => new TodoList(todoService, null, todos);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -72,7 +86,7 @@ namespace TodoStorage.Domain.Tests
         public void Ctor_GivenNullTodoItems_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new TodoList(key, null);
+                () => new TodoList(todoService, key, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }

@@ -20,6 +20,7 @@ namespace TodoStorage.Domain.Tests
 {
     using System.Collections.Generic;
     using Domain;
+    using Moq;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
 
@@ -40,7 +41,16 @@ namespace TodoStorage.Domain.Tests
             key = fixture.Create<CollectionKey>();
             someTodo = fixture.CreateMany<Todo>();
 
-            sut = new TodoListFactory();
+            sut = new TodoListFactory(Mock.Of<ITodoService>());
+        }
+
+        [Test]
+        public void Ctor_GivenNullTodoService_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new TodoListFactory(null);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
         }
 
         [Test]
