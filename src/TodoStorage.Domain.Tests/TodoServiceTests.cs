@@ -71,7 +71,7 @@ namespace TodoStorage.Domain.Tests
 
             todoRepository
                 .Setup(r => r.Add(It.IsAny<Todo>(), It.IsAny<CollectionKey>()))
-                .Returns(persistedTodo);
+                .Returns(-10);
 
             sut = new TodoService(accessControlService.Object, todoRepository.Object);
         }
@@ -146,7 +146,7 @@ namespace TodoStorage.Domain.Tests
         {
             var actualTodo = sut.Add(newTodo, collectionKey);
 
-            Assert.That(actualTodo, Is.SameAs(persistedTodo));
+            Assert.That(actualTodo, Is.SameAs(newTodo));
             todoRepository.Verify(
                 r => r.Add(It.Is<Todo>(t => t == newTodo), It.Is<CollectionKey>(k => k == collectionKey)),
                 Times.Once);

@@ -126,12 +126,12 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Delete_GivenTodoWithNoId_DoesntDeleteAndReturnsFalse()
         {
-            newTodo.Id = null;
+            var todoWithNoId = new Todo();
 
             var expectedLeft = Seed.Data.OwnedByTestKey.Count;
             var key = Seed.Data.TestCollectionKey;
 
-            var succeeded = sut.Delete(newTodo);
+            var succeeded = sut.Delete(todoWithNoId);
             var actualLeft = sut.GetAll(key).Count;
 
             Assert.That(succeeded, Is.False);
@@ -173,8 +173,11 @@ namespace TodoStorage.Persistence.Tests
         public void Add_GivenTodoAndCollectionKey_PersistsTodo()
         {
             var prior = sut.GetAll(nonPersistedCollectionKey);
-            var todo = sut.Add(newTodo, nonPersistedCollectionKey);
+            var persistedId = sut.Add(newTodo, nonPersistedCollectionKey);
             var persisted = sut.GetAll(nonPersistedCollectionKey);
+
+            var todo = newTodo
+                .SetProperty(t => t.Id, persistedId);
 
             Assert.That(prior, Is.Empty);
             Assert.That(persisted, Is.EquivalentTo(new[] { todo }));
@@ -185,10 +188,9 @@ namespace TodoStorage.Persistence.Tests
         {
             var oldId = newTodo.Id;
 
-            var persisted = sut.Add(newTodo, nonPersistedCollectionKey);
+            var persistedId = sut.Add(newTodo, nonPersistedCollectionKey);
 
-            Assert.That(persisted.Id, Is.Not.EqualTo(oldId));
-            Assert.That(persisted, Is.EqualTo(newTodo));
+            Assert.That(persistedId, Is.Not.EqualTo(oldId));
         }
 
         [Test]

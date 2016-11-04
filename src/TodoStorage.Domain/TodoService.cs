@@ -48,7 +48,8 @@ namespace TodoStorage.Domain
             Guard.EnsureNotNull(todo, nameof(todo));
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 
-            return todoRepository.Add(todo, collectionKey);
+            todo.Id = todoRepository.Add(todo, collectionKey);
+            return todo;
         }
 
         public void Update(Todo todo, CollectionKey collectionKey)

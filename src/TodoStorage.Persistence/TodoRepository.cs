@@ -52,7 +52,7 @@ namespace TodoStorage.Persistence
             }
         }
 
-        public Todo Add(Todo todo, CollectionKey collectionKey)
+        public int Add(Todo todo, CollectionKey collectionKey)
         {
             Guard.EnsureNotNull(todo, nameof(todo));
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
@@ -73,8 +73,7 @@ namespace TodoStorage.Persistence
                         ColorValue = todo.Color.ColorValue
                     }).Single();
 
-                todo.Id = insertedId;
-                return todo;
+                return insertedId;
             }
         }
 
