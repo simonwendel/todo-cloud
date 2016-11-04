@@ -28,6 +28,6 @@ namespace TodoStorage.Domain
 
         bool Update(Todo todo);
 
-        bool Delete(int id);
+        bool Delete(Todo todo);
     }
 }

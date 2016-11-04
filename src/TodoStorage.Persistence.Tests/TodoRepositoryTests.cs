@@ -37,8 +37,6 @@ namespace TodoStorage.Persistence.Tests
 
         private Todo persistedTodo;
 
-        private int nonPersistedId;
-
         [SetUp]
         public void Setup()
         {
@@ -54,7 +52,7 @@ namespace TodoStorage.Persistence.Tests
             nonPersistedCollectionKey = fixture.Create<CollectionKey>();
 
             persistedTodo = Seed.Data.OwnedByTestKey.First();
-            nonPersistedId = Seed.Data.OwnedByTestKey.Sum(t => t.Id.Value) + 1;
+            var nonPersistedId = Seed.Data.OwnedByTestKey.Sum(t => t.Id.Value) + 1;
 
             newTodo = fixture.Create<Todo>();
             newTodo
@@ -102,16 +100,23 @@ namespace TodoStorage.Persistence.Tests
         }
 
         [Test]
-        public void Delete_GivenId_DeletesTodoAndReturnsTrue()
+        public void Delete_GivenNullTodo_ThrowsException()
+        {
+            TestDelegate deleteCall =
+                 () => sut.Delete(null);
+
+            Assert.That(deleteCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Delete_GivenTodo_DeletesTodoAndReturnsTrue()
         {
             Seed.Data.OwnedByTestKey.Remove(persistedTodo);
-
-            var id = persistedTodo.Id;
 
             var expectedLeft = Seed.Data.OwnedByTestKey.Count - 1;
             var key = Seed.Data.TestCollectionKey;
 
-            var succeeded = sut.Delete(id.Value);
+            var succeeded = sut.Delete(persistedTodo);
             var actualLeft = sut.GetAll(key).Count;
 
             Assert.That(succeeded, Is.True);
@@ -119,12 +124,27 @@ namespace TodoStorage.Persistence.Tests
         }
 
         [Test]
-        public void Delete_GivenNonExistentId_DoesntDeleteAndReturnsFalse()
+        public void Delete_GivenTodoWithNoId_DoesntDeleteAndReturnsFalse()
+        {
+            newTodo.Id = null;
+
+            var expectedLeft = Seed.Data.OwnedByTestKey.Count;
+            var key = Seed.Data.TestCollectionKey;
+
+            var succeeded = sut.Delete(newTodo);
+            var actualLeft = sut.GetAll(key).Count;
+
+            Assert.That(succeeded, Is.False);
+            Assert.That(actualLeft, Is.EqualTo(expectedLeft));
+        }
+
+        [Test]
+        public void Delete_GivenNonExistentTodo_DoesntDeleteAndReturnsFalse()
         {
             var expectedLeft = Seed.Data.OwnedByTestKey.Count;
             var key = Seed.Data.TestCollectionKey;
 
-            var succeeded = sut.Delete(nonPersistedId);
+            var succeeded = sut.Delete(newTodo);
             var actualLeft = sut.GetAll(key).Count;
 
             Assert.That(succeeded, Is.False);

@@ -52,11 +52,18 @@ namespace TodoStorage.Persistence
             }
         }
 
-        public bool Delete(int id)
+        public bool Delete(Todo todo)
         {
+            Guard.EnsureNotNull(todo, nameof(todo));
+
+            if (todo.Id.HasValue == false)
+            {
+                return false;
+            }
+
             using (var connection = connectionFactory.GetConnection())
             {
-                var rowsAffected = connection.Execute(TodoRepositorySql.Delete, new { Id = id });
+                var rowsAffected = connection.Execute(TodoRepositorySql.Delete, new { Id = todo.Id.Value });
                 return rowsAffected != 0;
             }
         }
