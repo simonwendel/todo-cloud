@@ -26,20 +26,32 @@ namespace TodoStorage.Domain
     [ExcludeFromCodeCoverage]
     public class AccessControlException : Exception
     {
-        public AccessControlException()
+        [SuppressMessage(
+            "Microsoft.Design",
+            "CA1032:ImplementStandardExceptionConstructors",
+            Justification = "Only the domain should ever be allowed to instantiate this class.")]
+        internal AccessControlException()
         {
         }
 
-        public AccessControlException(string message)
+        [SuppressMessage(
+            "Microsoft.Design",
+            "CA1032:ImplementStandardExceptionConstructors",
+            Justification = "Only the domain should ever be allowed to instantiate this class.")]
+        internal AccessControlException(string message)
             : base(message)
         {
         }
 
-        public AccessControlException(string message, Exception inner)
+        [SuppressMessage(
+            "Microsoft.Design",
+            "CA1032:ImplementStandardExceptionConstructors",
+            Justification = "Only the domain should ever be allowed to instantiate this class.")]
+        internal AccessControlException(string message, Exception inner)
             : base(message, inner)
         {
         }
-
+        
         protected AccessControlException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
