@@ -67,5 +67,22 @@ namespace TodoStorage.Domain
                 throw new UpdateFailedException();
             }
         }
+
+        public void Delete(Todo todo, CollectionKey collectionKey)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+            Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
+
+            if (accessControlService.IsOwnerOf(collectionKey, todo) == false)
+            {
+                throw new AccessControlException();
+            }
+
+            var didDelete = todoRepository.Delete(todo);
+            if (didDelete == false)
+            {
+                throw new DeleteFailedException();
+            }
+        }
     }
 }
