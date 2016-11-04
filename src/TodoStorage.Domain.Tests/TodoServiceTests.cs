@@ -31,6 +31,10 @@ namespace TodoStorage.Domain.Tests
 
         private CollectionKey collectionKey;
 
+        private CollectionKey notOwnersKey;
+
+        private Mock<IAccessControlService> accessControlService;
+
         private Mock<ITodoRepository> todoRepository;
 
         private IList<Todo> listOfTodos;
@@ -45,10 +49,20 @@ namespace TodoStorage.Domain.Tests
             var fixture = new Fixture();
 
             collectionKey = fixture.Create<CollectionKey>();
+            notOwnersKey = fixture.Create<CollectionKey>();
             listOfTodos = fixture.CreateMany<Todo>().ToList();
 
             newTodo = fixture.Create<Todo>();
             persistedTodo = fixture.Create<Todo>();
+
+            accessControlService = new Mock<IAccessControlService>();
+            accessControlService
+                .Setup(a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == notOwnersKey), It.IsAny<Todo>()))
+                .Returns(false);
+
+            accessControlService
+                .Setup(a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()))
+                .Returns(true);
 
             todoRepository = new Mock<ITodoRepository>();
             todoRepository
@@ -59,14 +73,23 @@ namespace TodoStorage.Domain.Tests
                 .Setup(r => r.Add(It.IsAny<Todo>(), It.IsAny<CollectionKey>()))
                 .Returns(persistedTodo);
 
-            sut = new TodoService(todoRepository.Object);
+            sut = new TodoService(accessControlService.Object, todoRepository.Object);
+        }
+
+        [Test]
+        public void Ctor_GivenNullAccessControlRepository_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new TodoService(null, todoRepository.Object);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
         }
 
         [Test]
         public void Ctor_GivenNullTodoRepository_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new TodoService(null);
+                () => new TodoService(accessControlService.Object, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -126,6 +149,86 @@ namespace TodoStorage.Domain.Tests
             Assert.That(actualTodo, Is.SameAs(persistedTodo));
             todoRepository.Verify(
                 r => r.Add(It.Is<Todo>(t => t == newTodo), It.Is<CollectionKey>(k => k == collectionKey)),
+                Times.Once);
+        }
+
+        [Test]
+        public void Update_GivenNullTodo_ThrowsException()
+        {
+            TestDelegate updateCall =
+                () => sut.Update(null, collectionKey);
+
+            Assert.That(updateCall, Throws.ArgumentNullException);
+            todoRepository.Verify(
+                r => r.Update(It.IsAny<Todo>()),
+                Times.Never);
+        }
+
+        [Test]
+        public void Update_GivenNullCollectionKey_ThrowsException()
+        {
+            TestDelegate updateCall =
+                () => sut.Update(persistedTodo, null);
+
+            Assert.That(updateCall, Throws.ArgumentNullException);
+            todoRepository.Verify(
+                r => r.Update(It.IsAny<Todo>()),
+                Times.Never);
+        }
+
+        [Test]
+        public void Update_GivenNotAuthorisedKey_ThrowsException()
+        {
+            TestDelegate updateCall =
+                () => sut.Update(persistedTodo, notOwnersKey);
+
+            Assert.That(updateCall, Throws.TypeOf<AccessControlException>());
+
+            accessControlService.Verify(
+                a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == notOwnersKey), It.IsAny<Todo>()), 
+                Times.Once);
+
+            todoRepository.Verify(
+                r => r.Update(It.IsAny<Todo>()),
+                Times.Never);
+        }
+
+        [Test]
+        public void Update_WhenGettingFailureFromRepo_ThrowsException()
+        {
+            todoRepository
+                .Setup(r => r.Update(It.Is<Todo>(t => t == persistedTodo)))
+                .Returns(false);
+
+            TestDelegate updateCall =
+                () => sut.Update(persistedTodo, collectionKey);
+
+            Assert.That(updateCall, Throws.TypeOf<UpdateFailedException>());
+
+            accessControlService.Verify(
+                a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()),
+                Times.Once);
+
+            todoRepository.Verify(
+                r => r.Update(It.Is<Todo>(t => t == persistedTodo)),
+                Times.Once);
+        }
+
+        [Test]
+        public void Update_WhenGettingSuccessFromRepo_Continues()
+        {
+            todoRepository
+                .Setup(r => r.Update(It.Is<Todo>(t => t == persistedTodo)))
+                .Returns(true);
+
+            sut.Update(persistedTodo, collectionKey);
+
+            accessControlService.Verify(
+                a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()),
+                Times.Once);
+
+            todoRepository.Verify(
+                r => r.Update(It.Is<Todo>(t => t == persistedTodo)),
                 Times.Once);
         }
     }

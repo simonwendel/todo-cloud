@@ -23,12 +23,16 @@ namespace TodoStorage.Domain
 
     internal class TodoService : ITodoService
     {
+        private IAccessControlService accessControlService;
+
         private ITodoRepository todoRepository;
 
-        public TodoService(ITodoRepository todoRepository)
+        public TodoService(IAccessControlService accessControlService, ITodoRepository todoRepository)
         {
+            Guard.EnsureNotNull(accessControlService, nameof(accessControlService));
             Guard.EnsureNotNull(todoRepository, nameof(todoRepository));
 
+            this.accessControlService = accessControlService;
             this.todoRepository = todoRepository;
         }
 
@@ -45,6 +49,23 @@ namespace TodoStorage.Domain
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 
             return todoRepository.Add(todo, collectionKey);
+        }
+
+        public void Update(Todo todo, CollectionKey collectionKey)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+            Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
+
+            if (accessControlService.IsOwnerOf(collectionKey, todo) == false)
+            {
+                throw new AccessControlException();
+            }
+
+            var didUpdate = todoRepository.Update(todo);
+            if (didUpdate == false)
+            {
+                throw new UpdateFailedException();
+            }
         }
     }
 }

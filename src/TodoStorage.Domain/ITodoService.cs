@@ -25,5 +25,7 @@ namespace TodoStorage.Domain
         IList<Todo> GetAll(CollectionKey collectionKey);
 
         Todo Add(Todo todo, CollectionKey collectionKey);
+
+        void Update(Todo todo, CollectionKey collectionKey);
     }
 }
