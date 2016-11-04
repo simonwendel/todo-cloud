@@ -26,6 +26,8 @@ namespace TodoStorage.Domain.Tests
     [TestFixture]
     internal class TodoListFactoryTests
     {
+        private TodoListFactory sut;
+
         private CollectionKey key;
 
         private IEnumerable<Todo> someTodo;
@@ -37,13 +39,13 @@ namespace TodoStorage.Domain.Tests
 
             key = fixture.Create<CollectionKey>();
             someTodo = fixture.CreateMany<Todo>();
+
+            sut = new TodoListFactory();
         }
 
         [Test]
         public void Create_GivenNullCollectionKey_ThrowsException()
         {
-            var sut = new TodoListFactory();
-
             TestDelegate methodCall =
                 () => sut.Create(null, someTodo);
 
@@ -53,8 +55,6 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Create_GivenNullTodo_ThrowsException()
         {
-            var sut = new TodoListFactory();
-
             TestDelegate methodCall =
                 () => sut.Create(key, null);
 
@@ -64,8 +64,6 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Create_GivenKeyAndTodo_ReturnsTodoList()
         {
-            var sut = new TodoListFactory();
-
             var result = sut.Create(key, someTodo);
 
             Assert.That(result, Is.Not.Null);
