@@ -24,15 +24,11 @@ namespace TodoStorage.Domain
     {
         private readonly ITodoService todoService;
 
-        private readonly ITodoListFactory listFactory;
-
-        public TodoListService(ITodoService todoService, ITodoListFactory listFactory)
+        public TodoListService(ITodoService todoService)
         {
             Guard.EnsureNotNull(todoService, nameof(todoService));
-            Guard.EnsureNotNull(listFactory, nameof(listFactory));
 
             this.todoService = todoService;
-            this.listFactory = listFactory;
         }
 
         public TodoList GetList(CollectionKey collectionKey)
@@ -40,8 +36,7 @@ namespace TodoStorage.Domain
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 
             var todo = todoService.GetAll(collectionKey);
-            var list = listFactory.Create(collectionKey, todo);
-            return list;
+            return new TodoList(todoService, collectionKey, todo);
         }
     }
 }
