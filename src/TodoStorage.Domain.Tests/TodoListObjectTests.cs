@@ -24,8 +24,12 @@ namespace TodoStorage.Domain.Tests
     using NUnit.Framework;
     using Ploeh.AutoFixture;
 
+    /// <summary>
+    /// Unit tests basic <see cref="TodoList"/> object creation through constructor tests and 
+    /// tests for the Object overrides on that class.
+    /// </summary>
     [TestFixture]
-    internal class TodoListTests
+    internal class TodoListObjectTests
     {
         private CollectionKey key;
 
