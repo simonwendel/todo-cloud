@@ -58,6 +58,7 @@
     <Compile Include="IAccessControlService.cs" />
     <Compile Include="IAccessControlRepository.cs" />
     <Compile Include="TodoService.cs" />
+    <Compile Include="UpdateFailedException.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
