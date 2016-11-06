@@ -28,7 +28,7 @@ namespace TodoStorage.Domain
 
         private readonly CollectionKey key;
 
-        private readonly List<Todo> items;
+        private List<Todo> items;
 
         internal TodoList(ITodoService todoService, CollectionKey collectionKey)
         {
@@ -38,12 +38,20 @@ namespace TodoStorage.Domain
             key = collectionKey;
             this.todoService = todoService;
 
-            items = todoService.GetAll(key).ToList();
+            RefreshList();
         }
 
         public IReadOnlyList<Todo> Items => items.AsReadOnly();
 
         internal CollectionKey Key => key;
+
+        public void Add(Todo todo)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+
+            todoService.Add(todo, Key);
+            RefreshList();
+        }
 
         public override bool Equals(object obj)
         {
@@ -69,6 +77,11 @@ namespace TodoStorage.Domain
 
                 return hash;
             }
+        }
+
+        private void RefreshList()
+        {
+            items = todoService.GetAll(key).ToList();
         }
     }
 }
