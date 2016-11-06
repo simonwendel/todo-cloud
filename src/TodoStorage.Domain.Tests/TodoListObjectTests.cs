@@ -32,43 +32,50 @@ namespace TodoStorage.Domain.Tests
     [TestFixture]
     internal class TodoListObjectTests
     {
-        private ITodoService todoService;
+        private Mock<ITodoService> todoService;
 
         private CollectionKey key;
 
-        private IEnumerable<Todo> todos;
+        private IList<Todo> todos;
 
         private TodoList sut;
 
         private TodoList sameProperties;
 
-        private TodoList[] someDiffering;
+        private TodoList someDiffering;
 
         [SetUp]
         public void Setup()
         {
-            todoService = Mock.Of<ITodoService>();
-
             var fixture = new Fixture();
 
             key = fixture.Create<CollectionKey>();
-            todos = fixture.CreateMany<Todo>();
+            var otherKey = fixture.Create<CollectionKey>();
 
-            sut = new TodoList(todoService, key, todos);
+            todos = fixture.CreateMany<Todo>().ToList();
+            var otherTodos = fixture.CreateMany<Todo>().ToList();
 
-            sameProperties = new TodoList(todoService, key, todos);
-            someDiffering = new[]
-            {
-                new TodoList(todoService, fixture.Create<CollectionKey>(), todos),
-                new TodoList(todoService, key, fixture.CreateMany<Todo>())
-            };
+            todoService = new Mock<ITodoService>();
+
+            todoService
+                .Setup(s => s.GetAll(It.Is<CollectionKey>(k => k == key)))
+                .Returns(todos);
+
+            todoService
+                .Setup(s => s.GetAll(It.Is<CollectionKey>(k => k == otherKey)))
+                .Returns(otherTodos);
+
+            sut = new TodoList(todoService.Object, key);
+
+            sameProperties = new TodoList(todoService.Object, key);
+            someDiffering = new TodoList(todoService.Object, otherKey);
         }
 
         [Test]
         public void Ctor_GivenNullTodoService_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new TodoList(null, key, todos);
+                () => new TodoList(null, key);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -77,16 +84,7 @@ namespace TodoStorage.Domain.Tests
         public void Ctor_GivenNullListKey_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new TodoList(todoService, null, todos);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
-        }
-
-        [Test]
-        public void Ctor_GivenNullTodoItems_ThrowsException()
-        {
-            TestDelegate constructorCall =
-                () => new TodoList(todoService, key, null);
+                () => new TodoList(todoService.Object, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -98,7 +96,15 @@ namespace TodoStorage.Domain.Tests
         }
 
         [Test]
-        public void Ctor_GivenTodoItems_ConstructsNonEmptyList()
+        public void Ctor_GivenTodoService_CallsTodoService()
+        {
+            todoService.Verify(
+                s => s.GetAll(It.Is<CollectionKey>(k => k == key)),
+                Times.AtLeastOnce);
+        }
+
+        [Test]
+        public void Ctor_GivenTodoService_PopulatesTheList()
         {
             Assert.That(sut.Items, Is.EquivalentTo(todos));
         }
@@ -124,10 +130,7 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
         {
-            foreach (var otherTodoList in someDiffering)
-            {
-                Assert.That(sut.Equals(otherTodoList), Is.False);
-            }
+            Assert.That(sut.Equals(someDiffering), Is.False);
         }
 
         [Test]

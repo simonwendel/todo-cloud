@@ -57,17 +57,17 @@ namespace TodoStorage.Domain.Tests
         }
 
         [Test]
-        public void GetList_GivenCollectionKey_ConstructsFromTodoService()
+        public void GetList_GivenCollectionKey_ReturnsList()
         {
             var fixture = new Fixture();
             var collectionKey = fixture.Create<CollectionKey>();
             var todoItems = fixture.CreateMany<Todo>().ToList();
 
-            var expected = new TodoList(Mock.Of<ITodoService>(), collectionKey, todoItems);
-
             todoService
                 .Setup(r => r.GetAll(It.Is<CollectionKey>(key => key.Equals(collectionKey))))
                 .Returns(todoItems);
+
+            var expected = new TodoList(todoService.Object, collectionKey);
 
             var actual = sut.GetList(collectionKey);
 

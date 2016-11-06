@@ -30,14 +30,15 @@ namespace TodoStorage.Domain
 
         private readonly List<Todo> items;
 
-        internal TodoList(ITodoService todoService, CollectionKey collectionKey, IEnumerable<Todo> itemsTodo)
+        internal TodoList(ITodoService todoService, CollectionKey collectionKey)
         {
             Guard.EnsureNotNull(todoService, nameof(todoService));
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
-            Guard.EnsureNotNull(itemsTodo, nameof(itemsTodo));
 
             key = collectionKey;
-            items = new List<Todo>(itemsTodo);
+            this.todoService = todoService;
+
+            items = todoService.GetAll(key).ToList();
         }
 
         public IReadOnlyList<Todo> Items => items.AsReadOnly();

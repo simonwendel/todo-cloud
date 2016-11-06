@@ -35,8 +35,7 @@ namespace TodoStorage.Domain
         {
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 
-            var todo = todoService.GetAll(collectionKey);
-            return new TodoList(todoService, collectionKey, todo);
+            return new TodoList(todoService, collectionKey);
         }
     }
 }
