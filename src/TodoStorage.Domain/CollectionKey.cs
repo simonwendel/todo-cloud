@@ -19,6 +19,7 @@
 namespace TodoStorage.Domain
 {
     using System;
+    using SimonWendel.GuardStatements;
 
     public class CollectionKey
     {
@@ -26,10 +27,7 @@ namespace TodoStorage.Domain
         
         public CollectionKey(Guid identifier)
         {
-            if (identifier.Equals(Guid.Empty))
-            {
-                throw new ArgumentException("Empty collection key identifier not allowed", nameof(identifier));
-            }
+            Guard.EnsureNonempty(identifier, nameof(identifier));
 
             this.identifier = identifier;
         }
