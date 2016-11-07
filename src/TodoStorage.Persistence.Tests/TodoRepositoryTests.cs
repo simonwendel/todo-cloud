@@ -57,7 +57,7 @@ namespace TodoStorage.Persistence.Tests
             newTodo = fixture.Create<Todo>();
             newTodo
                 .SetProperty(t => t.Id, nonPersistedId)
-                .SetProperty(t => t.Color, new Color("cname", "cvalue"))
+                .SetProperty(t => t.Color, Color.Valid.ElementAt(3))
                 .SetProperty(t => t.Created, newTodo.Created.SqlNormalize())
                 .SetProperty(t => t.NextOccurrence, newTodo.NextOccurrence.SqlNormalize());
         }
