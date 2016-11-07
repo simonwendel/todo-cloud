@@ -18,10 +18,21 @@
 
 namespace TodoStorage.Domain
 {
+    using System.Collections.Generic;
     using SimonWendel.GuardStatements;
 
     public class Color
     {
+        private static readonly Color[] AVAILABLECOLORS = new[]
+        {
+            new Color("CRIMSON__COLOR", "crimson"),
+            new Color("DARKBLUE__COLOR", "darkblue"),
+            new Color("PURPLE__COLOR", "purple"),
+            new Color("SEAGREEN__COLOR", "seagreen"),
+            new Color("TOMATO__COLOR", "tomato"),
+            new Color("VIOLET__COLOR", "violet")
+        };
+
         private readonly string colorName;
 
         private readonly string colorValue;
@@ -34,6 +45,8 @@ namespace TodoStorage.Domain
             this.colorName = colorName;
             this.colorValue = colorValue;
         }
+
+        public static IEnumerable<Color> Valid => AVAILABLECOLORS;
 
         public string ColorName => colorName;
 

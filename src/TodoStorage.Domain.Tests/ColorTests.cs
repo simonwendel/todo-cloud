@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Domain.Tests
 {
+    using System.Linq;
     using Domain;
     using NUnit.Framework;
 
@@ -70,6 +71,11 @@ namespace TodoStorage.Domain.Tests
         }
 
         [Test]
+        public void Valid_ShouldBeInitialized()
+        {
+            Assert.That(Color.Valid.Count(), Is.EqualTo(6));
+        }
+
         public void Equals_GivenSameObject_ReturnsTrue()
         {
             var sut = new Color("Name", "Value");
