@@ -54,6 +54,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IConnectionStringResolver.cs" />
     <Compile Include="IDbConnectionFactory.cs" />
+    <Compile Include="PersistedTodoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerConnectionFactory.cs" />
     <Compile Include="TodoRepository.cs" />

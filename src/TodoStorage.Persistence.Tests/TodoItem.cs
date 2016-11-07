@@ -21,7 +21,6 @@ namespace TodoStorage.Persistence.Tests
         public System.DateTime Created { get; set; }
         public int Recurring { get; set; }
         public Nullable<System.DateTime> NextOccurrence { get; set; }
-        public string ColorName { get; set; }
         public string ColorValue { get; set; }
     }
 }

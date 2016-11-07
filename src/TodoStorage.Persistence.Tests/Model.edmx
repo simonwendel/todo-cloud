@@ -16,7 +16,6 @@
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="Recurring" Type="int" Nullable="false" />
           <Property Name="NextOccurrence" Type="datetime" />
-          <Property Name="ColorName" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="ColorValue" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityContainer Name="TodoStoragePersistenceTestsModelStoreContainer">
@@ -38,7 +37,6 @@
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Recurring" Type="Int32" Nullable="false" />
           <Property Name="NextOccurrence" Type="DateTime" Precision="3" />
-          <Property Name="ColorName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ColorValue" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityContainer Name="TodoStorageSeedContext" annotation:LazyLoadingEnabled="true">
@@ -60,7 +58,6 @@
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Recurring" ColumnName="Recurring" />
                 <ScalarProperty Name="NextOccurrence" ColumnName="NextOccurrence" />
-                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
                 <ScalarProperty Name="ColorValue" ColumnName="ColorValue" />
               </MappingFragment>
             </EntityTypeMapping>

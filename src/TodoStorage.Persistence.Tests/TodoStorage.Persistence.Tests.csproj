@@ -88,6 +88,7 @@
     <Compile Include="AccessControlRepositoryTests.cs" />
     <Compile Include="ConnectionStringResolverTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="PersistedTodoModelTests.cs" />
     <Compile Include="Seed\Data.cs" />
     <Compile Include="TodoRepositoryTests.cs" />
     <Compile Include="Utilities\DateTimeExtensions.cs" />

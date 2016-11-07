@@ -35,7 +35,6 @@ SELECT
     [Created],
     [Recurring],
     [NextOccurrence],
-    [ColorName],
     [ColorValue]
 FROM
     [TodoItem]
@@ -56,7 +55,6 @@ INSERT INTO
         [Created],
         [Recurring],
         [NextOccurrence],
-        [ColorName],
         [ColorValue]
     )
 VALUES (
@@ -66,7 +64,6 @@ VALUES (
     @Created,
     @Recurring,
     @NextOccurrence,
-    @ColorName,
     @ColorValue
 );
 SELECT CAST(SCOPE_IDENTITY() as INT)";
@@ -82,7 +79,6 @@ SET
     [Created] = @Created,
     [Recurring] = @Recurring,
     [NextOccurrence] = @NextOccurrence,
-    [ColorName] = @ColorName,
     [ColorValue] = @ColorValue
 WHERE
     [Id] = @Id";

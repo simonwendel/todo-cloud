@@ -41,13 +41,13 @@ namespace TodoStorage.Persistence
 
             using (var connection = connectionFactory.GetConnection())
             {
-                var whereConstraint = new { StorageKey = collectionKey.Identifier };
-                return connection
-                    .Query<Todo, Color, Todo>(
+                var where = new { StorageKey = collectionKey.Identifier };
+                var persistedTodo = connection.Query<PersistedTodoModel>(
                         TodoRepositorySql.SelectMany,
-                        AttachColorTypeObjectToTodo,
-                        whereConstraint,
-                        splitOn: "ColorName")
+                        where);
+
+                return persistedTodo
+                    .Select(PersistedTodoModel.Reconstitute)
                     .ToList();
             }
         }
@@ -59,19 +59,14 @@ namespace TodoStorage.Persistence
 
             using (var connection = connectionFactory.GetConnection())
             {
+                var persistedTodo = new PersistedTodoModel(todo)
+                {
+                    StorageKey = collectionKey.Identifier
+                };
+
                 var insertedId = connection.Query<int>(
                     TodoRepositorySql.Add,
-                    new
-                    {
-                        StorageKey = collectionKey.Identifier,
-                        Title = todo.Title,
-                        Description = todo.Description,
-                        Created = todo.Created,
-                        Recurring = todo.Recurring,
-                        NextOccurrence = todo.NextOccurrence,
-                        ColorName = todo.Color.ColorName,
-                        ColorValue = todo.Color.ColorValue
-                    }).Single();
+                    persistedTodo).Single();
 
                 return insertedId;
             }
@@ -83,19 +78,10 @@ namespace TodoStorage.Persistence
 
             using (var connection = connectionFactory.GetConnection())
             {
+                var persistedTodo = new PersistedTodoModel(todo);
                 var rowsAffected = connection.Execute(
                     TodoRepositorySql.Update,
-                    new
-                    {
-                        Id = todo.Id,
-                        Title = todo.Title,
-                        Description = todo.Description,
-                        Created = todo.Created,
-                        Recurring = todo.Recurring,
-                        NextOccurrence = todo.NextOccurrence,
-                        ColorName = todo.Color.ColorName,
-                        ColorValue = todo.Color.ColorValue
-                    });
+                    persistedTodo);
                 return rowsAffected != 0;
             }
         }
@@ -114,12 +100,6 @@ namespace TodoStorage.Persistence
                 var rowsAffected = connection.Execute(TodoRepositorySql.Delete, new { Id = todo.Id.Value });
                 return rowsAffected != 0;
             }
-        }
-
-        private static Todo AttachColorTypeObjectToTodo(Todo todo, Color color)
-        {
-            todo.Color = color;
-            return todo;
         }
     }
 }
