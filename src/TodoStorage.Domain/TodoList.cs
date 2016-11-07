@@ -61,6 +61,8 @@ namespace TodoStorage.Domain
             RefreshList();
         }
 
+        #region System.Object overrides
+
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -86,6 +88,8 @@ namespace TodoStorage.Domain
                 return hash;
             }
         }
+
+        #endregion
 
         private void RefreshList()
         {
