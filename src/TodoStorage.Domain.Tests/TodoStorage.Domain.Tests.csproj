@@ -73,7 +73,7 @@
     <Compile Include="AccessControlServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TodoListOperationsTests.cs" />
-    <Compile Include="TodoListServiceTests.cs" />
+    <Compile Include="TodoListFactoryTests.cs" />
     <Compile Include="TodoListObjectTests.cs" />
     <Compile Include="TodoServiceTests.cs" />
     <Compile Include="TodoTests.cs" />

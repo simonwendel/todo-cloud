@@ -18,24 +18,8 @@
 
 namespace TodoStorage.Domain
 {
-    using SimonWendel.GuardStatements;
-
-    internal class TodoListService : ITodoListService
+    public interface ITodoListFactory
     {
-        private readonly ITodoService todoService;
-
-        public TodoListService(ITodoService todoService)
-        {
-            Guard.EnsureNotNull(todoService, nameof(todoService));
-
-            this.todoService = todoService;
-        }
-
-        public TodoList GetList(CollectionKey collectionKey)
-        {
-            Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
-
-            return new TodoList(todoService, collectionKey);
-        }
+        TodoList GetList(CollectionKey collectionKey);
     }
 }

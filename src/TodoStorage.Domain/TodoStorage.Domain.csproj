@@ -48,12 +48,12 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="AccessControlException.cs" />
     <Compile Include="AccessControlService.cs" />
-    <Compile Include="ITodoListService.cs" />
+    <Compile Include="ITodoListFactory.cs" />
     <Compile Include="ITodoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Todo.cs" />
     <Compile Include="TodoList.cs" />
-    <Compile Include="TodoListService.cs" />
+    <Compile Include="TodoListFactory.cs" />
     <Compile Include="IAccessControlService.cs" />
     <Compile Include="IAccessControlRepository.cs" />
     <Compile Include="TodoService.cs" />

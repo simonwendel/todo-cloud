@@ -25,9 +25,9 @@ namespace TodoStorage.Domain.Tests
     using Ploeh.AutoFixture;
 
     [TestFixture]
-    internal class TodoListServiceTests
+    internal class TodoListFactoryTests
     {
-        private TodoListService sut;
+        private TodoListFactory sut;
 
         private Mock<ITodoService> todoService;
 
@@ -35,14 +35,14 @@ namespace TodoStorage.Domain.Tests
         public void Setup()
         {
             todoService = new Mock<ITodoService>();
-            sut = new TodoListService(todoService.Object);
+            sut = new TodoListFactory(todoService.Object);
         }
 
         [Test]
         public void Ctor_GivenNullTodoService_ThrowsException()
         {
             TestDelegate constructorCall = 
-                () => new TodoListService(null);
+                () => new TodoListFactory(null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
