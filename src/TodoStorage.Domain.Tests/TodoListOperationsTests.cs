@@ -122,5 +122,38 @@ namespace TodoStorage.Domain.Tests
                 s => s.GetAll(It.IsAny<CollectionKey>()),
                 Times.Exactly(2));
         }
+
+        [Test]
+        public void Delete_GivenNullTodo_ThrowsException()
+        {
+            TestDelegate deleteCall =
+                () => sut.Delete(null);
+
+            Assert.That(deleteCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Delete_GivenTodo_DeletesViaTodoService()
+        {
+            sut.Delete(someTodo);
+
+            todoService.Verify(
+                s => s.Delete(It.Is<Todo>(t => t == someTodo), It.Is<CollectionKey>(k => k == key)),
+                Times.Once);
+        }
+
+        [Test]
+        public void Delete_GivenTodo_RefreshesFromTodoService()
+        {
+            todoService.Verify(
+                s => s.GetAll(It.IsAny<CollectionKey>()),
+                Times.Once);
+
+            sut.Delete(someTodo);
+
+            todoService.Verify(
+                s => s.GetAll(It.IsAny<CollectionKey>()),
+                Times.Exactly(2));
+        }
     }
 }

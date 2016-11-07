@@ -61,6 +61,14 @@ namespace TodoStorage.Domain
             RefreshList();
         }
 
+        public void Delete(Todo todo)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+
+            todoService.Delete(todo, Key);
+            RefreshList();
+        }
+
         #region System.Object overrides
 
         public override bool Equals(object obj)
