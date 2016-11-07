@@ -48,16 +48,16 @@ namespace TodoStorage.Domain.Tests
         }
 
         [Test]
-        public void GetList_GivenNullCollectionKey_ThrowsException()
+        public void Create_GivenNullCollectionKey_ThrowsException()
         {
             TestDelegate methodCall =
-                () => sut.GetList(null);
+                () => sut.Create(null);
 
             Assert.That(methodCall, Throws.ArgumentNullException);
         }
 
         [Test]
-        public void GetList_GivenCollectionKey_ReturnsList()
+        public void Create_GivenCollectionKey_ReturnsList()
         {
             var fixture = new Fixture();
             var collectionKey = fixture.Create<CollectionKey>();
@@ -69,7 +69,7 @@ namespace TodoStorage.Domain.Tests
 
             var expected = new TodoList(todoService.Object, collectionKey);
 
-            var actual = sut.GetList(collectionKey);
+            var actual = sut.Create(collectionKey);
 
             Assert.That(actual, Is.EqualTo(expected));
             todoService.VerifyAll();

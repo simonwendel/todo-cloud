@@ -20,6 +20,6 @@ namespace TodoStorage.Domain
 {
     public interface ITodoListFactory
     {
-        TodoList GetList(CollectionKey collectionKey);
+        TodoList Create(CollectionKey collectionKey);
     }
 }
