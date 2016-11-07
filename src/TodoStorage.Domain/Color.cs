@@ -19,6 +19,7 @@
 namespace TodoStorage.Domain
 {
     using System.Collections.Generic;
+    using System.Linq;
     using SimonWendel.GuardStatements;
 
     public class Color
@@ -51,6 +52,19 @@ namespace TodoStorage.Domain
         public string ColorName => colorName;
 
         public string ColorValue => colorValue;
+
+        public static Color Pick(string colorValue)
+        {
+            Guard.EnsureNotNull(colorValue, nameof(colorValue));
+
+            var color = Valid.FirstOrDefault(c => c.colorValue.Equals(colorValue));
+            if (color == null)
+            {
+                throw new IllegalValueException();
+            }
+
+            return color;
+        }
 
         public override bool Equals(object obj)
         {

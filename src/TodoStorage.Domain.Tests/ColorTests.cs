@@ -76,6 +76,35 @@ namespace TodoStorage.Domain.Tests
             Assert.That(Color.Valid.Count(), Is.EqualTo(6));
         }
 
+        [Test]
+        public void Pick_GivenNullColorValue_ThrowsException()
+        {
+            TestDelegate pickCall =
+                () => Color.Pick(null);
+
+            Assert.That(pickCall, Throws.ArgumentNullException);
+        }
+
+        [TestCase("meh")]
+        [TestCase("")]
+        public void Pick_GivenInvalidValues_ThrowsException(string colorValue)
+        {
+            TestDelegate pickCall =
+                () => Color.Pick(colorValue);
+
+            Assert.That(pickCall, Throws.TypeOf<IllegalValueException>());
+        }
+
+        [Test]
+        public void Pick_GivenAnyAvailableValue_ReturnsColor()
+        {
+            foreach (var color in Color.Valid)
+            {
+                Assert.That(Color.Pick(color.ColorValue), Is.EqualTo(color));
+            }
+        }
+
+        [Test]
         public void Equals_GivenSameObject_ReturnsTrue()
         {
             var sut = new Color("Name", "Value");
