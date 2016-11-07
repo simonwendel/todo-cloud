@@ -71,9 +71,9 @@ namespace TodoStorage.Domain.Tests
         }
 
         [Test]
-        public void Valid_ShouldBeInitialized()
+        public void Available_ShouldBeInitialized()
         {
-            Assert.That(Color.Valid.Count(), Is.EqualTo(6));
+            Assert.That(Color.Available.Count(), Is.EqualTo(6));
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Pick_GivenAnyAvailableValue_ReturnsColor()
         {
-            foreach (var color in Color.Valid)
+            foreach (var color in Color.Available)
             {
                 Assert.That(Color.Pick(color.ColorValue), Is.EqualTo(color));
             }

@@ -47,7 +47,7 @@ namespace TodoStorage.Domain
             this.colorValue = colorValue;
         }
 
-        public static IEnumerable<Color> Valid => AVAILABLECOLORS;
+        public static IEnumerable<Color> Available => AVAILABLECOLORS;
 
         public string ColorName => colorName;
 
@@ -57,7 +57,7 @@ namespace TodoStorage.Domain
         {
             Guard.EnsureNotNull(colorValue, nameof(colorValue));
 
-            var color = Valid.FirstOrDefault(c => c.colorValue.Equals(colorValue));
+            var color = Available.FirstOrDefault(c => c.colorValue.Equals(colorValue));
             if (color == null)
             {
                 throw new IllegalValueException();
