@@ -52,6 +52,14 @@ namespace TodoStorage.Domain
             todoService.Add(todo, Key);
             RefreshList();
         }
+        
+        public void Update(Todo todo)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+
+            todoService.Update(todo, Key);
+            RefreshList();
+        }
 
         public override bool Equals(object obj)
         {

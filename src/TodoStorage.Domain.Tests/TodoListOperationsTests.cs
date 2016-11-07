@@ -38,7 +38,7 @@ namespace TodoStorage.Domain.Tests
 
         private IList<Todo> todos;
 
-        private Todo newTodo;
+        private Todo someTodo;
 
         [SetUp]
         public void Setup()
@@ -47,7 +47,7 @@ namespace TodoStorage.Domain.Tests
 
             key = fixture.Create<CollectionKey>();
             todos = fixture.CreateMany<Todo>().ToList();
-            newTodo = fixture.Create<Todo>();
+            someTodo = fixture.Create<Todo>();
 
             todoService = new Mock<ITodoService>();
             todoService
@@ -69,10 +69,10 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Add_GivenTodo_AddsViaTodoService()
         {
-            sut.Add(newTodo);
+            sut.Add(someTodo);
 
             todoService.Verify(
-                s => s.Add(It.Is<Todo>(t => t == newTodo), It.Is<CollectionKey>(k => k == key)),
+                s => s.Add(It.Is<Todo>(t => t == someTodo), It.Is<CollectionKey>(k => k == key)),
                 Times.Once);
         }
 
@@ -83,7 +83,40 @@ namespace TodoStorage.Domain.Tests
                 s => s.GetAll(It.IsAny<CollectionKey>()),
                 Times.Once);
 
-            sut.Add(newTodo);
+            sut.Add(someTodo);
+
+            todoService.Verify(
+                s => s.GetAll(It.IsAny<CollectionKey>()),
+                Times.Exactly(2));
+        }
+
+        [Test]
+        public void Update_GivenNullTodo_ThrowsException()
+        {
+            TestDelegate updateCall =
+                () => sut.Update(null);
+
+            Assert.That(updateCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Update_GivenTodo_UpdatesViaTodoService()
+        {
+            sut.Update(someTodo);
+
+            todoService.Verify(
+                s => s.Update(It.Is<Todo>(t => t == someTodo), It.Is<CollectionKey>(k => k == key)),
+                Times.Once);
+        }
+
+        [Test]
+        public void Update_GivenTodo_RefreshesFromTodoService()
+        {
+            todoService.Verify(
+                s => s.GetAll(It.IsAny<CollectionKey>()),
+                Times.Once);
+
+            sut.Update(someTodo);
 
             todoService.Verify(
                 s => s.GetAll(It.IsAny<CollectionKey>()),
