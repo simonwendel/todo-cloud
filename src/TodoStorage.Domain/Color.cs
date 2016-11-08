@@ -37,11 +37,6 @@ namespace TodoStorage.Domain
             this.colorValue = colorValue;
         }
 
-        public static IEnumerable<Color> Available => new[]
-        {
-            Crimson, DarkBlue, Purple, SeaGreen, Tomato, Violet
-        };
-
         public static Color Crimson { get; } = new Color("CRIMSON__COLOR", "crimson");
 
         public static Color DarkBlue { get; } = new Color("DARKBLUE__COLOR", "darkblue");
@@ -53,6 +48,8 @@ namespace TodoStorage.Domain
         public static Color Tomato { get; } = new Color("TOMATO__COLOR", "tomato");
 
         public static Color Violet { get; } = new Color("VIOLET__COLOR", "violet");
+
+        public static IEnumerable<Color> Available { get; } = new[] { Crimson, DarkBlue, Purple, SeaGreen, Tomato, Violet };
 
         public string ColorName => colorName;
 
