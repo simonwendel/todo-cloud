@@ -26,51 +26,6 @@ namespace TodoStorage.Domain.Tests
     internal class ColorTests
     {
         [Test]
-        public void Ctor_GivenNameAndValue_SetsProperties()
-        {
-            var sut = new Color("some name", "some value");
-
-            Assert.That(sut.Name, Is.EqualTo("some name"));
-            Assert.That(sut.Value, Is.EqualTo("some value"));
-        }
-
-        [Test]
-        public void Ctor_GivenNullColorName_ThrowsException()
-        {
-            TestDelegate constructorCall = 
-                () => new Color(null, "some value");
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
-        }
-
-        [Test]
-        public void Ctor_GivenNullColorValue_ThrowsException()
-        {
-            TestDelegate constructorCall = 
-                () => new Color("some name", null);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
-        }
-
-        [Test]
-        public void Ctor_GivenEmptyColorName_ThrowsException()
-        {
-            TestDelegate constructorCall =
-                () => new Color(string.Empty, "some value");
-
-            Assert.That(constructorCall, Throws.ArgumentException);
-        }
-
-        [Test]
-        public void Ctor_GivenEmptyColorValue_ThrowsException()
-        {
-            TestDelegate constructorCall =
-                () => new Color("some name", string.Empty);
-
-            Assert.That(constructorCall, Throws.ArgumentException);
-        }
-
-        [Test]
         public void Available_ShouldBeInitialized()
         {
             Assert.That(Color.Available.Count(), Is.EqualTo(6));
@@ -107,26 +62,17 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Equals_GivenSameObject_ReturnsTrue()
         {
-            var sut = new Color("Name", "Value");
+            var sut = Color.Crimson;
 
             Assert.That(sut.Equals(sut), Is.True);
         }
 
         [Test]
-        public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
-        {
-            var color = new Color("Name", "Value");
-            var sut = new Color("Name", "Value");
-
-            Assert.That(sut.Equals(color), Is.True);
-        }
-
-        [Test]
         public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
         {
-            var color1 = new Color("Name2", "Value");
-            var color2 = new Color("Name", "Value2");
-            var sut = new Color("Name", "Value");
+            var color1 = Color.Violet;
+            var color2 = Color.Purple;
+            var sut = Color.SeaGreen;
 
             Assert.That(sut.Equals(color1), Is.False);
             Assert.That(sut.Equals(color2), Is.False);
@@ -135,7 +81,7 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void Equals_GivenNull_ReturnsFalse()
         {
-            var sut = new Color("Name", "Value");
+            var sut = Color.DarkBlue;
 
             Assert.That(sut.Equals(null), Is.False);
         }
@@ -143,7 +89,7 @@ namespace TodoStorage.Domain.Tests
         [Test]
         public void GetHashCode_ReturnsHashByProperties()
         {
-            var sut = new Color("A Color Name", "A Color Value");
+            var sut = Color.Tomato;
             var start = 17;
             var multiplier = 486187739;
 

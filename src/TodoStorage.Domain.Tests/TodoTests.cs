@@ -45,7 +45,7 @@ namespace TodoStorage.Domain.Tests
                 .With(t => t.Title, "T1")
                 .With(t => t.Description, "D1")
                 .With(t => t.Created, created)
-                .With(t => t.Color, new Color("CN1", "CV1"))
+                .With(t => t.Color, Color.Crimson)
                 .With(t => t.Recurring, 4)
                 .With(t => t.NextOccurrence, created.AddDays(3)));
 
@@ -58,7 +58,7 @@ namespace TodoStorage.Domain.Tests
                 fixture.Create<Todo>().SetProperty(t => t.Title, "T2"),
                 fixture.Create<Todo>().SetProperty(t => t.Description, "D2"),
                 fixture.Create<Todo>().SetProperty(t => t.Created, created.AddDays(1)),
-                fixture.Create<Todo>().SetProperty(t => t.Color, new Color("CN2", "CV1")),
+                fixture.Create<Todo>().SetProperty(t => t.Color, Color.DarkBlue),
                 fixture.Create<Todo>().SetProperty(t => t.Recurring, 5),
                 fixture.Create<Todo>().SetProperty(t => t.NextOccurrence, created.AddDays(4))
             };

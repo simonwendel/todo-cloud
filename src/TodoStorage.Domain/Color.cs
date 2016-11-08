@@ -28,11 +28,8 @@ namespace TodoStorage.Domain
 
         private readonly string value;
 
-        public Color(string name, string value)
+        private Color(string name, string value)
         {
-            Guard.EnsureNonempty(name, nameof(name));
-            Guard.EnsureNonempty(value, nameof(value));
-
             this.name = name;
             this.value = value;
         }
