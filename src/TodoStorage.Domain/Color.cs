@@ -24,16 +24,6 @@ namespace TodoStorage.Domain
 
     public class Color
     {
-        private static readonly Color[] AVAILABLECOLORS = new[]
-        {
-            new Color("CRIMSON__COLOR", "crimson"),
-            new Color("DARKBLUE__COLOR", "darkblue"),
-            new Color("PURPLE__COLOR", "purple"),
-            new Color("SEAGREEN__COLOR", "seagreen"),
-            new Color("TOMATO__COLOR", "tomato"),
-            new Color("VIOLET__COLOR", "violet")
-        };
-
         private readonly string colorName;
 
         private readonly string colorValue;
@@ -47,7 +37,22 @@ namespace TodoStorage.Domain
             this.colorValue = colorValue;
         }
 
-        public static IEnumerable<Color> Available => AVAILABLECOLORS;
+        public static IEnumerable<Color> Available => new[]
+        {
+            Crimson, DarkBlue, Purple, SeaGreen, Tomato, Violet
+        };
+
+        public static Color Crimson { get; } = new Color("CRIMSON__COLOR", "crimson");
+
+        public static Color DarkBlue { get; } = new Color("DARKBLUE__COLOR", "darkblue");
+
+        public static Color Purple { get; } = new Color("PURPLE__COLOR", "purple");
+
+        public static Color SeaGreen { get; } = new Color("SEAGREEN__COLOR", "seagreen");
+
+        public static Color Tomato { get; } = new Color("TOMATO__COLOR", "tomato");
+
+        public static Color Violet { get; } = new Color("VIOLET__COLOR", "violet");
 
         public string ColorName => colorName;
 
