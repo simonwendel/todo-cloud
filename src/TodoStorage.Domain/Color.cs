@@ -26,15 +26,15 @@ namespace TodoStorage.Domain
     {
         private readonly string name;
 
-        private readonly string colorValue;
+        private readonly string value;
 
-        public Color(string name, string colorValue)
+        public Color(string name, string value)
         {
             Guard.EnsureNonempty(name, nameof(name));
-            Guard.EnsureNonempty(colorValue, nameof(colorValue));
+            Guard.EnsureNonempty(value, nameof(value));
 
             this.name = name;
-            this.colorValue = colorValue;
+            this.value = value;
         }
 
         public static Color Crimson { get; } = new Color("CRIMSON__COLOR", "crimson");
@@ -53,13 +53,13 @@ namespace TodoStorage.Domain
 
         public string Name => name;
 
-        public string ColorValue => colorValue;
+        public string Value => value;
 
         public static Color Pick(string colorValue)
         {
             Guard.EnsureNotNull(colorValue, nameof(colorValue));
 
-            var color = Available.FirstOrDefault(c => c.colorValue.Equals(colorValue));
+            var color = Available.FirstOrDefault(c => c.value.Equals(colorValue));
             if (color == null)
             {
                 throw new IllegalValueException();
@@ -77,7 +77,7 @@ namespace TodoStorage.Domain
 
             var otherColor = obj as Color;
             return Name.Equals(otherColor.Name)
-                && ColorValue.Equals(otherColor.ColorValue);
+                && Value.Equals(otherColor.Value);
         }
 
         public override int GetHashCode()
@@ -86,7 +86,7 @@ namespace TodoStorage.Domain
             {
                 var hash = 17;
                 hash = (hash * 486187739) + name.GetHashCode();
-                hash = (hash * 486187739) + colorValue.GetHashCode();
+                hash = (hash * 486187739) + value.GetHashCode();
                 return hash;
             }
         }

@@ -35,7 +35,7 @@ namespace TodoStorage.Persistence
             Created = todo.Created;
             Recurring = todo.Recurring;
             NextOccurrence = todo.NextOccurrence;
-            ColorValue = todo.Color.ColorValue;
+            ColorValue = todo.Color.Value;
         }
 
         public Guid StorageKey { get; set; }

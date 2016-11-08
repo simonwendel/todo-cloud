@@ -31,7 +31,7 @@ namespace TodoStorage.Domain.Tests
             var sut = new Color("some name", "some value");
 
             Assert.That(sut.Name, Is.EqualTo("some name"));
-            Assert.That(sut.ColorValue, Is.EqualTo("some value"));
+            Assert.That(sut.Value, Is.EqualTo("some value"));
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace TodoStorage.Domain.Tests
         {
             foreach (var color in Color.Available)
             {
-                Assert.That(Color.Pick(color.ColorValue), Is.EqualTo(color));
+                Assert.That(Color.Pick(color.Value), Is.EqualTo(color));
             }
         }
 
@@ -152,7 +152,7 @@ namespace TodoStorage.Domain.Tests
             {
                 hash = start;
                 hash = (hash * multiplier) + sut.Name.GetHashCode();
-                hash = (hash * multiplier) + sut.ColorValue.GetHashCode();
+                hash = (hash * multiplier) + sut.Value.GetHashCode();
             }
 
             Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
