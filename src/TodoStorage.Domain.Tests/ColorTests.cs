@@ -30,7 +30,7 @@ namespace TodoStorage.Domain.Tests
         {
             var sut = new Color("some name", "some value");
 
-            Assert.That(sut.ColorName, Is.EqualTo("some name"));
+            Assert.That(sut.Name, Is.EqualTo("some name"));
             Assert.That(sut.ColorValue, Is.EqualTo("some value"));
         }
 
@@ -151,7 +151,7 @@ namespace TodoStorage.Domain.Tests
             unchecked
             {
                 hash = start;
-                hash = (hash * multiplier) + sut.ColorName.GetHashCode();
+                hash = (hash * multiplier) + sut.Name.GetHashCode();
                 hash = (hash * multiplier) + sut.ColorValue.GetHashCode();
             }
 

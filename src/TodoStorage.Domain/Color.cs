@@ -24,16 +24,16 @@ namespace TodoStorage.Domain
 
     public class Color
     {
-        private readonly string colorName;
+        private readonly string name;
 
         private readonly string colorValue;
 
-        public Color(string colorName, string colorValue)
+        public Color(string name, string colorValue)
         {
-            Guard.EnsureNonempty(colorName, nameof(colorName));
+            Guard.EnsureNonempty(name, nameof(name));
             Guard.EnsureNonempty(colorValue, nameof(colorValue));
 
-            this.colorName = colorName;
+            this.name = name;
             this.colorValue = colorValue;
         }
 
@@ -51,7 +51,7 @@ namespace TodoStorage.Domain
 
         public static IEnumerable<Color> Available { get; } = new[] { Crimson, DarkBlue, Purple, SeaGreen, Tomato, Violet };
 
-        public string ColorName => colorName;
+        public string Name => name;
 
         public string ColorValue => colorValue;
 
@@ -76,7 +76,7 @@ namespace TodoStorage.Domain
             }
 
             var otherColor = obj as Color;
-            return ColorName.Equals(otherColor.ColorName)
+            return Name.Equals(otherColor.Name)
                 && ColorValue.Equals(otherColor.ColorValue);
         }
 
@@ -85,7 +85,7 @@ namespace TodoStorage.Domain
             unchecked
             {
                 var hash = 17;
-                hash = (hash * 486187739) + colorName.GetHashCode();
+                hash = (hash * 486187739) + name.GetHashCode();
                 hash = (hash * 486187739) + colorValue.GetHashCode();
                 return hash;
             }
