@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Api
+namespace TodoStorage.Api.Configuration
 {
     using System;
     using System.Web.Http;
