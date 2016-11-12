@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Tests for the TodoStorage.Domain Assembly")]
 [assembly: AssemblyProduct("TodoStorage.Domain.Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © Simon Wendel 2016")]
 [assembly: ComVisible(false)]
 [assembly: Guid("69a126a6-6f7f-4c6b-865e-3984853a8621")]
 [assembly: AssemblyVersion("1.0.0.0")]
