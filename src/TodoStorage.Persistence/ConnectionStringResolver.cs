@@ -26,6 +26,11 @@ namespace TodoStorage.Persistence
     {
         private readonly string connectionString;
 
+        public ConnectionStringResolver()
+            : this("TodoStorage")
+        {
+        }
+
         public ConnectionStringResolver(string connectionStringName)
         {
             Guard.EnsureNotNull(connectionStringName, nameof(connectionStringName));
