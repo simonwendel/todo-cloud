@@ -35,9 +35,9 @@ CASE
         0
 END";
 
-        private readonly IDbConnectionFactory connectionFactory;
+        private readonly IConnectionFactory connectionFactory;
 
-        public AccessControlRepository(IDbConnectionFactory connectionFactory)
+        public AccessControlRepository(IConnectionFactory connectionFactory)
         {
             Guard.EnsureNotNull(connectionFactory, nameof(connectionFactory));
 

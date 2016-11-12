@@ -26,9 +26,9 @@ namespace TodoStorage.Persistence
 
     internal class TodoRepository : ITodoRepository
     {
-        private readonly IDbConnectionFactory connectionFactory;
+        private readonly IConnectionFactory connectionFactory;
 
-        public TodoRepository(IDbConnectionFactory connectionFactory)
+        public TodoRepository(IConnectionFactory connectionFactory)
         {
             Guard.EnsureNotNull(connectionFactory, nameof(connectionFactory));
 

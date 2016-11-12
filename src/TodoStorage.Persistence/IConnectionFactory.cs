@@ -20,7 +20,7 @@ namespace TodoStorage.Persistence
 {
     using System.Data;
 
-    internal interface IDbConnectionFactory
+    internal interface IConnectionFactory
     {
         IDbConnection GetConnection();
     }
