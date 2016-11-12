@@ -129,6 +129,16 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TodoStorage.Domain\TodoStorage.Domain.csproj">
+      <Project>{8ea6b688-81c0-44d9-b241-7f5361c48c8a}</Project>
+      <Name>TodoStorage.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TodoStorage.Persistence\TodoStorage.Persistence.csproj">
+      <Project>{d327172c-35dc-4566-9c3f-7f947aaf71e9}</Project>
+      <Name>TodoStorage.Persistence</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
