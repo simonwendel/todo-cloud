@@ -13,9 +13,6 @@ namespace TodoStorage.Api.Configuration
     {
         private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
-        /// <summary>
-        /// Starts the application
-        /// </summary>
         public static void Start() 
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
@@ -23,18 +20,11 @@ namespace TodoStorage.Api.Configuration
             Bootstrapper.Initialize(CreateKernel);
         }
         
-        /// <summary>
-        /// Stops the application.
-        /// </summary>
         public static void Stop()
         {
             Bootstrapper.ShutDown();
         }
-        
-        /// <summary>
-        /// Creates the kernel that will manage your application.
-        /// </summary>
-        /// <returns>The created kernel.</returns>
+
         private static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
@@ -53,10 +43,6 @@ namespace TodoStorage.Api.Configuration
             }
         }
 
-        /// <summary>
-        /// Load your modules or register your services here!
-        /// </summary>
-        /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
         }        
