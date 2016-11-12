@@ -1,5 +1,5 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TodoStorage.Api.Configuration.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TodoStorage.Api.Configuration.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TodoStorage.Api.Configuration.NinjectConfig), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TodoStorage.Api.Configuration.NinjectConfig), "Stop")]
 
 namespace TodoStorage.Api.Configuration
 {
@@ -9,7 +9,7 @@ namespace TodoStorage.Api.Configuration
     using Ninject;
     using Ninject.Web.Common;
 
-    public static class NinjectWebCommon 
+    public static class NinjectConfig 
     {
         private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
