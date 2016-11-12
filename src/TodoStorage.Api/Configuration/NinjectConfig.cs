@@ -7,8 +7,8 @@ namespace TodoStorage.Api.Configuration
     using System.Web;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
-    using Ninject.Web.Common;
     using Ninject.Extensions.Conventions;
+    using Ninject.Web.Common;
 
     public static class NinjectConfig 
     {
