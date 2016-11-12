@@ -44,7 +44,7 @@ namespace TodoStorage.Persistence.Tests
             seeder.InjectSeed();
 
             var resolver = new ConnectionStringResolver("TodoStorage");
-            var connectionFactory = new SqlServerConnectionFactory(resolver);
+            var connectionFactory = new ConnectionFactory(resolver);
             sut = new TodoRepository(connectionFactory);
 
             var fixture = new Fixture();

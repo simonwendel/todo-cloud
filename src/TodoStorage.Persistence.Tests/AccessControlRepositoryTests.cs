@@ -38,7 +38,7 @@ namespace TodoStorage.Persistence.Tests
         public void Setup()
         {
             var resolver = new ConnectionStringResolver("TodoStorage");
-            var connectionFactory = new SqlServerConnectionFactory(resolver);
+            var connectionFactory = new ConnectionFactory(resolver);
 
             sut = new AccessControlRepository(connectionFactory);
         }

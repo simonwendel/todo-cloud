@@ -95,7 +95,7 @@
     <Compile Include="Utilities\DateTimeExtensionsTests.cs" />
     <Compile Include="Utilities\DbSetExtensions.cs" />
     <Compile Include="Utilities\DbSetExtensionsTests.cs" />
-    <Compile Include="SqlServerConnectionFactoryTests.cs" />
+    <Compile Include="ConnectionFactoryTests.cs" />
     <Compile Include="Seed\DatabaseSeeder.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>

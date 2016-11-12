@@ -22,11 +22,11 @@ namespace TodoStorage.Persistence
     using System.Data.SqlClient;
     using SimonWendel.GuardStatements;
 
-    internal class SqlServerConnectionFactory : IDbConnectionFactory
+    internal class ConnectionFactory : IConnectionFactory
     {
         private readonly string connectionString;
 
-        public SqlServerConnectionFactory(IConnectionStringResolver connectionStringResolver)
+        public ConnectionFactory(IConnectionStringResolver connectionStringResolver)
         {
             Guard.EnsureNotNull(connectionStringResolver, nameof(connectionStringResolver));
 

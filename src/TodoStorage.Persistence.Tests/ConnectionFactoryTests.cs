@@ -23,13 +23,13 @@ namespace TodoStorage.Persistence.Tests
     using NUnit.Framework;
 
     [TestFixture]
-    internal class SqlServerConnectionFactoryTests
+    internal class ConnectionFactoryTests
     {
         [Test]
         public void Ctor_GivenNullConnectionStringResolver_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new SqlServerConnectionFactory(null);
+                () => new ConnectionFactory(null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -42,7 +42,7 @@ namespace TodoStorage.Persistence.Tests
                 .SetupGet(r => r.ConnectionString)
                 .Returns("whatever");
 
-            var sut = new SqlServerConnectionFactory(connectionStringResolver.Object);
+            var sut = new ConnectionFactory(connectionStringResolver.Object);
 
             connectionStringResolver.VerifyAll();
         }
@@ -51,7 +51,7 @@ namespace TodoStorage.Persistence.Tests
         public void GetConnection_ReturnsSqlClient()
         {
             var resolver = new ConnectionStringResolver("TodoStorage");
-            var sut = new SqlServerConnectionFactory(resolver);
+            var sut = new ConnectionFactory(resolver);
 
             var connection = sut.GetConnection();
 
