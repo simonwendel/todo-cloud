@@ -8,6 +8,7 @@ namespace TodoStorage.Api.Configuration
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
+    using Ninject.Extensions.Conventions;
 
     public static class NinjectConfig 
     {
@@ -45,6 +46,16 @@ namespace TodoStorage.Api.Configuration
 
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind(x =>
+            {
+                x
+                    .FromThisAssembly().IncludingNonePublicTypes().SelectAllClasses()
+                    .Join
+                    .From("TodoStorage.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
+                    .Join
+                    .From("TodoStorage.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
+                    .BindDefaultInterfaces();
+            });
         }        
     }
 }
