@@ -71,4 +71,11 @@
       </column>
     </createTable>
   </changeSet>
+  <changeSet id="6" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <addForeignKeyConstraint 
+      constraintName="FK_AuthenticationItem_AppId"
+      baseTableName="TodoItem" baseColumnNames="AppId"
+      referencedTableName="AuthenticationItem" referencedColumnNames="AppId"
+      onUpdate="CASCADE" onDelete="CASCADE"/>
+  </changeSet>
 </databaseChangeLog>
