@@ -52,4 +52,7 @@
   <changeSet id="3" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
     <dropColumn columnName="colorName" tableName="TodoItem"/>
   </changeSet>
+  <changeSet id="4" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <renameColumn oldColumnName="StorageKey" newColumnName="AppId" tableName="TodoItem"/>
+  </changeSet>
 </databaseChangeLog>
