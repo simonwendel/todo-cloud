@@ -55,4 +55,20 @@
   <changeSet id="4" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
     <renameColumn oldColumnName="StorageKey" newColumnName="AppId" tableName="TodoItem"/>
   </changeSet>
+  <changeSet id="5" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <createTable tableName="AuthenticationItem">
+      <column name="AppId" type="uniqueidentifier">
+        <constraints primaryKey="true" primaryKeyName="PK_AuthenticationItem_AppId" nullable="false"/>
+      </column>
+      <column name="AccountName" type="nvarchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="Secret" type="binary(32)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="Created" type="datetime">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
 </databaseChangeLog>
