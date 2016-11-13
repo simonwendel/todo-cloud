@@ -30,18 +30,18 @@ namespace TodoStorage.Persistence.Tests.Seed
 
         public static readonly IList<TodoItem> PersistedItems = new List<TodoItem>
             {
-                new TodoItem { Title = "Should be found (1)", Description = "Some kind of description 1.", ColorValue = Color.SeaGreen.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(1).SqlNormalize(), Recurring = 10, StorageKey = TestCollectionKey.Identifier },
-                new TodoItem { Title = "Should be found (2)", Description = "Some kind of description 2.", ColorValue = Color.Violet.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(7).SqlNormalize(), Recurring = 5, StorageKey = TestCollectionKey.Identifier },
-                new TodoItem { Title = "Should be found (3)", Description = "Some kind of description 3.", ColorValue = Color.Violet.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = null, Recurring = 0, StorageKey = TestCollectionKey.Identifier },
-                new TodoItem { Title = "Should not be found (1)", Description = "Some kind of description 4.", ColorValue = Color.SeaGreen.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(5).SqlNormalize(), Recurring = 0, StorageKey = Guid.NewGuid() },
-                new TodoItem { Title = "Should not be found (2)", Description = "Some kind of description 5.", ColorValue = Color.Crimson.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(1).SqlNormalize(), Recurring = 1, StorageKey = Guid.NewGuid() }
+                new TodoItem { Title = "Should be found (1)", Description = "Some kind of description 1.", ColorValue = Color.SeaGreen.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(1).SqlNormalize(), Recurring = 10, AppId = TestCollectionKey.Identifier },
+                new TodoItem { Title = "Should be found (2)", Description = "Some kind of description 2.", ColorValue = Color.Violet.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(7).SqlNormalize(), Recurring = 5, AppId = TestCollectionKey.Identifier },
+                new TodoItem { Title = "Should be found (3)", Description = "Some kind of description 3.", ColorValue = Color.Violet.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = null, Recurring = 0, AppId = TestCollectionKey.Identifier },
+                new TodoItem { Title = "Should not be found (1)", Description = "Some kind of description 4.", ColorValue = Color.SeaGreen.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(5).SqlNormalize(), Recurring = 0, AppId = Guid.NewGuid() },
+                new TodoItem { Title = "Should not be found (2)", Description = "Some kind of description 5.", ColorValue = Color.Crimson.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(1).SqlNormalize(), Recurring = 1, AppId = Guid.NewGuid() }
             };
 
         public static IList<Todo> OwnedByTestKey =>
-            GetTodoItems(item => item.StorageKey.Equals(TestCollectionKey.Identifier));
+            GetTodoItems(item => item.AppId.Equals(TestCollectionKey.Identifier));
 
         public static IList<Todo> NotOwnedByTestKey =>
-            GetTodoItems(item => !item.StorageKey.Equals(TestCollectionKey.Identifier));
+            GetTodoItems(item => !item.AppId.Equals(TestCollectionKey.Identifier));
 
         private static IList<Todo> GetTodoItems(Func<TodoItem, bool> predicate)
         {

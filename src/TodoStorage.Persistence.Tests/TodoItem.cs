@@ -15,7 +15,7 @@ namespace TodoStorage.Persistence.Tests
     internal partial class TodoItem
     {
         public int Id { get; set; }
-        public System.Guid StorageKey { get; set; }
+        public System.Guid AppId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public System.DateTime Created { get; set; }
