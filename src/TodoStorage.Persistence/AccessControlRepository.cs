@@ -28,7 +28,7 @@ namespace TodoStorage.Persistence
 SELECT
 CASE
     WHEN
-        EXISTS (SELECT [Id] FROM [TodoItem] WHERE [Id] = @TodoId AND [StorageKey] = @StorageKey)
+        EXISTS (SELECT [Id] FROM [TodoItem] WHERE [Id] = @TodoId AND [AppId] = @AppId)
     THEN
         1
     ELSE
@@ -52,7 +52,7 @@ END";
             {
                 return connection.ExecuteScalar<bool>(
                     TodoOwnershipSql,
-                    new { TodoId = todoId, StorageKey = ownerKey.Identifier });
+                    new { TodoId = todoId, AppId = ownerKey.Identifier });
             }
         }
     }

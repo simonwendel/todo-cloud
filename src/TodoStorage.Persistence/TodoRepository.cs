@@ -41,7 +41,7 @@ namespace TodoStorage.Persistence
 
             using (var connection = connectionFactory.GetConnection())
             {
-                var where = new { StorageKey = collectionKey.Identifier };
+                var where = new { AppId = collectionKey.Identifier };
                 var persistedTodo = connection.Query<PersistedTodoModel>(
                         TodoRepositorySql.SelectMany,
                         where);
@@ -61,7 +61,7 @@ namespace TodoStorage.Persistence
             {
                 var persistedTodo = new PersistedTodoModel(todo)
                 {
-                    StorageKey = collectionKey.Identifier
+                    AppId = collectionKey.Identifier
                 };
 
                 var insertedId = connection.Query<int>(

@@ -29,7 +29,7 @@ namespace TodoStorage.Persistence
         public const string SelectMany = @"
 SELECT
     [Id],
-    [StorageKey],
+    [AppId],
     [Title],
     [Description],
     [Created],
@@ -39,7 +39,7 @@ SELECT
 FROM
     [TodoItem]
 WHERE
-    [StorageKey] = @StorageKey
+    [AppId] = @AppId
 ORDER BY
     [Id]";
 
@@ -49,7 +49,7 @@ ORDER BY
         public const string Add = @"
 INSERT INTO
     [TodoItem] (
-        [StorageKey],
+        [AppId],
         [Title],
         [Description],
         [Created],
@@ -58,7 +58,7 @@ INSERT INTO
         [ColorValue]
     )
 VALUES (
-    @StorageKey,
+    @AppId,
     @Title,
     @Description,
     @Created,
@@ -69,7 +69,7 @@ VALUES (
 SELECT CAST(SCOPE_IDENTITY() as INT)";
 
         /// <summary>
-        /// Updates a todo item by persisting all properties, except for Id and StorageKey.
+        /// Updates a todo item by persisting all properties, except for Id and AppId.
         /// </summary>
         public const string Update = @"
 UPDATE [TodoItem]

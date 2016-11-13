@@ -38,7 +38,7 @@ namespace TodoStorage.Persistence
             ColorValue = todo.Color.Value;
         }
 
-        public Guid StorageKey { get; set; }
+        public Guid AppId { get; set; }
 
         public int? Id { get; set; }
 
