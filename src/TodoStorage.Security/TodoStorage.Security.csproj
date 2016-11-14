@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CollectionSecurityKey.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IAuthenticationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

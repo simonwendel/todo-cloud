@@ -89,6 +89,7 @@
     <Compile Include="AuthenticationItem.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="AuthenticationRepositoryTests.cs" />
     <Compile Include="ConnectionStringResolverTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="PersistedTodoModelTests.cs" />
