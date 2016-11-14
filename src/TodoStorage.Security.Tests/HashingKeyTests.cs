@@ -22,13 +22,13 @@ namespace TodoStorage.Security.Tests
     using Security;
 
     [TestFixture]
-    internal class CollectionSecurityKeyTests
+    internal class HashingKeyTests
     {
         [Test]
         public void Ctor_GivenEmptyGuid_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new CollectionSecurityKey(System.Guid.Empty, new byte[100]);
+                () => new HashingKey(System.Guid.Empty, new byte[100]);
 
             Assert.That(constructorCall, Throws.ArgumentException);
         }
@@ -37,7 +37,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenNullSecret_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new CollectionSecurityKey(System.Guid.NewGuid(), null);
+                () => new HashingKey(System.Guid.NewGuid(), null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -46,7 +46,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenZeroLengthSecret_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new CollectionSecurityKey(System.Guid.NewGuid(), new byte[0]);
+                () => new HashingKey(System.Guid.NewGuid(), new byte[0]);
 
             Assert.That(constructorCall, Throws.ArgumentException);
         }

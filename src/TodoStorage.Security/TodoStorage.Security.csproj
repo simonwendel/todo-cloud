@@ -41,7 +41,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectionSecurityKey.cs" />
+    <Compile Include="HashingKey.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IAuthenticationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
