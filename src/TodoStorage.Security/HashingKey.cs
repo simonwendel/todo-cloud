@@ -19,6 +19,7 @@
 namespace TodoStorage.Security
 {
     using System;
+    using System.Linq;
     using Domain;
     using SimonWendel.GuardStatements;
 
@@ -36,6 +37,18 @@ namespace TodoStorage.Security
             }
 
             this.secret = secret;  
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var otherHashingKey = obj as HashingKey;
+            return Identifier.Equals(otherHashingKey.Identifier)
+                && secret.SequenceEqual(otherHashingKey.secret);
         }
     }
 }

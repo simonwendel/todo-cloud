@@ -18,17 +18,40 @@
 
 namespace TodoStorage.Security.Tests
 {
+    using System;
+    using System.Linq;
     using NUnit.Framework;
+    using Ploeh.AutoFixture;
     using Security;
 
     [TestFixture]
     internal class HashingKeyTests
     {
+        private byte[] secret;
+
+        private byte[] otherSecret;
+
+        private Guid appId;
+
+        private Guid otherAppId;
+
+        [SetUp]
+        public void Setup()
+        {
+            var fixture = new Fixture();
+
+            secret = fixture.CreateMany<byte>().ToArray();
+            otherSecret = fixture.CreateMany<byte>().ToArray();
+
+            appId = Guid.NewGuid();
+            otherAppId = Guid.NewGuid();
+        }
+
         [Test]
         public void Ctor_GivenEmptyGuid_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new HashingKey(System.Guid.Empty, new byte[100]);
+                () => new HashingKey(Guid.Empty, new byte[100]);
 
             Assert.That(constructorCall, Throws.ArgumentException);
         }
@@ -49,6 +72,42 @@ namespace TodoStorage.Security.Tests
                 () => new HashingKey(System.Guid.NewGuid(), new byte[0]);
 
             Assert.That(constructorCall, Throws.ArgumentException);
+        }
+
+        [Test]
+        public void Equals_GivenSameObject_ReturnsTrue()
+        {
+            var sut = new HashingKey(appId, secret);
+
+            Assert.That(sut.Equals(sut), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
+        {
+            var sut = new HashingKey(appId, secret);
+            var sameProperties = new HashingKey(appId, secret);
+
+            Assert.That(sut.Equals(sameProperties), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenNull_ReturnsFalse()
+        {
+            var sut = new HashingKey(appId, secret);
+
+            Assert.That(sut.Equals(null), Is.False);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
+        {
+            var sut = new HashingKey(appId, secret);
+            var differingAppId = new HashingKey(otherAppId, secret);
+            var differingSecret = new HashingKey(appId, otherSecret);
+
+            Assert.That(sut.Equals(differingAppId), Is.False);
+            Assert.That(sut.Equals(differingSecret), Is.False);
         }
     }
 }
