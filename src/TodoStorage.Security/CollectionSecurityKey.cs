@@ -22,11 +22,11 @@ namespace TodoStorage.Security
     using Domain;
     using SimonWendel.GuardStatements;
 
-    internal class CollectionSecurityKey : CollectionKey
+    public class CollectionSecurityKey : CollectionKey
     {
         private readonly byte[] secret;
 
-        public CollectionSecurityKey(Guid identifier, byte[] secret)
+        internal CollectionSecurityKey(Guid identifier, byte[] secret)
             : base(identifier)
         {
             Guard.EnsureNotNull(secret);
