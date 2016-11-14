@@ -34,7 +34,6 @@ namespace TodoStorage.Persistence.Tests.Seed
         {
             AppId = TestCollectionKey.Identifier,
             AccountName = "Account number 1",
-            Created = DateTime.Now.SqlNormalize(),
             Secret = new byte[32]
         };
 
@@ -42,7 +41,6 @@ namespace TodoStorage.Persistence.Tests.Seed
         {
             AppId = Guid.NewGuid(),
             AccountName = "Account number 2",
-            Created = DateTime.Now.SqlNormalize(),
             Secret = new byte[32]
         };
 
@@ -50,7 +48,6 @@ namespace TodoStorage.Persistence.Tests.Seed
         {
             AppId = NonPersistedCollectionKey.Identifier,
             AccountName = "Account number 3",
-            Created = DateTime.Now.SqlNormalize(),
             Secret = new byte[32]
         };
 

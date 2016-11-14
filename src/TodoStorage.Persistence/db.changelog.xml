@@ -19,6 +19,7 @@
  -->
 
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+  <property name="DATETIME_NOW" value="getdate()" dbms="mssql"/>
   <changeSet id="1" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
     <createTable tableName="TodoItems">
       <column autoIncrement="true" name="Id" type="int">
@@ -81,5 +82,8 @@
   <changeSet id="7" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
     <dropPrimaryKey tableName="TodoItem" constraintName="PK_TodoItems_Id"/>
     <addPrimaryKey tableName="TodoItem" columnNames="Id" constraintName="PK_TodoItem_Id"/>
+  </changeSet>
+  <changeSet id="8" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <addDefaultValue tableName="AuthenticationItem" columnName="Created" defaultValueDate="${DATETIME_NOW}"/>
   </changeSet>
 </databaseChangeLog>

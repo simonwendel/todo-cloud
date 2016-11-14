@@ -12,7 +12,7 @@
           <Property Name="AppId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AccountName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Secret" Type="binary" MaxLength="32" Nullable="false" />
-          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="TodoItem">
           <Key>
@@ -82,7 +82,7 @@
           <Property Name="AppId" Type="Guid" Nullable="false" />
           <Property Name="AccountName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Secret" Type="Binary" Nullable="false" MaxLength="32" FixedLength="true" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created" Nullable="false" Precision="3" Type="DateTime" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <Association Name="FK_AuthenticationItem_AppId">
           <End Type="TodoStorage.Persistence.Tests.Model.AuthenticationItem" Role="AuthenticationItem" Multiplicity="1">
