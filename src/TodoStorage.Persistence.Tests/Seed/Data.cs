@@ -28,13 +28,39 @@ namespace TodoStorage.Persistence.Tests.Seed
     {
         public static readonly CollectionKey TestCollectionKey = new CollectionKey(Guid.NewGuid());
 
+        public static readonly CollectionKey NonPersistedCollectionKey = new CollectionKey(Guid.NewGuid());
+
+        public static readonly AuthenticationItem Auth = new AuthenticationItem
+        {
+            AppId = TestCollectionKey.Identifier,
+            AccountName = "Account number 1",
+            Created = DateTime.Now.SqlNormalize(),
+            Secret = new byte[32]
+        };
+
+        public static readonly AuthenticationItem OtherAuth = new AuthenticationItem
+        {
+            AppId = Guid.NewGuid(),
+            AccountName = "Account number 2",
+            Created = DateTime.Now.SqlNormalize(),
+            Secret = new byte[32]
+        };
+
+        public static readonly AuthenticationItem EmptyAuth = new AuthenticationItem
+        {
+            AppId = NonPersistedCollectionKey.Identifier,
+            AccountName = "Account number 3",
+            Created = DateTime.Now.SqlNormalize(),
+            Secret = new byte[32]
+        };
+
         public static readonly IList<TodoItem> PersistedItems = new List<TodoItem>
             {
-                new TodoItem { Title = "Should be found (1)", Description = "Some kind of description 1.", ColorValue = Color.SeaGreen.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(1).SqlNormalize(), Recurring = 10, AppId = TestCollectionKey.Identifier },
-                new TodoItem { Title = "Should be found (2)", Description = "Some kind of description 2.", ColorValue = Color.Violet.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(7).SqlNormalize(), Recurring = 5, AppId = TestCollectionKey.Identifier },
-                new TodoItem { Title = "Should be found (3)", Description = "Some kind of description 3.", ColorValue = Color.Violet.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = null, Recurring = 0, AppId = TestCollectionKey.Identifier },
-                new TodoItem { Title = "Should not be found (1)", Description = "Some kind of description 4.", ColorValue = Color.SeaGreen.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(5).SqlNormalize(), Recurring = 0, AppId = Guid.NewGuid() },
-                new TodoItem { Title = "Should not be found (2)", Description = "Some kind of description 5.", ColorValue = Color.Crimson.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(1).SqlNormalize(), Recurring = 1, AppId = Guid.NewGuid() }
+                new TodoItem { Title = "Should be found (1)", Description = "Some kind of description 1.", ColorValue = Color.SeaGreen.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(1).SqlNormalize(), Recurring = 10, AppId = Auth.AppId },
+                new TodoItem { Title = "Should be found (2)", Description = "Some kind of description 2.", ColorValue = Color.Violet.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(7).SqlNormalize(), Recurring = 5, AppId = Auth.AppId },
+                new TodoItem { Title = "Should be found (3)", Description = "Some kind of description 3.", ColorValue = Color.Violet.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = null, Recurring = 0, AppId = Auth.AppId },
+                new TodoItem { Title = "Should not be found (1)", Description = "Some kind of description 4.", ColorValue = Color.SeaGreen.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(5).SqlNormalize(), Recurring = 0, AppId = OtherAuth.AppId },
+                new TodoItem { Title = "Should not be found (2)", Description = "Some kind of description 5.", ColorValue = Color.Crimson.Value, Created = DateTime.Now.SqlNormalize(), NextOccurrence = DateTime.Now.AddDays(1).SqlNormalize(), Recurring = 1, AppId = OtherAuth.AppId }
             };
 
         public static IList<Todo> OwnedByTestKey =>

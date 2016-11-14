@@ -26,8 +26,12 @@ namespace TodoStorage.Persistence.Tests.Seed
         {
             using (var context = new TodoStorageSeedContext())
             {
-                context.TodoItems.Clear();
+                context.AuthenticationItems.Clear();
+                context.AuthenticationItems.Add(Data.Auth);
+                context.AuthenticationItems.Add(Data.OtherAuth);
+                context.AuthenticationItems.Add(Data.EmptyAuth);
 
+                context.TodoItems.Clear();
                 foreach (var item in Data.PersistedItems)
                 {
                     context.TodoItems.Add(item);

@@ -49,7 +49,7 @@ namespace TodoStorage.Persistence.Tests
 
             var fixture = new Fixture();
 
-            nonPersistedCollectionKey = fixture.Create<CollectionKey>();
+            nonPersistedCollectionKey = Seed.Data.NonPersistedCollectionKey;
 
             persistedTodo = Seed.Data.OwnedByTestKey.First();
             var nonPersistedId = Seed.Data.OwnedByTestKey.Sum(t => t.Id.Value) + 1;
