@@ -12,17 +12,11 @@ namespace TodoStorage.Persistence.Tests
     using System;
     using System.Collections.Generic;
     
-    internal partial class TodoItem
+    public partial class AuthenticationItem
     {
-        public int Id { get; set; }
         public System.Guid AppId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string AccountName { get; set; }
+        public byte[] Secret { get; set; }
         public System.DateTime Created { get; set; }
-        public int Recurring { get; set; }
-        public Nullable<System.DateTime> NextOccurrence { get; set; }
-        public string ColorValue { get; set; }
-    
-        public virtual AuthenticationItem AuthenticationItem { get; set; }
     }
 }

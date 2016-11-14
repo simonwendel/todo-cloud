@@ -86,6 +86,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AccessControlRepositoryTests.cs" />
+    <Compile Include="AuthenticationItem.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionStringResolverTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="PersistedTodoModelTests.cs" />

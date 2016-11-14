@@ -27,5 +27,6 @@ namespace TodoStorage.Persistence.Tests
         }
     
         internal virtual DbSet<TodoItem> TodoItems { get; set; }
+        public virtual DbSet<AuthenticationItem> AuthenticationItems { get; set; }
     }
 }
