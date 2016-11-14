@@ -73,7 +73,7 @@
     </createTable>
   </changeSet>
   <changeSet id="6" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-    <addForeignKeyConstraint 
+    <addForeignKeyConstraint
       constraintName="FK_AuthenticationItem_AppId"
       baseTableName="TodoItem" baseColumnNames="AppId"
       referencedTableName="AuthenticationItem" referencedColumnNames="AppId"
@@ -85,5 +85,21 @@
   </changeSet>
   <changeSet id="8" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
     <addDefaultValue tableName="AuthenticationItem" columnName="Created" defaultValueDate="${DATETIME_NOW}"/>
+  </changeSet>
+  <changeSet id="9" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <renameTable oldTableName="TodoItem" newTableName="Todo" />
+    <dropPrimaryKey tableName="Todo" constraintName="PK_TodoItem_Id"/>
+    <addPrimaryKey tableName="Todo" columnNames="Id" constraintName="PK_Todo_Id"/>
+    <dropForeignKeyConstraint baseTableName="Todo" constraintName="FK_AuthenticationItem_AppId"/>
+    <renameTable oldTableName="AuthenticationItem" newTableName="Authentication" />
+    <dropPrimaryKey tableName="Authentication" constraintName="PK_AuthenticationItem_AppId"/>
+    <addPrimaryKey tableName="Authentication" columnNames="AppId" constraintName="PK_Authentication_AppId"/>
+    <dropDefaultValue tableName="Authentication" columnName="Created"/>
+    <addDefaultValue tableName="Authentication" columnName="Created" defaultValueDate="${DATETIME_NOW}"/>
+    <addForeignKeyConstraint
+      constraintName="FK_Authentication_AppId"
+      baseTableName="Todo" baseColumnNames="AppId"
+      referencedTableName="Authentication" referencedColumnNames="AppId"
+      onUpdate="CASCADE" onDelete="CASCADE"/>
   </changeSet>
 </databaseChangeLog>

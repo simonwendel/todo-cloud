@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TodoStorage.Persistence.Tests.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AuthenticationItem">
+        <EntityType Name="Authentication">
           <Key>
             <PropertyRef Name="AppId" />
           </Key>
@@ -14,7 +14,7 @@
           <Property Name="Secret" Type="binary" MaxLength="32" Nullable="false" />
           <Property Name="Created" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
-        <EntityType Name="TodoItem">
+        <EntityType Name="Todo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -27,26 +27,26 @@
           <Property Name="NextOccurrence" Type="datetime" />
           <Property Name="ColorValue" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
-        <Association Name="FK_AuthenticationItem_AppId">
-          <End Role="AuthenticationItem" Type="Self.AuthenticationItem" Multiplicity="1">
+        <Association Name="FK_Authentication_AppId">
+          <End Role="Authentication" Type="Self.Authentication" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="TodoItem" Type="Self.TodoItem" Multiplicity="*" />
+          <End Role="Todo" Type="Self.Todo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AuthenticationItem">
+            <Principal Role="Authentication">
               <PropertyRef Name="AppId" />
             </Principal>
-            <Dependent Role="TodoItem">
+            <Dependent Role="Todo">
               <PropertyRef Name="AppId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TodoStoragePersistenceTestsModelStoreContainer">
-          <EntitySet Name="AuthenticationItem" EntityType="Self.AuthenticationItem" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TodoItem" EntityType="Self.TodoItem" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AuthenticationItem_AppId" Association="Self.FK_AuthenticationItem_AppId">
-            <End Role="AuthenticationItem" EntitySet="AuthenticationItem" />
-            <End Role="TodoItem" EntitySet="TodoItem" />
+          <EntitySet Name="Authentication" EntityType="Self.Authentication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Todo" EntityType="Self.Todo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Authentication_AppId" Association="Self.FK_Authentication_AppId">
+            <End Role="Authentication" EntitySet="Authentication" />
+            <End Role="Todo" EntitySet="Todo" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -65,14 +65,14 @@
           <Property Name="Recurring" Type="Int32" Nullable="false" />
           <Property Name="NextOccurrence" Type="DateTime" Precision="3" />
           <Property Name="ColorValue" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AuthenticationItem" Relationship="TodoStorage.Persistence.Tests.Model.FK_AuthenticationItem_AppId" FromRole="TodoItem" ToRole="AuthenticationItem" />
+          <NavigationProperty Name="Authentication" Relationship="TodoStorage.Persistence.Tests.Model.FK_Authentication_AppId" FromRole="Todo" ToRole="Authentication" />
         </EntityType>
         <EntityContainer Name="TodoStorageSeedContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TodoItems" EntityType="Self.TodoItem" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <EntitySet Name="TodoItems" EntityType="TodoStorage.Persistence.Tests.Model.TodoItem" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <EntitySet Name="AuthenticationItems" EntityType="TodoStorage.Persistence.Tests.Model.AuthenticationItem" />
-          <AssociationSet Name="FK_AuthenticationItem_AppId" Association="TodoStorage.Persistence.Tests.Model.FK_AuthenticationItem_AppId">
-            <End Role="AuthenticationItem" EntitySet="AuthenticationItems" />
-            <End Role="TodoItem" EntitySet="TodoItems" />
+          <AssociationSet Name="FK_Authentication_AppId" Association="TodoStorage.Persistence.Tests.Model.FK_Authentication_AppId">
+            <End Role="Authentication" EntitySet="AuthenticationItems" />
+            <End Role="Todo" EntitySet="TodoItems" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AuthenticationItem">
@@ -84,16 +84,16 @@
           <Property Name="Secret" Type="Binary" Nullable="false" MaxLength="32" FixedLength="true" />
           <Property Name="Created" Nullable="false" Precision="3" Type="DateTime" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
-        <Association Name="FK_AuthenticationItem_AppId">
-          <End Type="TodoStorage.Persistence.Tests.Model.AuthenticationItem" Role="AuthenticationItem" Multiplicity="1">
+        <Association Name="FK_Authentication_AppId">
+          <End Type="TodoStorage.Persistence.Tests.Model.AuthenticationItem" Role="Authentication" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="TodoStorage.Persistence.Tests.Model.TodoItem" Role="TodoItem" Multiplicity="*" />
+          <End Type="TodoStorage.Persistence.Tests.Model.TodoItem" Role="Todo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AuthenticationItem">
+            <Principal Role="Authentication">
               <PropertyRef Name="AppId" />
             </Principal>
-            <Dependent Role="TodoItem">
+            <Dependent Role="Todo">
               <PropertyRef Name="AppId" />
             </Dependent>
           </ReferentialConstraint>
@@ -106,7 +106,7 @@
         <EntityContainerMapping StorageEntityContainer="TodoStoragePersistenceTestsModelStoreContainer" CdmEntityContainer="TodoStorageSeedContext">
           <EntitySetMapping Name="TodoItems">
             <EntityTypeMapping TypeName="TodoStorage.Persistence.Tests.Model.TodoItem">
-              <MappingFragment StoreEntitySet="TodoItem">
+              <MappingFragment StoreEntitySet="Todo">
                 <ScalarProperty Name="AppId" ColumnName="AppId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -120,7 +120,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="AuthenticationItems">
             <EntityTypeMapping TypeName="TodoStorage.Persistence.Tests.Model.AuthenticationItem">
-              <MappingFragment StoreEntitySet="AuthenticationItem">
+              <MappingFragment StoreEntitySet="Authentication">
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Secret" ColumnName="Secret" />
                 <ScalarProperty Name="AccountName" ColumnName="AccountName" />
@@ -153,7 +153,7 @@
       <Diagram DiagramId="a4d28c92efaa4dd8bbcdafe1f6988568" Name="Diagram1">
         <EntityTypeShape EntityType="TodoStorage.Persistence.Tests.Model.TodoItem" Width="1.5" PointX="3.375" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TodoStorage.Persistence.Tests.Model.AuthenticationItem" Width="1.5" PointX="0.5" PointY="0.5" />
-        <AssociationConnector Association="TodoStorage.Persistence.Tests.Model.FK_AuthenticationItem_AppId" />
+        <AssociationConnector Association="TodoStorage.Persistence.Tests.Model.FK_Authentication_AppId" />
       </Diagram>
     </Diagrams>
   </Designer>

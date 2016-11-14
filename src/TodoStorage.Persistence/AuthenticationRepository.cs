@@ -30,7 +30,7 @@ namespace TodoStorage.Persistence
 SELECT
     [Secret]
 FROM
-    [AuthenticationItem]
+    [Authentication]
 WHERE
     [AppId] = @AppId";
 

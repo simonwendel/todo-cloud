@@ -23,6 +23,6 @@ namespace TodoStorage.Persistence.Tests
         public Nullable<System.DateTime> NextOccurrence { get; set; }
         public string ColorValue { get; set; }
     
-        public virtual AuthenticationItem AuthenticationItem { get; set; }
+        public virtual AuthenticationItem Authentication { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace TodoStorage.Persistence
 SELECT
 CASE
     WHEN
-        EXISTS (SELECT [Id] FROM [TodoItem] WHERE [Id] = @TodoId AND [AppId] = @AppId)
+        EXISTS (SELECT [Id] FROM [Todo] WHERE [Id] = @TodoId AND [AppId] = @AppId)
     THEN
         1
     ELSE

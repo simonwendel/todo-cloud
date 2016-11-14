@@ -37,7 +37,7 @@ SELECT
     [NextOccurrence],
     [ColorValue]
 FROM
-    [TodoItem]
+    [Todo]
 WHERE
     [AppId] = @AppId
 ORDER BY
@@ -48,7 +48,7 @@ ORDER BY
         /// </summary>
         public const string Add = @"
 INSERT INTO
-    [TodoItem] (
+    [Todo] (
         [AppId],
         [Title],
         [Description],
@@ -72,7 +72,7 @@ SELECT CAST(SCOPE_IDENTITY() as INT)";
         /// Updates a todo item by persisting all properties, except for Id and AppId.
         /// </summary>
         public const string Update = @"
-UPDATE [TodoItem]
+UPDATE [Todo]
 SET
     [Title] = @Title,
     [Description] = @Description,
@@ -88,7 +88,7 @@ WHERE
         /// </summary>
         public const string Delete = @"
 DELETE FROM
-    [TodoItem]
+    [Todo]
 WHERE
     [Id] = @Id";
     }
