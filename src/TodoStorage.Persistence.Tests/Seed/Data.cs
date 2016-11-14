@@ -22,6 +22,7 @@ namespace TodoStorage.Persistence.Tests.Seed
     using System.Collections.Generic;
     using System.Linq;
     using Domain;
+    using Ploeh.AutoFixture;
     using Utilities;
 
     internal static class Data
@@ -34,21 +35,21 @@ namespace TodoStorage.Persistence.Tests.Seed
         {
             AppId = TestCollectionKey.Identifier,
             AccountName = "Account number 1",
-            Secret = new byte[32]
+            Secret = ConstructSecret()
         };
 
         public static readonly AuthenticationItem OtherAuth = new AuthenticationItem
         {
             AppId = Guid.NewGuid(),
             AccountName = "Account number 2",
-            Secret = new byte[32]
+            Secret = ConstructSecret()
         };
 
         public static readonly AuthenticationItem EmptyAuth = new AuthenticationItem
         {
             AppId = NonPersistedCollectionKey.Identifier,
             AccountName = "Account number 3",
-            Secret = new byte[32]
+            Secret = ConstructSecret()
         };
 
         public static readonly IList<TodoItem> PersistedItems = new List<TodoItem>
@@ -83,6 +84,12 @@ namespace TodoStorage.Persistence.Tests.Seed
                         NextOccurrence = item.NextOccurrence
                     })
                 .ToList();
+        }
+
+        private static byte[] ConstructSecret()
+        {
+            var fixture = new Fixture();
+            return fixture.CreateMany<byte>(32).ToArray();
         }
     }
 }
