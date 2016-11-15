@@ -60,7 +60,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenNullSecret_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new HashingKey(System.Guid.NewGuid(), null);
+                () => new HashingKey(Guid.NewGuid(), null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -69,7 +69,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenZeroLengthSecret_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new HashingKey(System.Guid.NewGuid(), new byte[0]);
+                () => new HashingKey(Guid.NewGuid(), new byte[0]);
 
             Assert.That(constructorCall, Throws.ArgumentException);
         }
