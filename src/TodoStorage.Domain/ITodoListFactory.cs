@@ -20,6 +20,16 @@ namespace TodoStorage.Domain
 {
     public interface ITodoListFactory
     {
+        /// <summary>
+        /// Creates a todo list aggregate object initialized with all items associated with the 
+        /// referenced collection key.
+        /// </summary>
+        /// <param name="collectionKey">
+        /// The collection key owning the list aggregate and items contained.
+        /// </param>
+        /// <returns>
+        /// A todo list object, with todo items fetched from the main storage, or a new one if not found.
+        /// </returns>
         TodoList Create(CollectionKey collectionKey);
     }
 }

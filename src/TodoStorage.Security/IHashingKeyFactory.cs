@@ -22,6 +22,14 @@ namespace TodoStorage.Security
 
     public interface IHashingKeyFactory
     {
+        /// <summary>
+        /// Creates a hashing key object, with secret fetched from main storage.
+        /// </summary>
+        /// <param name="appId">Identifier for the calling app.</param>
+        /// <returns>A hashing key.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// Thrown when app ID is not present in storage.
+        /// </exception>
         HashingKey Create(Guid appId);
     }
 }
