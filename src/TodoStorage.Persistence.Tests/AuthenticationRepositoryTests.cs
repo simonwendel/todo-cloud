@@ -20,7 +20,7 @@ namespace TodoStorage.Persistence.Tests
 {
     using System;
     using NUnit.Framework;
-    using Seed;
+    using TodoStorage.Persistence.Tests.Seed;
 
     [TestFixture]
     internal class AuthenticationRepositoryTests

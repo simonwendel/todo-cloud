@@ -18,10 +18,10 @@
 
 namespace TodoStorage.Persistence.Tests
 {
-    using Domain;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
     using SimonWendel.ObjectExtensions;
+    using TodoStorage.Domain;
 
     [TestFixture]
     internal class PersistedTodoModelTests

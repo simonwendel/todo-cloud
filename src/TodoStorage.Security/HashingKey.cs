@@ -20,8 +20,8 @@ namespace TodoStorage.Security
 {
     using System;
     using System.Linq;
-    using Domain;
     using SimonWendel.GuardStatements;
+    using TodoStorage.Domain;
 
     public class HashingKey : CollectionKey
     {

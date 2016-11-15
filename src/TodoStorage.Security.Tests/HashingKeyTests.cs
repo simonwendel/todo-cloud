@@ -22,7 +22,7 @@ namespace TodoStorage.Security.Tests
     using System.Linq;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
-    using Security;
+    using TodoStorage.Security;
 
     [TestFixture]
     internal class HashingKeyTests

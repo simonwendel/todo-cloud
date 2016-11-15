@@ -21,8 +21,8 @@ namespace TodoStorage.Persistence
     using System;
     using System.Linq;
     using Dapper;
-    using Security;
     using SimonWendel.GuardStatements;
+    using TodoStorage.Security;
 
     internal class AuthenticationRepository : IAuthenticationRepository
     {

@@ -20,10 +20,10 @@ namespace TodoStorage.Domain.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Domain;
     using Moq;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
+    using TodoStorage.Domain;
 
     /// <summary>
     /// Unit tests basic <see cref="TodoList"/> object creation through constructor tests and 

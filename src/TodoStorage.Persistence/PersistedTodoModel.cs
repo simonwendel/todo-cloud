@@ -19,7 +19,7 @@
 namespace TodoStorage.Persistence
 {
     using System;
-    using Domain;
+    using TodoStorage.Domain;
 
     internal class PersistedTodoModel
     {

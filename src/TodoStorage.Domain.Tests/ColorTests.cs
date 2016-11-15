@@ -19,8 +19,8 @@
 namespace TodoStorage.Domain.Tests
 {
     using System.Linq;
-    using Domain;
     using NUnit.Framework;
+    using TodoStorage.Domain;
 
     [TestFixture]
     internal class ColorTests

@@ -19,12 +19,12 @@
 namespace TodoStorage.Persistence.Tests
 {
     using System.Linq;
-    using Domain;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
-    using Seed;
     using SimonWendel.ObjectExtensions;
-    using Utilities;
+    using TodoStorage.Domain;
+    using TodoStorage.Persistence.Tests.Seed;
+    using TodoStorage.Persistence.Tests.Utilities;
 
     [TestFixture]
     internal class TodoRepositoryTests

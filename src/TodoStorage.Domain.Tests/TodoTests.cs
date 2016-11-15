@@ -19,10 +19,10 @@
 namespace TodoStorage.Domain.Tests
 {
     using System;
-    using Domain;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
     using SimonWendel.ObjectExtensions;
+    using TodoStorage.Domain;
 
     [TestFixture]
     internal class TodoTests

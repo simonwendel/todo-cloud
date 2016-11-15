@@ -18,7 +18,7 @@
 
 namespace TodoStorage.Persistence.Tests.Seed
 {
-    using Utilities;
+    using TodoStorage.Persistence.Tests.Utilities;
 
     internal class DatabaseSeeder
     {

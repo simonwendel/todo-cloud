@@ -19,8 +19,8 @@
 namespace TodoStorage.Domain.Tests
 {
     using System;
-    using Domain;
     using NUnit.Framework;
+    using TodoStorage.Domain;
 
     [TestFixture]
     internal class CollectionKeyTests

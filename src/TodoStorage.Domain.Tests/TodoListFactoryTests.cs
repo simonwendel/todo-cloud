@@ -19,10 +19,10 @@
 namespace TodoStorage.Domain.Tests
 {
     using System.Linq;
-    using Domain;
     using Moq;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
+    using TodoStorage.Domain;
 
     [TestFixture]
     internal class TodoListFactoryTests
