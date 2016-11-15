@@ -62,11 +62,9 @@
     <Compile Include="TodoRepositorySql.cs" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+    <CodeAnalysisDictionary Include="..\common\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="db.changelog.xml" />
   </ItemGroup>
   <ItemGroup>
