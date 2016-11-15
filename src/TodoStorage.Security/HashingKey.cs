@@ -36,7 +36,7 @@ namespace TodoStorage.Security
                 throw new ArgumentException(null, nameof(secret));
             }
 
-            this.secret = secret;  
+            this.secret = secret;
         }
 
         public override bool Equals(object obj)
@@ -49,6 +49,20 @@ namespace TodoStorage.Security
             var otherHashingKey = obj as HashingKey;
             return Identifier.Equals(otherHashingKey.Identifier)
                 && secret.SequenceEqual(otherHashingKey.secret);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = (17 * 486187739) + Identifier.GetHashCode();
+                foreach (var b in secret)
+                {
+                    hash = (hash * 486187739) + b;
+                }
+
+                return hash;
+            }
         }
     }
 }

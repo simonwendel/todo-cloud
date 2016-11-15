@@ -109,5 +109,27 @@ namespace TodoStorage.Security.Tests
             Assert.That(sut.Equals(differingAppId), Is.False);
             Assert.That(sut.Equals(differingSecret), Is.False);
         }
+
+        [Test]
+        public void GetHashCode_ReturnsHashByProperties()
+        {
+            var sut = new HashingKey(appId, secret);
+
+            var start = 17;
+            var multiplier = 486187739;
+
+            int hash;
+            unchecked
+            {
+                hash = start;
+                hash = (hash * multiplier) + sut.Identifier.GetHashCode();
+                foreach (var b in secret)
+                {
+                    hash = (hash * multiplier) + b;
+                }
+            }
+
+            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
+        }
     }
 }
