@@ -69,10 +69,10 @@ namespace TodoStorage.Security.Tests
         }
 
         [Test]
-        public void Create_GivenEmptyGuid_ThrowsException()
+        public void Build_GivenEmptyGuid_ThrowsException()
         {
             TestDelegate createCall =
-                () => sut.Create(Guid.Empty);
+                () => sut.Build(Guid.Empty);
 
             Assert.That(createCall, Throws.ArgumentException);
             authenticationRepository.Verify(
@@ -81,18 +81,18 @@ namespace TodoStorage.Security.Tests
         }
 
         [Test]
-        public void Create_GivenNonExistentGuid_ThrowsException()
+        public void Build_GivenNonExistentGuid_ThrowsException()
         {
             TestDelegate createCall = 
-                () => sut.Create(otherAppId);
+                () => sut.Build(otherAppId);
 
             Assert.That(createCall, Throws.TypeOf<KeyNotFoundException>());
         }
 
         [Test]
-        public void Create_GivenGuid_CallsRepository()
+        public void Build_GivenGuid_CallsRepository()
         {
-            sut.Create(appId);
+            sut.Build(appId);
 
             authenticationRepository.Verify(
                 r => r.GetSecret(It.Is<Guid>(g => g == appId)),
@@ -100,11 +100,11 @@ namespace TodoStorage.Security.Tests
         }
 
         [Test]
-        public void Create_GivenGuid_ConstructsWithSecret()
+        public void Build_GivenGuid_ConstructsWithSecret()
         {
             var expected = new HashingKey(appId, secret);
 
-            var actual = sut.Create(appId);
+            var actual = sut.Build(appId);
 
             Assert.That(actual, Is.EqualTo(expected));
         }

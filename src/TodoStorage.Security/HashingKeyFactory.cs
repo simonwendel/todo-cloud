@@ -32,7 +32,7 @@ namespace TodoStorage.Security
             this.authenticationRepository = authenticationRepository;
         }
 
-        public HashingKey Create(Guid appId)
+        public HashingKey Build(Guid appId)
         {
             Guard.EnsureNonempty(appId, nameof(appId));
 
