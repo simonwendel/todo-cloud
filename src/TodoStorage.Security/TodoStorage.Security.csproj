@@ -44,7 +44,10 @@
   <ItemGroup>
     <Compile Include="HashingKey.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="HashingKeyFactory.cs" />
     <Compile Include="IAuthenticationRepository.cs" />
+    <Compile Include="IHashingKeyFactory.cs" />
+    <Compile Include="KeyNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
