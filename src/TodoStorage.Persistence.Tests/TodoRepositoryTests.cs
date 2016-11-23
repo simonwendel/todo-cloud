@@ -43,7 +43,7 @@ namespace TodoStorage.Persistence.Tests
             var seeder = new DatabaseSeeder();
             seeder.InjectSeed();
 
-            var resolver = new ConnectionStringResolver("TodoStorage");
+            var resolver = new ConnectionStringResolver("TodoStorageTest");
             var connectionFactory = new ConnectionFactory(resolver);
             sut = new TodoRepository(connectionFactory);
 

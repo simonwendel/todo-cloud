@@ -50,7 +50,7 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void GetConnection_ReturnsSqlClient()
         {
-            var resolver = new ConnectionStringResolver("TodoStorage");
+            var resolver = new ConnectionStringResolver("TodoStorageTest");
             var sut = new ConnectionFactory(resolver);
 
             var connection = sut.GetConnection();

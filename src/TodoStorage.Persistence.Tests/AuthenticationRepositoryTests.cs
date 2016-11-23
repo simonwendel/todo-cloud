@@ -37,7 +37,7 @@ namespace TodoStorage.Persistence.Tests
         [SetUp]
         public void Setup()
         {
-            var resolver = new ConnectionStringResolver("TodoStorage");
+            var resolver = new ConnectionStringResolver("TodoStorageTest");
             var connectionFactory = new ConnectionFactory(resolver);
 
             sut = new AuthenticationRepository(connectionFactory);
