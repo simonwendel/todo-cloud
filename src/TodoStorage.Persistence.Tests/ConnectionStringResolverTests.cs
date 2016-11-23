@@ -48,5 +48,15 @@ namespace TodoStorage.Persistence.Tests
 
             Assert.That(sut.ConnectionString, Is.EqualTo("w00t!"));
         }
+
+        [Test]
+        public void Ctor_NullaryCtorCalled_SetsConnectionString()
+        {
+            var sut = new ConnectionStringResolver();
+
+            Assert.That(
+                sut.ConnectionString, 
+                Is.EqualTo("DefaultConnectionStringLikeThis!"));
+        }
     }
 }
