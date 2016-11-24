@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="HashingKeyFactoryTests.cs" />
     <Compile Include="HashingKeyTests.cs" />
+    <Compile Include="MessageHasherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
