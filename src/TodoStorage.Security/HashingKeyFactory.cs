@@ -25,11 +25,15 @@ namespace TodoStorage.Security
     {
         private readonly IAuthenticationRepository authenticationRepository;
 
-        public HashingKeyFactory(IAuthenticationRepository authenticationRepository)
+        private readonly IMessageHasher hasher;
+
+        public HashingKeyFactory(IAuthenticationRepository authenticationRepository, IMessageHasher hasher)
         {
             Guard.EnsureNotNull(authenticationRepository, nameof(authenticationRepository));
+            Guard.EnsureNotNull(hasher, nameof(hasher));
 
             this.authenticationRepository = authenticationRepository;
+            this.hasher = hasher;
         }
 
         public HashingKey Build(Guid appId)
@@ -42,7 +46,7 @@ namespace TodoStorage.Security
                 throw new KeyNotFoundException();
             }
 
-            return new HashingKey(appId, secret);
+            return new HashingKey(hasher, appId, secret);
         }
     }
 }

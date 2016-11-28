@@ -37,6 +37,8 @@ namespace TodoStorage.Security.Tests
 
         private Mock<IAuthenticationRepository> authenticationRepository;
 
+        private IMessageHasher messageHasher;
+
         [SetUp]
         public void Setup()
         {
@@ -56,14 +58,25 @@ namespace TodoStorage.Security.Tests
                 .Setup(r => r.GetSecret(It.Is<Guid>(g => g == otherAppId)))
                 .Returns<byte[]>(null);
 
-            sut = new HashingKeyFactory(authenticationRepository.Object);
+            messageHasher = Mock.Of<IMessageHasher>();
+
+            sut = new HashingKeyFactory(authenticationRepository.Object, messageHasher);
         }
 
         [Test]
         public void Ctor_GivenNullRepository_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new HashingKeyFactory(null);
+                () => new HashingKeyFactory(null, messageHasher);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Ctor_GivenNullHasher_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new HashingKeyFactory(authenticationRepository.Object, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -102,7 +115,7 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Build_GivenGuid_ConstructsWithSecret()
         {
-            var expected = new HashingKey(appId, secret);
+            var expected = new HashingKey(Mock.Of<IMessageHasher>(), appId, secret);
 
             var actual = sut.Build(appId);
 

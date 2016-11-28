@@ -25,17 +25,21 @@ namespace TodoStorage.Security
 
     public class HashingKey : CollectionKey
     {
+        private readonly IMessageHasher hasher;
+
         private readonly byte[] secret;
 
-        internal HashingKey(Guid identifier, byte[] secret)
+        internal HashingKey(IMessageHasher hasher, Guid identifier, byte[] secret)
             : base(identifier)
         {
+            Guard.EnsureNotNull(hasher, nameof(hasher));
             Guard.EnsureNotNull(secret, nameof(secret));
             if (secret.Length == 0)
             {
                 throw new ArgumentException(null, nameof(secret));
             }
 
+            this.hasher = hasher;
             this.secret = secret;
         }
 

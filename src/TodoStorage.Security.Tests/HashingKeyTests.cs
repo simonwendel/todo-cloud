@@ -20,6 +20,7 @@ namespace TodoStorage.Security.Tests
 {
     using System;
     using System.Linq;
+    using Moq;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
     using TodoStorage.Security;
@@ -35,6 +36,8 @@ namespace TodoStorage.Security.Tests
 
         private Guid otherAppId;
 
+        private Mock<IMessageHasher> hasher;
+
         [SetUp]
         public void Setup()
         {
@@ -45,13 +48,23 @@ namespace TodoStorage.Security.Tests
 
             appId = Guid.NewGuid();
             otherAppId = Guid.NewGuid();
+
+            hasher = new Mock<IMessageHasher>();
+
+        [Test]
+        public void Ctor_GivenNullHasher_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new HashingKey(null, Guid.NewGuid(), secret);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
         }
 
         [Test]
         public void Ctor_GivenEmptyGuid_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new HashingKey(Guid.Empty, new byte[100]);
+                () => new HashingKey(hasher.Object, Guid.Empty, new byte[100]);
 
             Assert.That(constructorCall, Throws.ArgumentException);
         }
@@ -60,7 +73,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenNullSecret_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new HashingKey(Guid.NewGuid(), null);
+                () => new HashingKey(hasher.Object, Guid.NewGuid(), null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -69,7 +82,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenZeroLengthSecret_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new HashingKey(Guid.NewGuid(), new byte[0]);
+                () => new HashingKey(hasher.Object, Guid.NewGuid(), new byte[0]);
 
             Assert.That(constructorCall, Throws.ArgumentException);
         }
@@ -77,7 +90,7 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Equals_GivenSameObject_ReturnsTrue()
         {
-            var sut = new HashingKey(appId, secret);
+            var sut = new HashingKey(hasher.Object, appId, secret);
 
             Assert.That(sut.Equals(sut), Is.True);
         }
@@ -85,8 +98,8 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
         {
-            var sut = new HashingKey(appId, secret);
-            var sameProperties = new HashingKey(appId, secret);
+            var sut = new HashingKey(hasher.Object, appId, secret);
+            var sameProperties = new HashingKey(hasher.Object, appId, secret);
 
             Assert.That(sut.Equals(sameProperties), Is.True);
         }
@@ -94,7 +107,7 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Equals_GivenNull_ReturnsFalse()
         {
-            var sut = new HashingKey(appId, secret);
+            var sut = new HashingKey(hasher.Object, appId, secret);
 
             Assert.That(sut.Equals(null), Is.False);
         }
@@ -102,9 +115,9 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
         {
-            var sut = new HashingKey(appId, secret);
-            var differingAppId = new HashingKey(otherAppId, secret);
-            var differingSecret = new HashingKey(appId, otherSecret);
+            var sut = new HashingKey(hasher.Object, appId, secret);
+            var differingAppId = new HashingKey(hasher.Object, otherAppId, secret);
+            var differingSecret = new HashingKey(hasher.Object, appId, otherSecret);
 
             Assert.That(sut.Equals(differingAppId), Is.False);
             Assert.That(sut.Equals(differingSecret), Is.False);
@@ -113,7 +126,7 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void GetHashCode_ReturnsHashByProperties()
         {
-            var sut = new HashingKey(appId, secret);
+            var sut = new HashingKey(hasher.Object, appId, secret);
 
             var start = 17;
             var multiplier = 486187739;
