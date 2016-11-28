@@ -20,7 +20,9 @@ namespace TodoStorage.Api.Configuration
 {
     using System;
     using System.Web.Http;
+    using System.Web.Http.Filters;
     using Newtonsoft.Json.Serialization;
+    using TodoStorage.Api.Authorization;
 
     public static class WebApiConfig
     {
@@ -30,6 +32,14 @@ namespace TodoStorage.Api.Configuration
             {
                 throw new ArgumentNullException(nameof(config));
             }
+
+            var keyFilter = config.DependencyResolver.GetService(typeof(KeyAuthorizationFilterAttribute)) as IFilter;
+            if (keyFilter == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            config.Filters.Add(keyFilter);
 
             config.MapHttpAttributeRoutes();
 

@@ -75,6 +75,10 @@
       <HintPath>..\packages\Ninject.Web.WebApi.WebHost.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimonWendel.GuardStatements, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimonWendel.GuardStatements.1.1.0\lib\net45\SimonWendel.GuardStatements.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -113,6 +117,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authorization\IMessageExtractor.cs" />
+    <Compile Include="Authorization\KeyAuthorizationFilterAttribute.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Configuration\WebApiConfig.cs" />
@@ -142,6 +148,10 @@
     <ProjectReference Include="..\TodoStorage.Persistence\TodoStorage.Persistence.csproj">
       <Project>{d327172c-35dc-4566-9c3f-7f947aaf71e9}</Project>
       <Name>TodoStorage.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TodoStorage.Security\TodoStorage.Security.csproj">
+      <Project>{27FA62DA-D74B-4BEF-916A-24C15688EAF0}</Project>
+      <Name>TodoStorage.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

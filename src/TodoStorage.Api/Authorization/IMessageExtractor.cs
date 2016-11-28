@@ -16,19 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-
-[assembly: AssemblyTitle("Todo App Storage API")]
-[assembly: AssemblyProduct("TodoStorage.Api")]
-[assembly: AssemblyCopyright("Copyright © Simon Wendel 2016")]
-[assembly: ComVisible(false)]
-[assembly: Guid("05f55ee7-f003-43de-b842-4395bd8a25e2")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-
-[assembly: InternalsVisibleTo("TodoStorage.Api.Tests")]
-
-// for enabling use of Moq
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+namespace TodoStorage.Api.Authorization
+{
+    internal interface IMessageExtractor
+    {
+    }
+}
