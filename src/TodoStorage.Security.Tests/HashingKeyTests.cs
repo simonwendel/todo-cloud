@@ -28,6 +28,8 @@ namespace TodoStorage.Security.Tests
     [TestFixture]
     internal class HashingKeyTests
     {
+        private HashingKey sut;
+
         private byte[] secret;
 
         private byte[] otherSecret;
@@ -35,6 +37,10 @@ namespace TodoStorage.Security.Tests
         private Guid appId;
 
         private Guid otherAppId;
+
+        private byte[] hash;
+
+        private byte[] otherHash;
 
         private Mock<IMessageHasher> hasher;
 
@@ -49,7 +55,13 @@ namespace TodoStorage.Security.Tests
             appId = Guid.NewGuid();
             otherAppId = Guid.NewGuid();
 
+            hash = fixture.CreateMany<byte>().ToArray();
+            otherHash = fixture.CreateMany<byte>().ToArray();
+
             hasher = new Mock<IMessageHasher>();
+
+            sut = new HashingKey(hasher.Object, appId, secret);
+        }
 
         [Test]
         public void Ctor_GivenNullHasher_ThrowsException()
@@ -85,6 +97,54 @@ namespace TodoStorage.Security.Tests
                 () => new HashingKey(hasher.Object, Guid.NewGuid(), new byte[0]);
 
             Assert.That(constructorCall, Throws.ArgumentException);
+        }
+
+        [Test]
+        public void Verify_GivenNullMessage_ThrowsException()
+        {
+            TestDelegate verifyCall =
+                () => sut.Verify(null, hash);
+
+            Assert.That(verifyCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Verify_GivenNullHash_ThrowsException()
+        {
+            TestDelegate verifyCall =
+                () => sut.Verify("a message", null);
+
+            Assert.That(verifyCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Verify_WhenHasherProducesDifferentHash_ReturnsFalse()
+        {
+            hasher
+                .Setup(h => h.HashMessage(It.Is<string>(m => m.Equals("some message"))))
+                .Returns(otherHash);
+
+            var hashesMatch = sut.Verify("some message", hash);
+
+            Assert.That(hashesMatch, Is.False);
+            hasher.Verify(
+                h => h.HashMessage(It.Is<string>(m => m.Equals("some message"))),
+                Times.Once);
+        }
+
+        [Test]
+        public void Verify_WhenHasherProducesSameHash_ReturnsTrue()
+        {
+            hasher
+                .Setup(h => h.HashMessage(It.Is<string>(m => m.Equals("the message"))))
+                .Returns(hash);
+
+            var hashesMatch = sut.Verify("the message", hash);
+
+            Assert.That(hashesMatch, Is.True);
+            hasher.Verify(
+                h => h.HashMessage(It.Is<string>(m => m.Equals("the message"))),
+                Times.Once);
         }
 
         [Test]
