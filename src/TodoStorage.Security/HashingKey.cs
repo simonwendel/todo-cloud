@@ -30,7 +30,7 @@ namespace TodoStorage.Security
         internal HashingKey(Guid identifier, byte[] secret)
             : base(identifier)
         {
-            Guard.EnsureNotNull(secret);
+            Guard.EnsureNotNull(secret, nameof(secret));
             if (secret.Length == 0)
             {
                 throw new ArgumentException(null, nameof(secret));
