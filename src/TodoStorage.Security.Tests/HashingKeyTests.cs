@@ -195,7 +195,7 @@ namespace TodoStorage.Security.Tests
             unchecked
             {
                 hash = start;
-                hash = (hash * multiplier) + sut.Identifier.GetHashCode();
+                hash = (hash * multiplier) + appId.GetHashCode();
                 foreach (var b in secret)
                 {
                     hash = (hash * multiplier) + b;

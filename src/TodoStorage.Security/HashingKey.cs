@@ -21,18 +21,19 @@ namespace TodoStorage.Security
     using System;
     using System.Linq;
     using SimonWendel.GuardStatements;
-    using TodoStorage.Domain;
 
-    public class HashingKey : CollectionKey
+    public class HashingKey
     {
         private readonly IMessageHasher hasher;
+
+        private readonly Guid identifier;
 
         private readonly byte[] secret;
 
         internal HashingKey(IMessageHasher hasher, Guid identifier, byte[] secret)
-            : base(identifier)
         {
             Guard.EnsureNotNull(hasher, nameof(hasher));
+            Guard.EnsureNonempty(identifier, nameof(identifier));
             Guard.EnsureNotNull(secret, nameof(secret));
             if (secret.Length == 0)
             {
@@ -40,6 +41,7 @@ namespace TodoStorage.Security
             }
 
             this.hasher = hasher;
+            this.identifier = identifier;
             this.secret = secret;
         }
 
@@ -60,7 +62,7 @@ namespace TodoStorage.Security
             }
 
             var otherHashingKey = obj as HashingKey;
-            return Identifier.Equals(otherHashingKey.Identifier)
+            return identifier.Equals(otherHashingKey.identifier)
                 && secret.SequenceEqual(otherHashingKey.secret);
         }
 
@@ -68,7 +70,7 @@ namespace TodoStorage.Security
         {
             unchecked
             {
-                var hash = (17 * 486187739) + Identifier.GetHashCode();
+                var hash = (17 * 486187739) + identifier.GetHashCode();
                 foreach (var b in secret)
                 {
                     hash = (hash * 486187739) + b;

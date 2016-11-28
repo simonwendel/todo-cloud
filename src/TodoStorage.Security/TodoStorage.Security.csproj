@@ -56,12 +56,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TodoStorage.Domain\TodoStorage.Domain.csproj">
-      <Project>{8EA6B688-81C0-44D9-B241-7F5361C48C8A}</Project>
-      <Name>TodoStorage.Domain</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <CodeAnalysisDictionary Include="..\common\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
