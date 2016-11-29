@@ -26,14 +26,14 @@ namespace TodoStorage.Api.Tests.Authorization
     [TestFixture]
     internal class KeyAuthorizationFilterAttributeTests
     {
-        private Mock<IHashingKeyFactory> hashingKeyFactory;
+        private Mock<IHashingKeyFactory> keyFactory;
 
         private Mock<IMessageExtractor> messageExtractor;
 
         [SetUp]
         public void Setup()
         {
-            hashingKeyFactory = new Mock<IHashingKeyFactory>();
+            keyFactory = new Mock<IHashingKeyFactory>();
             messageExtractor = new Mock<IMessageExtractor>();
         }
 
@@ -50,7 +50,7 @@ namespace TodoStorage.Api.Tests.Authorization
         public void Ctor_GivenNullMessageExtractor_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new KeyAuthorizationFilterAttribute(hashingKeyFactory.Object, null);
+                () => new KeyAuthorizationFilterAttribute(keyFactory.Object, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
