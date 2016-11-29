@@ -18,10 +18,14 @@
 
 namespace TodoStorage.Api.Authorization
 {
-    using System.Web.Http.Controllers;
+    using System;
 
-    internal interface IMessageExtractor
+    internal class Message
     {
-        Message ExtractMessage(HttpActionContext context);
+        public Guid Identifier { get; set; }
+
+        public string Body { get; set; }
+
+        public byte[] Hash { get; set; }
     }
 }
