@@ -21,6 +21,7 @@ namespace TodoStorage.Api
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Http;
 
+    [ExcludeFromCodeCoverage]
     public class WebApiApplication : System.Web.HttpApplication
     {
         [SuppressMessage(
