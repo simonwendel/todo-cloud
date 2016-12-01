@@ -18,6 +18,9 @@
 
 namespace TodoStorage.Api.Authorization
 {
+    using System.Net;
+    using System.Web.Http;
+    using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
     using SimonWendel.GuardStatements;
     using TodoStorage.Security;
@@ -35,6 +38,20 @@ namespace TodoStorage.Api.Authorization
 
             this.keyFactory = keyFactory;
             this.messageExtractor = messageExtractor;
+        }
+
+        public override void OnAuthorization(HttpActionContext actionContext)
+        {
+            Guard.EnsureNotNull(actionContext, nameof(actionContext));
+
+            var message = messageExtractor.ExtractMessage(actionContext);
+            var hashingKey = keyFactory.Build(message.Identifier);
+            if (hashingKey.Verify(message.Body, message.Hash))
+            {
+                return;
+            }
+
+            throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
     }
 }

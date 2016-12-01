@@ -18,23 +18,47 @@
 
 namespace TodoStorage.Api.Tests.Authorization
 {
+    using System;
+    using System.Web.Http;
+    using System.Web.Http.Controllers;
     using Moq;
     using NUnit.Framework;
+    using Ploeh.AutoFixture;
     using TodoStorage.Api.Authorization;
+    using TodoStorage.Api.Tests.Utilities;
     using TodoStorage.Security;
 
     [TestFixture]
     internal class KeyAuthorizationFilterAttributeTests
     {
+        private KeyAuthorizationFilterAttribute sut;
+
         private Mock<IHashingKeyFactory> keyFactory;
+
+        private Mock<IHashingKey> hashingKey;
 
         private Mock<IMessageExtractor> messageExtractor;
 
         [SetUp]
         public void Setup()
         {
-            keyFactory = new Mock<IHashingKeyFactory>();
+            var fixture = new Fixture();
+
+            var message = fixture.Create<Message>();
+
             messageExtractor = new Mock<IMessageExtractor>();
+            messageExtractor
+                .Setup(e => e.ExtractMessage(It.IsAny<HttpActionContext>()))
+                .Returns(message);
+
+            hashingKey = new Mock<IHashingKey>();
+
+            keyFactory = new Mock<IHashingKeyFactory>();
+            keyFactory
+                .Setup(f => f.Build(It.IsAny<Guid>()))
+                .Returns(hashingKey.Object);
+
+            sut = new KeyAuthorizationFilterAttribute(keyFactory.Object, messageExtractor.Object);
         }
 
         [Test]
@@ -53,6 +77,59 @@ namespace TodoStorage.Api.Tests.Authorization
                 () => new KeyAuthorizationFilterAttribute(keyFactory.Object, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void OnAuthorization_GivenNullActionContext_ThrowsException()
+        {
+            TestDelegate authorizationCall =
+                () => sut.OnAuthorization(null);
+
+            Assert.That(authorizationCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void OnAuthorization_GivenActionContext_ExtractsMessage()
+        {
+            hashingKey
+                .Setup(k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Returns(true);
+
+            sut.OnAuthorization(new FakeHttpActionContext());
+
+            messageExtractor.Verify(
+                e => e.ExtractMessage(It.IsAny<HttpActionContext>()), 
+                Times.Once);
+        }
+
+        [Test]
+        public void OnAuthorization_IfHashDoesntMatch_ThrowsException()
+        {
+            hashingKey
+                .Setup(k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Returns(false);
+
+            TestDelegate authorizationCall =
+                () => sut.OnAuthorization(new FakeHttpActionContext());
+
+            Assert.That(authorizationCall, Throws.TypeOf<HttpResponseException>());
+            hashingKey.Verify(
+                k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()), 
+                Times.Once);
+        }
+
+        [Test]
+        public void OnAuthorization_IfHashMatches_DoesNothing()
+        {
+            hashingKey
+                .Setup(k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Returns(true);
+
+            sut.OnAuthorization(new FakeHttpActionContext());
+
+            hashingKey.Verify(
+                k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()),
+                Times.Once);
         }
     }
 }
