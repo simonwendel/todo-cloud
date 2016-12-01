@@ -30,6 +30,6 @@ namespace TodoStorage.Domain
         /// <returns>
         /// A todo list object, with todo items fetched from the main storage, or a new one if not found.
         /// </returns>
-        TodoList Create(CollectionKey collectionKey);
+        ITodoList Create(CollectionKey collectionKey);
     }
 }

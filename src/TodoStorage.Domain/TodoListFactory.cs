@@ -31,7 +31,7 @@ namespace TodoStorage.Domain
             this.todoService = todoService;
         }
 
-        public TodoList Create(CollectionKey collectionKey)
+        public ITodoList Create(CollectionKey collectionKey)
         {
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
 
