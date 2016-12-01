@@ -22,7 +22,7 @@ namespace TodoStorage.Security
     using System.Linq;
     using SimonWendel.GuardStatements;
 
-    public class HashingKey : IHashingKey
+    internal class HashingKey : IHashingKey
     {
         private readonly IMessageHasher hasher;
 
@@ -30,7 +30,7 @@ namespace TodoStorage.Security
 
         private readonly byte[] secret;
 
-        internal HashingKey(IMessageHasher hasher, Guid identifier, byte[] secret)
+        public HashingKey(IMessageHasher hasher, Guid identifier, byte[] secret)
         {
             Guard.EnsureNotNull(hasher, nameof(hasher));
             Guard.EnsureNonempty(identifier, nameof(identifier));
