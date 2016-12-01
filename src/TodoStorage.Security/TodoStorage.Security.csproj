@@ -46,6 +46,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HashingKeyFactory.cs" />
     <Compile Include="IAuthenticationRepository.cs" />
+    <Compile Include="IHashingKey.cs" />
     <Compile Include="IMessageHasher.cs" />
     <Compile Include="IHashingKeyFactory.cs" />
     <Compile Include="KeyNotFoundException.cs" />

@@ -22,7 +22,7 @@ namespace TodoStorage.Security
     using System.Linq;
     using SimonWendel.GuardStatements;
 
-    public class HashingKey
+    public class HashingKey : IHashingKey
     {
         private readonly IMessageHasher hasher;
 
