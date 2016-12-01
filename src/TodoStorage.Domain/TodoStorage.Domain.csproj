@@ -46,6 +46,7 @@
     <Compile Include="Color.cs" />
     <Compile Include="DeleteFailedException.cs" />
     <Compile Include="IllegalValueException.cs" />
+    <Compile Include="ITodoList.cs" />
     <Compile Include="ITodoService.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="AccessControlException.cs" />

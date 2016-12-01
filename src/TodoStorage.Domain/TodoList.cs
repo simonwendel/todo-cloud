@@ -22,7 +22,7 @@ namespace TodoStorage.Domain
     using System.Linq;
     using SimonWendel.GuardStatements;
 
-    public class TodoList
+    public class TodoList : ITodoList
     {
         private readonly ITodoService todoService;
 
