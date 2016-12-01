@@ -22,7 +22,7 @@ namespace TodoStorage.Api.Authorization
 
     internal class Message
     {
-        public Guid Identifier { get; set; }
+        public Guid AppId { get; set; }
 
         public string Body { get; set; }
 

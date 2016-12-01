@@ -45,7 +45,7 @@ namespace TodoStorage.Api.Authorization
             Guard.EnsureNotNull(actionContext, nameof(actionContext));
 
             var message = messageExtractor.ExtractMessage(actionContext);
-            var hashingKey = keyFactory.Build(message.Identifier);
+            var hashingKey = keyFactory.Build(message.AppId);
             if (hashingKey.Verify(message.Body, message.Hash))
             {
                 return;
