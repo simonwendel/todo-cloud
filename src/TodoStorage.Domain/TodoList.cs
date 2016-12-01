@@ -22,7 +22,7 @@ namespace TodoStorage.Domain
     using System.Linq;
     using SimonWendel.GuardStatements;
 
-    public class TodoList : ITodoList
+    internal class TodoList : ITodoList
     {
         private readonly ITodoService todoService;
 
@@ -30,7 +30,7 @@ namespace TodoStorage.Domain
 
         private List<Todo> items;
 
-        internal TodoList(ITodoService todoService, CollectionKey collectionKey)
+        public TodoList(ITodoService todoService, CollectionKey collectionKey)
         {
             Guard.EnsureNotNull(todoService, nameof(todoService));
             Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
