@@ -26,6 +26,6 @@ namespace TodoStorage.Api.Authorization
 
         public string Body { get; set; }
 
-        public byte[] Hash { get; set; }
+        public byte[] Signature { get; set; }
     }
 }
