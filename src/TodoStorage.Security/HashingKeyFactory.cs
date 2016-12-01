@@ -36,7 +36,7 @@ namespace TodoStorage.Security
             this.hasher = hasher;
         }
 
-        public HashingKey Build(Guid appId)
+        public IHashingKey Build(Guid appId)
         {
             Guard.EnsureNonempty(appId, nameof(appId));
 

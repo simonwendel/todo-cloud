@@ -30,6 +30,6 @@ namespace TodoStorage.Security
         /// <exception cref="KeyNotFoundException">
         /// Thrown when app ID is not present in storage.
         /// </exception>
-        HashingKey Build(Guid appId);
+        IHashingKey Build(Guid appId);
     }
 }
