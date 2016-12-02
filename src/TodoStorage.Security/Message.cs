@@ -19,6 +19,7 @@
 namespace TodoStorage.Security
 {
     using System;
+    using System.Collections.Generic;
     using SimonWendel.GuardStatements;
 
     public class Message
@@ -27,7 +28,7 @@ namespace TodoStorage.Security
 
         private readonly string body;
 
-        private readonly byte[] signature;
+        private readonly IReadOnlyList<byte> signature;
 
         public Message(Guid appId, string body, byte[] signature)
         {
@@ -37,13 +38,13 @@ namespace TodoStorage.Security
 
             this.appId = appId;
             this.body = body;
-            this.signature = signature;
+            this.signature = new List<byte>(signature).AsReadOnly();
         }
 
         public Guid AppId => appId;
 
         public string Body => body;
 
-        public byte[] Signature => signature;
+        public IReadOnlyList<byte> Signature => signature;
     }
 }
