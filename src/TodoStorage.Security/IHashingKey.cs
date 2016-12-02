@@ -20,6 +20,6 @@ namespace TodoStorage.Security
 {
     public interface IHashingKey
     {
-        bool Verify(string message, byte[] hash);
+        bool Verify(Message message);
     }
 }

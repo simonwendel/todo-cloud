@@ -45,13 +45,12 @@ namespace TodoStorage.Security
             this.secret = secret;
         }
 
-        public bool Verify(string message, byte[] hash)
+        public bool Verify(Message message)
         {
             Guard.EnsureNotNull(message, nameof(message));
-            Guard.EnsureNotNull(hash, nameof(hash));
 
-            var rehash = hasher.HashMessage(message);
-            return hash.SequenceEqual(rehash);
+            var rehash = hasher.HashMessage(message.Body);
+            return message.Signature.SequenceEqual(rehash);
         }
 
         public override bool Equals(object obj)

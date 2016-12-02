@@ -103,16 +103,7 @@ namespace TodoStorage.Security.Tests
         public void Verify_GivenNullMessage_ThrowsException()
         {
             TestDelegate verifyCall =
-                () => sut.Verify(null, hash);
-
-            Assert.That(verifyCall, Throws.ArgumentNullException);
-        }
-
-        [Test]
-        public void Verify_GivenNullHash_ThrowsException()
-        {
-            TestDelegate verifyCall =
-                () => sut.Verify("a message", null);
+                () => sut.Verify(null);
 
             Assert.That(verifyCall, Throws.ArgumentNullException);
         }
@@ -120,11 +111,13 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Verify_WhenHasherProducesDifferentHash_ReturnsFalse()
         {
+            var message = new Message(appId, "some message", hash);
+
             hasher
                 .Setup(h => h.HashMessage(It.Is<string>(m => m.Equals("some message"))))
                 .Returns(otherHash);
 
-            var hashesMatch = sut.Verify("some message", hash);
+            var hashesMatch = sut.Verify(message);
 
             Assert.That(hashesMatch, Is.False);
             hasher.Verify(
@@ -135,11 +128,13 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Verify_WhenHasherProducesSameHash_ReturnsTrue()
         {
+            var message = new Message(appId, "the message", hash);
+
             hasher
                 .Setup(h => h.HashMessage(It.Is<string>(m => m.Equals("the message"))))
                 .Returns(hash);
 
-            var hashesMatch = sut.Verify("the message", hash);
+            var hashesMatch = sut.Verify(message);
 
             Assert.That(hashesMatch, Is.True);
             hasher.Verify(

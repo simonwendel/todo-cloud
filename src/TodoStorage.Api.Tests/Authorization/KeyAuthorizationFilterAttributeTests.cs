@@ -92,7 +92,7 @@ namespace TodoStorage.Api.Tests.Authorization
         public void OnAuthorization_GivenActionContext_ExtractsMessage()
         {
             hashingKey
-                .Setup(k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Setup(k => k.Verify(It.IsAny<Message>()))
                 .Returns(true);
 
             sut.OnAuthorization(new FakeHttpActionContext());
@@ -106,7 +106,7 @@ namespace TodoStorage.Api.Tests.Authorization
         public void OnAuthorization_IfHashDoesntMatch_ThrowsException()
         {
             hashingKey
-                .Setup(k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Setup(k => k.Verify(It.IsAny<Message>()))
                 .Returns(false);
 
             TestDelegate authorizationCall =
@@ -114,7 +114,7 @@ namespace TodoStorage.Api.Tests.Authorization
 
             Assert.That(authorizationCall, Throws.TypeOf<HttpResponseException>());
             hashingKey.Verify(
-                k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()), 
+                k => k.Verify(It.IsAny<Message>()), 
                 Times.Once);
         }
 
@@ -122,13 +122,13 @@ namespace TodoStorage.Api.Tests.Authorization
         public void OnAuthorization_IfHashMatches_DoesNothing()
         {
             hashingKey
-                .Setup(k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Setup(k => k.Verify(It.IsAny<Message>()))
                 .Returns(true);
 
             sut.OnAuthorization(new FakeHttpActionContext());
 
             hashingKey.Verify(
-                k => k.Verify(It.IsAny<string>(), It.IsAny<byte[]>()),
+                k => k.Verify(It.IsAny<Message>()),
                 Times.Once);
         }
     }
