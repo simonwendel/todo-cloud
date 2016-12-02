@@ -19,13 +19,31 @@
 namespace TodoStorage.Security
 {
     using System;
+    using SimonWendel.GuardStatements;
 
     public class Message
     {
-        public Guid AppId { get; set; }
+        private readonly Guid appId;
 
-        public string Body { get; set; }
+        private readonly string body;
 
-        public byte[] Signature { get; set; }
+        private readonly byte[] signature;
+
+        public Message(Guid appId, string body, byte[] signature)
+        {
+            Guard.EnsureNonempty(appId);
+            Guard.EnsureNotNull(body);
+            Guard.EnsureNotNull(signature);
+
+            this.appId = appId;
+            this.body = body;
+            this.signature = signature;
+        }
+
+        public Guid AppId => appId;
+
+        public string Body => body;
+
+        public byte[] Signature => signature;
     }
 }
