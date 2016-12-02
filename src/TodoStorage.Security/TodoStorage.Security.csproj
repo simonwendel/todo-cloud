@@ -50,6 +50,7 @@
     <Compile Include="IMessageHasher.cs" />
     <Compile Include="IHashingKeyFactory.cs" />
     <Compile Include="KeyNotFoundException.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="MessageHasher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

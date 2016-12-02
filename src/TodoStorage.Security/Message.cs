@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Api.Authorization
+namespace TodoStorage.Security
 {
     using System;
 
-    internal class Message
+    public class Message
     {
         public Guid AppId { get; set; }
 

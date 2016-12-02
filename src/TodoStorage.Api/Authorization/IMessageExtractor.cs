@@ -19,6 +19,7 @@
 namespace TodoStorage.Api.Authorization
 {
     using System.Web.Http.Controllers;
+    using TodoStorage.Security;
 
     internal interface IMessageExtractor
     {
