@@ -32,14 +32,25 @@ namespace TodoStorage.Security.Tests
 
         private byte[] signature;
 
+        private Guid otherAppId;
+
+        private string otherBody;
+
+        private byte[] otherSignature;
+
         [SetUp]
         public void Setup()
         {
             var fixture = new Fixture();
 
             appId = fixture.Create<Guid>();
+            otherAppId = fixture.Create<Guid>();
+
             body = fixture.Create<string>();
+            otherBody = fixture.Create<string>();
+
             signature = fixture.CreateMany<byte>().ToArray();
+            otherSignature = fixture.CreateMany<byte>().ToArray();
         }
 
         [Test]
@@ -77,6 +88,44 @@ namespace TodoStorage.Security.Tests
             Assert.That(sut.AppId, Is.EqualTo(appId));
             Assert.That(sut.Body, Is.EqualTo(body));
             Assert.That(sut.Signature, Is.EquivalentTo(signature));
+        }
+
+        [Test]
+        public void Equals_GivenSameObject_ReturnsTrue()
+        {
+            var sut = new Message(appId, body, signature);
+
+            Assert.That(sut.Equals(sut), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
+        {
+            var sut = new Message(appId, body, signature);
+            var sameProperties = new Message(appId, body, signature);
+
+            Assert.That(sut.Equals(sameProperties), Is.True);
+        }
+
+        [Test]
+        public void Equals_GivenNull_ReturnsFalse()
+        {
+            var sut = new Message(appId, body, signature);
+
+            Assert.That(sut.Equals(null), Is.False);
+        }
+
+        [Test]
+        public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
+        {
+            var sut = new Message(appId, body, signature);
+            var differingAppId = new Message(otherAppId, body, signature);
+            var differingBody = new Message(appId, otherBody, signature);
+            var differingSignature = new Message(appId, body, otherSignature);
+
+            Assert.That(sut.Equals(differingAppId), Is.False);
+            Assert.That(sut.Equals(differingBody), Is.False);
+            Assert.That(sut.Equals(differingSignature), Is.False);
         }
     }
 }

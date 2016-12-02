@@ -20,6 +20,7 @@ namespace TodoStorage.Security
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using SimonWendel.GuardStatements;
 
     public class Message
@@ -46,5 +47,18 @@ namespace TodoStorage.Security
         public string Body => body;
 
         public IReadOnlyList<byte> Signature => signature;
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var otherMessage = obj as Message;
+            return appId.Equals(otherMessage.appId)
+                && body.Equals(otherMessage.body)
+                && signature.SequenceEqual(otherMessage.signature);
+        }
     }
 }
