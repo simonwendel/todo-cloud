@@ -60,5 +60,20 @@ namespace TodoStorage.Security
                 && body.Equals(otherMessage.body)
                 && signature.SequenceEqual(otherMessage.signature);
         }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = (17 * 486187739) + appId.GetHashCode();
+                hash = (hash * 486187739) + body.GetHashCode();
+                foreach (var b in signature)
+                {
+                    hash = (hash * 486187739) + b;
+                }
+
+                return hash;
+            }
+        }
     }
 }

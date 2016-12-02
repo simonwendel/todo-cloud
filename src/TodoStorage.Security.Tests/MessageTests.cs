@@ -127,5 +127,28 @@ namespace TodoStorage.Security.Tests
             Assert.That(sut.Equals(differingBody), Is.False);
             Assert.That(sut.Equals(differingSignature), Is.False);
         }
+
+        [Test]
+        public void GetHashCode_ReturnsHashByProperties()
+        {
+            var sut = new Message(appId, body, signature);
+
+            var start = 17;
+            var multiplier = 486187739;
+
+            int hash;
+            unchecked
+            {
+                hash = start;
+                hash = (hash * multiplier) + appId.GetHashCode();
+                hash = (hash * multiplier) + body.GetHashCode();
+                foreach (var b in signature)
+                {
+                    hash = (hash * multiplier) + b;
+                }
+            }
+
+            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
+        }
     }
 }
