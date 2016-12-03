@@ -30,7 +30,7 @@ namespace TodoStorage.Security.Tests
 
         private string method;
 
-        private string uri;
+        private Uri uri;
 
         private ulong timestamp;
 
@@ -44,7 +44,7 @@ namespace TodoStorage.Security.Tests
 
         private string otherMethod;
 
-        private string otherUri;
+        private Uri otherUri;
 
         private ulong otherTimestamp;
 
@@ -65,8 +65,8 @@ namespace TodoStorage.Security.Tests
             method = fixture.Create<string>();
             otherMethod = fixture.Create<string>();
 
-            uri = fixture.Create<string>();
-            otherUri = fixture.Create<string>();
+            uri = fixture.Create<Uri>();
+            otherUri = fixture.Create<Uri>();
 
             timestamp = fixture.Create<ulong>();
             otherTimestamp = fixture.Create<ulong>();

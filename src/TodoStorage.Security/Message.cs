@@ -29,7 +29,7 @@ namespace TodoStorage.Security
 
         private readonly string method;
 
-        private readonly string uri;
+        private readonly Uri uri;
 
         private readonly ulong timestamp;
 
@@ -39,7 +39,7 @@ namespace TodoStorage.Security
 
         private readonly IReadOnlyList<byte> signature;
 
-        public Message(Guid appId, string method, string uri, ulong timestamp, string nonce, string body, byte[] signature)
+        public Message(Guid appId, string method, Uri uri, ulong timestamp, string nonce, string body, byte[] signature)
         {
             Guard.EnsureNonempty(appId);
             Guard.EnsureNotNull(method);
@@ -61,7 +61,7 @@ namespace TodoStorage.Security
 
         public string Method => method;
 
-        public string Uri => uri;
+        public Uri Uri => uri;
 
         public ulong Timestamp => timestamp;
 
