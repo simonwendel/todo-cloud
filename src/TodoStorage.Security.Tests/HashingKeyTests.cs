@@ -38,11 +38,11 @@ namespace TodoStorage.Security.Tests
 
         private Guid otherAppId;
 
-        private byte[] hash;
-
         private byte[] otherHash;
 
         private Mock<IMessageHasher> hasher;
+
+        private Message message;
 
         [SetUp]
         public void Setup()
@@ -54,11 +54,12 @@ namespace TodoStorage.Security.Tests
 
             appId = Guid.NewGuid();
             otherAppId = Guid.NewGuid();
-
-            hash = fixture.CreateMany<byte>().ToArray();
+            
             otherHash = fixture.CreateMany<byte>().ToArray();
 
             hasher = new Mock<IMessageHasher>();
+
+            message = fixture.Create<Message>();
 
             sut = new HashingKey(hasher.Object, appId, secret);
         }
@@ -111,34 +112,30 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Verify_WhenHasherProducesDifferentHash_ReturnsFalse()
         {
-            var message = new Message(appId, "some message", hash);
-
             hasher
-                .Setup(h => h.HashMessage(It.Is<string>(m => m.Equals("some message"))))
+                .Setup(h => h.HashMessage(It.IsAny<string>()))
                 .Returns(otherHash);
 
             var hashesMatch = sut.Verify(message);
 
             Assert.That(hashesMatch, Is.False);
             hasher.Verify(
-                h => h.HashMessage(It.Is<string>(m => m.Equals("some message"))),
+                h => h.HashMessage(It.IsAny<string>()),
                 Times.Once);
         }
 
         [Test]
         public void Verify_WhenHasherProducesSameHash_ReturnsTrue()
         {
-            var message = new Message(appId, "the message", hash);
-
             hasher
-                .Setup(h => h.HashMessage(It.Is<string>(m => m.Equals("the message"))))
-                .Returns(hash);
+                .Setup(h => h.HashMessage(It.IsAny<string>()))
+                .Returns(message.Signature.ToArray());
 
             var hashesMatch = sut.Verify(message);
 
             Assert.That(hashesMatch, Is.True);
             hasher.Verify(
-                h => h.HashMessage(It.Is<string>(m => m.Equals("the message"))),
+                h => h.HashMessage(It.IsAny<string>()),
                 Times.Once);
         }
 
