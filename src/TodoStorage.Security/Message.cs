@@ -27,22 +27,45 @@ namespace TodoStorage.Security
     {
         private readonly Guid appId;
 
+        private readonly string method;
+
+        private readonly string uri;
+
+        private readonly ulong timestamp;
+
+        private readonly string nonce;
+
         private readonly string body;
 
         private readonly IReadOnlyList<byte> signature;
 
-        public Message(Guid appId, string body, byte[] signature)
+        public Message(Guid appId, string method, string uri, ulong timestamp, string nonce, string body, byte[] signature)
         {
             Guard.EnsureNonempty(appId);
+            Guard.EnsureNotNull(method);
+            Guard.EnsureNotNull(uri);
+            Guard.EnsureNotNull(nonce);
             Guard.EnsureNotNull(body);
             Guard.EnsureNotNull(signature);
 
             this.appId = appId;
+            this.method = method;
+            this.uri = uri;
+            this.timestamp = timestamp;
+            this.nonce = nonce;
             this.body = body;
             this.signature = new List<byte>(signature).AsReadOnly();
         }
 
         public Guid AppId => appId;
+
+        public string Method => method;
+
+        public string Uri => uri;
+
+        public ulong Timestamp => timestamp;
+
+        public string Nonce => nonce;
 
         public string Body => body;
 
@@ -57,19 +80,31 @@ namespace TodoStorage.Security
 
             var otherMessage = obj as Message;
             return appId.Equals(otherMessage.appId)
+                && method.Equals(otherMessage.method)
+                && uri.Equals(otherMessage.uri)
+                && timestamp.Equals(otherMessage.timestamp)
+                && nonce.Equals(otherMessage.nonce)
                 && body.Equals(otherMessage.body)
                 && signature.SequenceEqual(otherMessage.signature);
         }
 
         public override int GetHashCode()
         {
+            var start = 17;
+            var multiplier = 486187739;
+
             unchecked
             {
-                var hash = (17 * 486187739) + appId.GetHashCode();
-                hash = (hash * 486187739) + body.GetHashCode();
+                int hash = start;
+                hash = (hash * multiplier) + appId.GetHashCode();
+                hash = (hash * multiplier) + method.GetHashCode();
+                hash = (hash * multiplier) + uri.GetHashCode();
+                hash = (hash * multiplier) + timestamp.GetHashCode();
+                hash = (hash * multiplier) + nonce.GetHashCode();
+                hash = (hash * multiplier) + body.GetHashCode();
                 foreach (var b in signature)
                 {
-                    hash = (hash * 486187739) + b;
+                    hash = (hash * multiplier) + b;
                 }
 
                 return hash;
