@@ -49,10 +49,12 @@
     <Compile Include="IHashingKey.cs" />
     <Compile Include="IMessageHasher.cs" />
     <Compile Include="IHashingKeyFactory.cs" />
+    <Compile Include="ITextCodec.cs" />
     <Compile Include="KeyNotFoundException.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageHasher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextCodec.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
