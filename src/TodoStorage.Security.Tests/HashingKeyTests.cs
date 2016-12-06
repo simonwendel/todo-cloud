@@ -113,14 +113,14 @@ namespace TodoStorage.Security.Tests
         public void Verify_WhenHasherProducesDifferentHash_ReturnsFalse()
         {
             hasher
-                .Setup(h => h.HashMessage(It.IsAny<string>()))
+                .Setup(h => h.HashMessage(It.Is<string>(s => s.Equals(message.ToString()))))
                 .Returns(otherHash);
 
             var hashesMatch = sut.Verify(message);
 
             Assert.That(hashesMatch, Is.False);
             hasher.Verify(
-                h => h.HashMessage(It.IsAny<string>()),
+                h => h.HashMessage(It.Is<string>(s => s.Equals(message.ToString()))),
                 Times.Once);
         }
 
@@ -128,14 +128,14 @@ namespace TodoStorage.Security.Tests
         public void Verify_WhenHasherProducesSameHash_ReturnsTrue()
         {
             hasher
-                .Setup(h => h.HashMessage(It.IsAny<string>()))
+                .Setup(h => h.HashMessage(It.Is<string>(s => s.Equals(message.ToString()))))
                 .Returns(message.Signature.ToArray());
 
             var hashesMatch = sut.Verify(message);
 
             Assert.That(hashesMatch, Is.True);
             hasher.Verify(
-                h => h.HashMessage(It.IsAny<string>()),
+                h => h.HashMessage(It.Is<string>(s => s.Equals(message.ToString()))),
                 Times.Once);
         }
 

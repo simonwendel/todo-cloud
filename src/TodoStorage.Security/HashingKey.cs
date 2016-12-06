@@ -49,7 +49,7 @@ namespace TodoStorage.Security
         {
             Guard.EnsureNotNull(message, nameof(message));
 
-            var rehash = hasher.HashMessage(message.Body);
+            var rehash = hasher.HashMessage(message.ToString());
             return message.Signature.SequenceEqual(rehash);
         }
 
