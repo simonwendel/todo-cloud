@@ -21,7 +21,6 @@ namespace TodoStorage.Security.Tests
     using System;
     using System.Linq;
     using System.Security.Cryptography;
-    using System.Text;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
 
@@ -70,7 +69,7 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void HashMessage_GivenMessageAndKey_ComnputesHash()
         {
-            var messageBytes = Encoding.Unicode.GetBytes(message);
+            var messageBytes = EncodingOption.Default.GetBytes(message);
             var expectedHash = algorithm.ComputeHash(messageBytes);
 
             var hash = sut.HashMessage(message);

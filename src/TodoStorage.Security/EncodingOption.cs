@@ -18,26 +18,10 @@
 
 namespace TodoStorage.Security
 {
-    using System.Security.Cryptography;
-    using SimonWendel.GuardStatements;
+    using System.Text;
 
-    internal class MessageHasher : IMessageHasher
+    internal static class EncodingOption
     {
-        private readonly HashAlgorithm algorithm;
-
-        public MessageHasher(HashAlgorithm algorithm)
-        {
-            Guard.EnsureNotNull(algorithm, nameof(algorithm));
-
-            this.algorithm = algorithm;
-        }
-
-        public byte[] HashMessage(string message)
-        {
-            Guard.EnsureNotNull(message);
-
-            var messageBytes = EncodingOption.Default.GetBytes(message);
-            return algorithm.ComputeHash(messageBytes);
-        }
+        public static readonly Encoding Default = Encoding.UTF8;
     }
 }

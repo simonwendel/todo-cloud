@@ -19,7 +19,6 @@
 namespace TodoStorage.Security
 {
     using System;
-    using System.Text;
     using SimonWendel.GuardStatements;
 
     internal class TextCodec : ITextCodec
@@ -29,14 +28,14 @@ namespace TodoStorage.Security
             Guard.EnsureNotNull(value, nameof(value));
 
             var encodedValue = Convert.FromBase64String(value);
-            return Encoding.UTF8.GetString(encodedValue);
+            return EncodingOption.Default.GetString(encodedValue);
         }
 
         public string Encode(string value)
         {
             Guard.EnsureNotNull(value, nameof(value));
 
-            var valueBytes = Encoding.UTF8.GetBytes(value);
+            var valueBytes = EncodingOption.Default.GetBytes(value);
             return Convert.ToBase64String(valueBytes);
         }
     }
