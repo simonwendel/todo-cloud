@@ -150,6 +150,15 @@ namespace TodoStorage.Security.Tests
         }
 
         [Test]
+        public void ToString_ProducesColonSeparatedConcatenation()
+        {
+            var sut = new Message(appId, method, uri, timestamp, nonce, body, signature);
+            var expected = $"{appId.ToString()}:{method}:{uri}:{timestamp}:{nonce}:{body}";
+
+            Assert.That(sut.ToString(), Is.EqualTo(expected));
+        }
+
+        [Test]
         public void Equals_GivenSameObject_ReturnsTrue()
         {
             var sut = new Message(appId, method, uri, timestamp, nonce, body, signature);

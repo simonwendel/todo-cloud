@@ -20,6 +20,7 @@ namespace TodoStorage.Security
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using SimonWendel.GuardStatements;
 
@@ -70,6 +71,19 @@ namespace TodoStorage.Security
         public string Body => body;
 
         public IReadOnlyList<byte> Signature => signature;
+
+        public override string ToString()
+        {
+            return string.Format(
+                CultureInfo.InvariantCulture,
+                "{0}:{1}:{2}:{3}:{4}:{5}",
+                appId, 
+                method, 
+                uri, 
+                timestamp, 
+                nonce, 
+                body);
+        }
 
         public override bool Equals(object obj)
         {
