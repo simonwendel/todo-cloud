@@ -30,5 +30,8 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("TodoStorage.Security.Tests")]
 
+// for enabling throwing internal exceptions from security mocks
+[assembly: InternalsVisibleTo("TodoStorage.Api.Tests")]
+
 // for enabling use of Moq
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

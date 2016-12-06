@@ -44,13 +44,24 @@ namespace TodoStorage.Api.Authorization
         {
             Guard.EnsureNotNull(actionContext, nameof(actionContext));
 
-            var message = messageExtractor.ExtractMessage(actionContext);
-            var hashingKey = keyFactory.Build(message.AppId);
-            if (hashingKey.Verify(message))
+            try
             {
-                return;
-            }
+                var message = messageExtractor.ExtractMessage(actionContext);
+                var hashingKey = keyFactory.Build(message.AppId);
 
+                if (hashingKey.Verify(message) == false)
+                {
+                    Unauthorized();
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                Unauthorized();
+            }
+        }
+
+        private static void Unauthorized()
+        {
             throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
     }

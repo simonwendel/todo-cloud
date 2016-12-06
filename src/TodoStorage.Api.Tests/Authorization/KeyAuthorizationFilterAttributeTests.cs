@@ -103,6 +103,22 @@ namespace TodoStorage.Api.Tests.Authorization
         }
 
         [Test]
+        public void OnAuthorization_WhenKeyFactoryThrowsException_ThrowsExeption()
+        {
+            keyFactory
+                .Setup(f => f.Build(It.IsAny<Guid>()))
+                .Throws(new KeyNotFoundException());
+
+            TestDelegate authorizationCall =
+                () => sut.OnAuthorization(new FakeHttpActionContext());
+
+            Assert.That(authorizationCall, Throws.TypeOf<HttpResponseException>());
+            keyFactory.Verify(
+                f => f.Build(It.IsAny<Guid>()), 
+                Times.Once);
+        }
+
+        [Test]
         public void OnAuthorization_IfHashDoesntMatch_ThrowsException()
         {
             hashingKey
