@@ -18,9 +18,11 @@
 
 namespace TodoStorage.Api.Tests.Utilities
 {
+    using System.Collections.ObjectModel;
     using System.Net.Http;
-    using System.Net.Http.Headers;
+    using System.Web.Http;
     using System.Web.Http.Controllers;
+    using Moq;
 
     /// <summary>
     /// Fakes the <see cref="HttpActionContext"/> class for use in unit testing of 
@@ -31,15 +33,24 @@ namespace TodoStorage.Api.Tests.Utilities
         public FakeHttpActionContext()
             : base()
         {
-            var request = new HttpRequestMessage();
+            var actionDescriptor = new Mock<HttpActionDescriptor>(MockBehavior.Strict);
+            actionDescriptor
+                .Setup(d => d.GetCustomAttributes<AllowAnonymousAttribute>())
+                .Returns(new Collection<AllowAnonymousAttribute>());
 
-            var controllerContext = new HttpControllerContext();
-            controllerContext.Request = request;
+            ActionDescriptor = actionDescriptor.Object;
 
-            var headers = request.Headers;
-            headers.Authorization = new AuthenticationHeaderValue("test");
+            var controllerDescriptor = new Mock<HttpControllerDescriptor>(MockBehavior.Strict);
+            controllerDescriptor
+                .Setup(d => d.GetCustomAttributes<AllowAnonymousAttribute>())
+                .Returns(new Collection<AllowAnonymousAttribute>());
 
-            ControllerContext = controllerContext;
+            ControllerContext = new HttpControllerContext();
+            ControllerContext.Request = new HttpRequestMessage();
+
+            Response = new HttpResponseMessage();
+
+            ControllerContext.ControllerDescriptor = controllerDescriptor.Object;
         }
     }
 }
