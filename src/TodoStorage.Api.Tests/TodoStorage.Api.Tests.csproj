@@ -69,7 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authorization\KeyAuthorizationFilterAttributeTests.cs" />
+    <Compile Include="Authorization\KeyAuthorizeAttributeTests.cs" />
     <Compile Include="Utilities\FakeHttpActionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

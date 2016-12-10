@@ -18,20 +18,18 @@
 
 namespace TodoStorage.Api.Authorization
 {
-    using System.Net;
     using System.Web.Http;
     using System.Web.Http.Controllers;
-    using System.Web.Http.Filters;
     using SimonWendel.GuardStatements;
     using TodoStorage.Security;
 
-    internal sealed class KeyAuthorizationFilterAttribute : AuthorizationFilterAttribute
+    internal sealed class KeyAuthorizeAttribute : AuthorizeAttribute
     {
         private readonly IHashingKeyFactory keyFactory;
 
         private readonly IMessageExtractor messageExtractor;
 
-        public KeyAuthorizationFilterAttribute(IHashingKeyFactory keyFactory, IMessageExtractor messageExtractor)
+        public KeyAuthorizeAttribute(IHashingKeyFactory keyFactory, IMessageExtractor messageExtractor)
         {
             Guard.EnsureNotNull(keyFactory, nameof(keyFactory));
             Guard.EnsureNotNull(messageExtractor, nameof(messageExtractor));
@@ -40,7 +38,7 @@ namespace TodoStorage.Api.Authorization
             this.messageExtractor = messageExtractor;
         }
 
-        public override void OnAuthorization(HttpActionContext actionContext)
+        protected override bool IsAuthorized(HttpActionContext actionContext)
         {
             Guard.EnsureNotNull(actionContext, nameof(actionContext));
 
@@ -49,20 +47,12 @@ namespace TodoStorage.Api.Authorization
                 var message = messageExtractor.ExtractMessage(actionContext);
                 var hashingKey = keyFactory.Build(message.AppId);
 
-                if (hashingKey.Verify(message) == false)
-                {
-                    Unauthorized();
-                }
+                return hashingKey.Verify(message);
             }
             catch (KeyNotFoundException)
             {
-                Unauthorized();
+                return false;
             }
-        }
-
-        private static void Unauthorized()
-        {
-            throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
     }
 }

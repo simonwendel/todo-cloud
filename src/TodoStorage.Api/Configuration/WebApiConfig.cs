@@ -33,7 +33,7 @@ namespace TodoStorage.Api.Configuration
                 throw new ArgumentNullException(nameof(config));
             }
 
-            var keyFilter = config.DependencyResolver.GetService(typeof(KeyAuthorizationFilterAttribute)) as IFilter;
+            var keyFilter = config.DependencyResolver.GetService(typeof(KeyAuthorizeAttribute)) as IFilter;
             if (keyFilter == null)
             {
                 throw new InvalidOperationException();

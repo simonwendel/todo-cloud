@@ -19,7 +19,7 @@
 namespace TodoStorage.Api.Tests.Authorization
 {
     using System;
-    using System.Web.Http;
+    using System.Net;
     using System.Web.Http.Controllers;
     using Moq;
     using NUnit.Framework;
@@ -28,16 +28,24 @@ namespace TodoStorage.Api.Tests.Authorization
     using TodoStorage.Api.Tests.Utilities;
     using TodoStorage.Security;
 
+    /// <remarks>
+    /// Fun fact about this test class is that all the authentication logic is done in the protected 
+    /// IsAuthorized method on the attribute under test, but it is reached through the OnAuthorization
+    /// on the base class. Therefore the <see cref="FakeHttpActionContext"/> class has to be quite 
+    /// detailed.
+    /// </remarks>
     [TestFixture]
-    internal class KeyAuthorizationFilterAttributeTests
+    internal class KeyAuthorizeAttributeTests
     {
-        private KeyAuthorizationFilterAttribute sut;
+        private KeyAuthorizeAttribute sut;
 
         private Mock<IHashingKeyFactory> keyFactory;
 
         private Mock<IHashingKey> hashingKey;
 
         private Mock<IMessageExtractor> messageExtractor;
+
+        private HttpActionContext action;
 
         [SetUp]
         public void Setup()
@@ -58,14 +66,16 @@ namespace TodoStorage.Api.Tests.Authorization
                 .Setup(f => f.Build(It.IsAny<Guid>()))
                 .Returns(hashingKey.Object);
 
-            sut = new KeyAuthorizationFilterAttribute(keyFactory.Object, messageExtractor.Object);
+            action = new FakeHttpActionContext();
+
+            sut = new KeyAuthorizeAttribute(keyFactory.Object, messageExtractor.Object);
         }
 
         [Test]
         public void Ctor_GivenNullHashingKeyFactory_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new KeyAuthorizationFilterAttribute(null, messageExtractor.Object);
+                () => new KeyAuthorizeAttribute(null, messageExtractor.Object);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -74,18 +84,9 @@ namespace TodoStorage.Api.Tests.Authorization
         public void Ctor_GivenNullMessageExtractor_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new KeyAuthorizationFilterAttribute(keyFactory.Object, null);
+                () => new KeyAuthorizeAttribute(keyFactory.Object, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
-        }
-
-        [Test]
-        public void OnAuthorization_GivenNullActionContext_ThrowsException()
-        {
-            TestDelegate authorizationCall =
-                () => sut.OnAuthorization(null);
-
-            Assert.That(authorizationCall, Throws.ArgumentNullException);
         }
 
         [Test]
@@ -95,54 +96,53 @@ namespace TodoStorage.Api.Tests.Authorization
                 .Setup(k => k.Verify(It.IsAny<Message>()))
                 .Returns(true);
 
-            sut.OnAuthorization(new FakeHttpActionContext());
+            sut.OnAuthorization(action);
 
             messageExtractor.Verify(
-                e => e.ExtractMessage(It.IsAny<HttpActionContext>()), 
+                e => e.ExtractMessage(It.Is<HttpActionContext>(a => a == action)),
                 Times.Once);
         }
 
         [Test]
-        public void OnAuthorization_WhenKeyFactoryThrowsException_ThrowsExeption()
+        public void OnAuthorization_WhenKeyFactoryThrowsException_DeniesTheRequest()
         {
             keyFactory
                 .Setup(f => f.Build(It.IsAny<Guid>()))
                 .Throws(new KeyNotFoundException());
 
-            TestDelegate authorizationCall =
-                () => sut.OnAuthorization(new FakeHttpActionContext());
+            sut.OnAuthorization(action);
 
-            Assert.That(authorizationCall, Throws.TypeOf<HttpResponseException>());
+            Assert.That(action.Response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
             keyFactory.Verify(
-                f => f.Build(It.IsAny<Guid>()), 
+                f => f.Build(It.IsAny<Guid>()),
                 Times.Once);
         }
 
         [Test]
-        public void OnAuthorization_IfHashDoesntMatch_ThrowsException()
+        public void OnAuthorization_IfHashDoesntMatch_DeniesTheRequest()
         {
             hashingKey
                 .Setup(k => k.Verify(It.IsAny<Message>()))
                 .Returns(false);
 
-            TestDelegate authorizationCall =
-                () => sut.OnAuthorization(new FakeHttpActionContext());
+            sut.OnAuthorization(action);
 
-            Assert.That(authorizationCall, Throws.TypeOf<HttpResponseException>());
+            Assert.That(action.Response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
             hashingKey.Verify(
-                k => k.Verify(It.IsAny<Message>()), 
+                k => k.Verify(It.IsAny<Message>()),
                 Times.Once);
         }
 
         [Test]
-        public void OnAuthorization_IfHashMatches_DoesNothing()
+        public void OnAuthorization_IfHashMatches_AllowsTheRequestToContinue()
         {
             hashingKey
                 .Setup(k => k.Verify(It.IsAny<Message>()))
                 .Returns(true);
 
-            sut.OnAuthorization(new FakeHttpActionContext());
+            sut.OnAuthorization(action);
 
+            Assert.That(action.Response.StatusCode, Is.Not.EqualTo(HttpStatusCode.Unauthorized));
             hashingKey.Verify(
                 k => k.Verify(It.IsAny<Message>()),
                 Times.Once);
