@@ -20,6 +20,7 @@ namespace TodoStorage.Api.Tests.Utilities
 {
     using System.Collections.ObjectModel;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Web.Http;
     using System.Web.Http.Controllers;
     using Moq;
@@ -30,6 +31,12 @@ namespace TodoStorage.Api.Tests.Utilities
     /// </summary>
     internal class FakeHttpActionContext : HttpActionContext
     {
+        public const string FakeContent = "someValue=1&otherValue=this";
+
+        public const string FakeScheme = "xhmac";
+
+        public const string FakeParameter = "appId123:9a35c321a56e88e0726dff3955a97f5bdf55ab78ab6e0d4bd39b7e5ac72c9dba:nonce123:399481200";
+
         public FakeHttpActionContext()
             : base()
         {
@@ -47,6 +54,9 @@ namespace TodoStorage.Api.Tests.Utilities
 
             ControllerContext = new HttpControllerContext();
             ControllerContext.Request = new HttpRequestMessage();
+
+            ControllerContext.Request.Headers.Authorization = new AuthenticationHeaderValue(FakeScheme, FakeParameter);
+            ControllerContext.Request.Content = new StringContent(FakeContent);
 
             Response = new HttpResponseMessage();
 

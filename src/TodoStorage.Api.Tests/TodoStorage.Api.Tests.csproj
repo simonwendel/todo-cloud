@@ -72,6 +72,7 @@
     <Compile Include="Authorization\KeyAuthorizeAttributeTests.cs" />
     <Compile Include="Utilities\FakeHttpActionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\FakeHttpActionContextTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoStorage.Api\TodoStorage.Api.csproj">
