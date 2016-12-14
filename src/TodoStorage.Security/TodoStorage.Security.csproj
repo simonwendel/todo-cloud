@@ -43,10 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncodingOption.cs" />
+    <Compile Include="HashConverter.cs" />
     <Compile Include="HashingKey.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HashingKeyFactory.cs" />
     <Compile Include="IAuthenticationRepository.cs" />
+    <Compile Include="IHashConverter.cs" />
     <Compile Include="IHashingKey.cs" />
     <Compile Include="IMessageHasher.cs" />
     <Compile Include="IHashingKeyFactory.cs" />
