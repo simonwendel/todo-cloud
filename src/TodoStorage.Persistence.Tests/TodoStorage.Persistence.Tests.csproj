@@ -63,7 +63,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SimonWendel.GuardStatements, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimonWendel.GuardStatements.1.1.0\lib\net45\SimonWendel.GuardStatements.dll</HintPath>
+      <HintPath>..\packages\SimonWendel.GuardStatements.1.2.0\lib\net45\SimonWendel.GuardStatements.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SimonWendel.ObjectExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
