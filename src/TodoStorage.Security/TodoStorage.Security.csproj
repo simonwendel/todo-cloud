@@ -50,6 +50,7 @@
     <Compile Include="IAuthenticationRepository.cs" />
     <Compile Include="IHashConverter.cs" />
     <Compile Include="IHashingKey.cs" />
+    <Compile Include="IMessage.cs" />
     <Compile Include="IMessageHasher.cs" />
     <Compile Include="IHashingKeyFactory.cs" />
     <Compile Include="ITextCodec.cs" />

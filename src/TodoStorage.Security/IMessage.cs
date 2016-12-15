@@ -16,13 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Api.Authorization
+namespace TodoStorage.Security
 {
-    using System.Web.Http.Controllers;
-    using TodoStorage.Security;
+    using System;
+    using System.Collections.Generic;
 
-    internal interface IMessageExtractor
+    public interface IMessage
     {
-        IMessage ExtractMessage(HttpActionContext context);
+        Guid AppId { get; }
+
+        string Body { get; }
+
+        string Method { get; }
+
+        string Nonce { get; }
+
+        IReadOnlyList<byte> Signature { get; }
+
+        ulong Timestamp { get; }
+
+        Uri Uri { get; }
     }
 }

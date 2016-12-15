@@ -45,7 +45,7 @@ namespace TodoStorage.Security
             this.secret = secret;
         }
 
-        public bool Verify(Message message)
+        public bool Verify(IMessage message)
         {
             Guard.EnsureNotNull(message, nameof(message));
 

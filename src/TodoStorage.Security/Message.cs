@@ -24,7 +24,7 @@ namespace TodoStorage.Security
     using System.Linq;
     using SimonWendel.GuardStatements;
 
-    public class Message
+    internal class Message : IMessage
     {
         private readonly Guid appId;
 
