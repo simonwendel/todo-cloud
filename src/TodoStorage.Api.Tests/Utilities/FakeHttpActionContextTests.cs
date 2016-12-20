@@ -33,6 +33,18 @@ namespace TodoStorage.Api.Tests.Utilities
         }
 
         [Test]
+        public void Ctor_FakesMethod()
+        {
+            Assert.That(sut.Request.Method, Is.EqualTo(FakeHttpActionContext.FakeMethod));
+        }
+
+        [Test]
+        public void Ctor_FakesUri()
+        {
+            Assert.That(sut.Request.RequestUri, Is.EqualTo(FakeHttpActionContext.FakeUri));
+        }
+
+        [Test]
         public async Task Ctor_FakesContent()
         {
             var contentTask = await sut.Request.Content.ReadAsStringAsync();

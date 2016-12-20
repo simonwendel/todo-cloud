@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Api.Tests.Utilities
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -45,6 +46,10 @@ namespace TodoStorage.Api.Tests.Utilities
 
         public static readonly string FakeParameter = $"{ FakeAppId }:{ FakeSignature }:{ FakeNonce }:{ FakeTimeStamp }";
 
+        public static readonly Uri FakeUri = new Uri("http://localhost.dev");
+
+        public static readonly HttpMethod FakeMethod = new HttpMethod("GET");
+
         public FakeHttpActionContext()
             : base()
         {
@@ -61,7 +66,7 @@ namespace TodoStorage.Api.Tests.Utilities
                 .Returns(new Collection<AllowAnonymousAttribute>());
 
             ControllerContext = new HttpControllerContext();
-            ControllerContext.Request = new HttpRequestMessage();
+            ControllerContext.Request = new HttpRequestMessage(FakeMethod, FakeUri);
 
             ControllerContext.Request.Headers.Authorization = new AuthenticationHeaderValue(FakeScheme, FakeParameter);
             ControllerContext.Request.Content = new StringContent(FakeContent);
