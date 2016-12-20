@@ -60,6 +60,7 @@
     <Compile Include="HashConverterTests.cs" />
     <Compile Include="HashingKeyFactoryTests.cs" />
     <Compile Include="HashingKeyTests.cs" />
+    <Compile Include="MessageFactoryTests.cs" />
     <Compile Include="MessageHasherTests.cs" />
     <Compile Include="MessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
