@@ -35,7 +35,15 @@ namespace TodoStorage.Api.Tests.Utilities
 
         public const string FakeScheme = "xhmac";
 
-        public const string FakeParameter = "appId123:9a35c321a56e88e0726dff3955a97f5bdf55ab78ab6e0d4bd39b7e5ac72c9dba:nonce123:399481200";
+        public const string FakeAppId = "appId123";
+
+        public const string FakeSignature = "9a35c321a56e88e0726dff3955a97f5bdf55ab78ab6e0d4bd39b7e5ac72c9dba";
+
+        public const string FakeNonce = "nonce12";
+
+        public const string FakeTimeStamp = "399481200";
+
+        public static readonly string FakeParameter = $"{ FakeAppId }:{ FakeSignature }:{ FakeNonce }:{ FakeTimeStamp }";
 
         public FakeHttpActionContext()
             : base()
