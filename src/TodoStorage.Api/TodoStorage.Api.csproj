@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="Authorization\IMessageExtractor.cs" />
     <Compile Include="Authorization\KeyAuthorizeAttribute.cs" />
+    <Compile Include="Authorization\MessageExtractor.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Configuration\WebApiConfig.cs" />

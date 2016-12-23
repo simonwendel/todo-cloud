@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\KeyAuthorizeAttributeTests.cs" />
+    <Compile Include="Authorization\MessageExtractorTests.cs" />
     <Compile Include="Utilities\FakeHttpActionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\FakeHttpActionContextTests.cs" />
