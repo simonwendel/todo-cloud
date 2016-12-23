@@ -36,7 +36,7 @@ namespace TodoStorage.Api.Tests.Utilities
 
         public const string FakeScheme = "xhmac";
 
-        public const string FakeAppId = "appId123";
+        public static readonly Guid FakeAppId = Guid.NewGuid();
 
         public const string FakeSignature = "9a35c321a56e88e0726dff3955a97f5bdf55ab78ab6e0d4bd39b7e5ac72c9dba";
 
