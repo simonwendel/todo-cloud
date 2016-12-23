@@ -42,7 +42,7 @@ namespace TodoStorage.Security
 
             var signatureBytes = hashConverter.HexToBytes(signature);
 
-            return new Message(appId, method, uri, timestamp, nonce, body, signatureBytes);
+            return new Message(appId, method, uri.PathAndQuery, timestamp, nonce, body, signatureBytes);
         }
     }
 }

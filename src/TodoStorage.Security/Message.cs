@@ -30,7 +30,7 @@ namespace TodoStorage.Security
 
         private readonly string method;
 
-        private readonly Uri uri;
+        private readonly string path;
 
         private readonly ulong timestamp;
 
@@ -40,18 +40,18 @@ namespace TodoStorage.Security
 
         private readonly IReadOnlyList<byte> signature;
 
-        public Message(Guid appId, string method, Uri uri, ulong timestamp, string nonce, string body, byte[] signature)
+        public Message(Guid appId, string method, string path, ulong timestamp, string nonce, string body, byte[] signature)
         {
             Guard.EnsureNonempty(appId);
             Guard.EnsureNotNull(method);
-            Guard.EnsureNotNull(uri);
+            Guard.EnsureNotNull(path);
             Guard.EnsureNotNull(nonce);
             Guard.EnsureNotNull(body);
             Guard.EnsureNotNull(signature);
 
             this.appId = appId;
             this.method = method;
-            this.uri = uri;
+            this.path = path;
             this.timestamp = timestamp;
             this.nonce = nonce;
             this.body = body;
@@ -62,7 +62,7 @@ namespace TodoStorage.Security
 
         public string Method => method;
 
-        public Uri Uri => uri;
+        public string Path => path;
 
         public ulong Timestamp => timestamp;
 
@@ -79,7 +79,7 @@ namespace TodoStorage.Security
                 "{0}:{1}:{2}:{3}:{4}:{5}",
                 appId, 
                 method, 
-                uri, 
+                path, 
                 timestamp, 
                 nonce, 
                 body);
@@ -95,7 +95,7 @@ namespace TodoStorage.Security
             var otherMessage = obj as Message;
             return appId.Equals(otherMessage.appId)
                 && method.Equals(otherMessage.method)
-                && uri.Equals(otherMessage.uri)
+                && path.Equals(otherMessage.path)
                 && timestamp.Equals(otherMessage.timestamp)
                 && nonce.Equals(otherMessage.nonce)
                 && body.Equals(otherMessage.body)
@@ -112,7 +112,7 @@ namespace TodoStorage.Security
                 int hash = start;
                 hash = (hash * multiplier) + appId.GetHashCode();
                 hash = (hash * multiplier) + method.GetHashCode();
-                hash = (hash * multiplier) + uri.GetHashCode();
+                hash = (hash * multiplier) + path.GetHashCode();
                 hash = (hash * multiplier) + timestamp.GetHashCode();
                 hash = (hash * multiplier) + nonce.GetHashCode();
                 hash = (hash * multiplier) + body.GetHashCode();

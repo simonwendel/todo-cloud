@@ -30,7 +30,7 @@ namespace TodoStorage.Security.Tests
 
         private string method;
 
-        private Uri uri;
+        private string path;
 
         private ulong timestamp;
 
@@ -44,7 +44,7 @@ namespace TodoStorage.Security.Tests
 
         private string otherMethod;
 
-        private Uri otherUri;
+        private string otherPath;
 
         private ulong otherTimestamp;
 
@@ -65,8 +65,8 @@ namespace TodoStorage.Security.Tests
             method = fixture.Create<string>();
             otherMethod = fixture.Create<string>();
 
-            uri = fixture.Create<Uri>();
-            otherUri = fixture.Create<Uri>();
+            path = fixture.Create<string>();
+            otherPath = fixture.Create<string>();
 
             timestamp = fixture.Create<ulong>();
             otherTimestamp = fixture.Create<ulong>();
@@ -85,7 +85,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenEmptyAppId_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new Message(Guid.Empty, method, uri, timestamp, nonce, body, signature);
+                () => new Message(Guid.Empty, method, path, timestamp, nonce, body, signature);
 
             Assert.That(constructorCall, Throws.ArgumentException);
         }
@@ -94,13 +94,13 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenNullMethod_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new Message(appId, null, uri, timestamp, nonce, body, signature);
+                () => new Message(appId, null, path, timestamp, nonce, body, signature);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
 
         [Test]
-        public void Ctor_GivenNullUri_ThrowsException()
+        public void Ctor_GivenNullPath_ThrowsException()
         {
             TestDelegate constructorCall =
                 () => new Message(appId, method, null, timestamp, nonce, body, signature);
@@ -112,7 +112,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenNullNonce_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new Message(appId, method, uri, timestamp, null, body, signature);
+                () => new Message(appId, method, path, timestamp, null, body, signature);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -121,7 +121,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenNullBody_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new Message(appId, method, uri, timestamp, nonce, null, signature);
+                () => new Message(appId, method, path, timestamp, nonce, null, signature);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -130,7 +130,7 @@ namespace TodoStorage.Security.Tests
         public void Ctor_GivenNullSignature_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new Message(appId, method, uri, timestamp, nonce, body, null);
+                () => new Message(appId, method, path, timestamp, nonce, body, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -138,11 +138,11 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Ctor_GivenParameters_SetsProperties()
         {
-            var sut = new Message(appId, method, uri, timestamp, nonce, body, signature);
+            var sut = new Message(appId, method, path, timestamp, nonce, body, signature);
 
             Assert.That(sut.AppId, Is.EqualTo(appId));
             Assert.That(sut.Method, Is.EqualTo(method));
-            Assert.That(sut.Uri, Is.EqualTo(uri));
+            Assert.That(sut.Path, Is.EqualTo(path));
             Assert.That(sut.Timestamp, Is.EqualTo(timestamp));
             Assert.That(sut.Nonce, Is.EqualTo(nonce));
             Assert.That(sut.Body, Is.EqualTo(body));
@@ -152,8 +152,8 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void ToString_ProducesColonSeparatedConcatenation()
         {
-            var sut = new Message(appId, method, uri, timestamp, nonce, body, signature);
-            var expected = $"{appId.ToString()}:{method}:{uri}:{timestamp}:{nonce}:{body}";
+            var sut = new Message(appId, method, path, timestamp, nonce, body, signature);
+            var expected = $"{appId.ToString()}:{method}:{path}:{timestamp}:{nonce}:{body}";
 
             Assert.That(sut.ToString(), Is.EqualTo(expected));
         }
@@ -161,7 +161,7 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Equals_GivenSameObject_ReturnsTrue()
         {
-            var sut = new Message(appId, method, uri, timestamp, nonce, body, signature);
+            var sut = new Message(appId, method, path, timestamp, nonce, body, signature);
 
             Assert.That(sut.Equals(sut), Is.True);
         }
@@ -169,8 +169,8 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
         {
-            var sut = new Message(appId, method, uri, timestamp, nonce, body, signature);
-            var sameProperties = new Message(appId, method, uri, timestamp, nonce, body, signature);
+            var sut = new Message(appId, method, path, timestamp, nonce, body, signature);
+            var sameProperties = new Message(appId, method, path, timestamp, nonce, body, signature);
 
             Assert.That(sut.Equals(sameProperties), Is.True);
         }
@@ -178,7 +178,7 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Equals_GivenNull_ReturnsFalse()
         {
-            var sut = new Message(appId, method, uri, timestamp, nonce, body, signature);
+            var sut = new Message(appId, method, path, timestamp, nonce, body, signature);
 
             Assert.That(sut.Equals(null), Is.False);
         }
@@ -186,19 +186,19 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
         {
-            var sut = new Message(appId, method, uri, timestamp, nonce, body, signature);
+            var sut = new Message(appId, method, path, timestamp, nonce, body, signature);
 
-            var differingAppId = new Message(otherAppId, method, uri, timestamp, nonce, body, signature);
-            var differingMethod = new Message(appId, otherMethod, uri, timestamp, nonce, body, signature);
-            var differingUri = new Message(appId, method, otherUri, timestamp, nonce, body, signature);
-            var differingTimestamp = new Message(appId, method, uri, otherTimestamp, nonce, body, signature);
-            var differingNonce = new Message(appId, method, uri, timestamp, otherNonce, body, signature);
-            var differingBody = new Message(appId, method, uri, timestamp, nonce, otherBody, signature);
-            var differingSignature = new Message(appId, method, uri, timestamp, nonce, body, otherSignature);
+            var differingAppId = new Message(otherAppId, method, path, timestamp, nonce, body, signature);
+            var differingMethod = new Message(appId, otherMethod, path, timestamp, nonce, body, signature);
+            var differingPath = new Message(appId, method, otherPath, timestamp, nonce, body, signature);
+            var differingTimestamp = new Message(appId, method, path, otherTimestamp, nonce, body, signature);
+            var differingNonce = new Message(appId, method, path, timestamp, otherNonce, body, signature);
+            var differingBody = new Message(appId, method, path, timestamp, nonce, otherBody, signature);
+            var differingSignature = new Message(appId, method, path, timestamp, nonce, body, otherSignature);
 
             Assert.That(sut.Equals(differingAppId), Is.False);
             Assert.That(sut.Equals(differingMethod), Is.False);
-            Assert.That(sut.Equals(differingUri), Is.False);
+            Assert.That(sut.Equals(differingPath), Is.False);
             Assert.That(sut.Equals(differingTimestamp), Is.False);
             Assert.That(sut.Equals(differingNonce), Is.False);
             Assert.That(sut.Equals(differingBody), Is.False);
@@ -208,7 +208,7 @@ namespace TodoStorage.Security.Tests
         [Test]
         public void GetHashCode_ReturnsHashByProperties()
         {
-            var sut = new Message(appId, method, uri, timestamp, nonce, body, signature);
+            var sut = new Message(appId, method, path, timestamp, nonce, body, signature);
 
             var start = 17;
             var multiplier = 486187739;
@@ -219,7 +219,7 @@ namespace TodoStorage.Security.Tests
                 hash = start;
                 hash = (hash * multiplier) + appId.GetHashCode();
                 hash = (hash * multiplier) + method.GetHashCode();
-                hash = (hash * multiplier) + uri.GetHashCode();
+                hash = (hash * multiplier) + path.GetHashCode();
                 hash = (hash * multiplier) + timestamp.GetHashCode();
                 hash = (hash * multiplier) + nonce.GetHashCode();
                 hash = (hash * multiplier) + body.GetHashCode();

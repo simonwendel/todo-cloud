@@ -35,6 +35,6 @@ namespace TodoStorage.Security
 
         ulong Timestamp { get; }
 
-        Uri Uri { get; }
+        string Path { get; }
     }
 }

@@ -84,7 +84,7 @@ namespace TodoStorage.Security.Tests
             var expected = new Message(
                 MessageFactoryTestsData.AppId,
                 MessageFactoryTestsData.Method,
-                MessageFactoryTestsData.Uri,
+                MessageFactoryTestsData.Uri.PathAndQuery,
                 MessageFactoryTestsData.Timestamp,
                 MessageFactoryTestsData.Nonce,
                 MessageFactoryTestsData.Body,
