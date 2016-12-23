@@ -42,9 +42,9 @@ namespace TodoStorage.Api.Tests.Utilities
 
         public const string FakeNonce = "nonce12";
 
-        public const ulong FakeTimeStamp = 399481200ul;
+        public const ulong FakeTimestamp = 399481200ul;
 
-        public static readonly string FakeParameter = $"{ FakeAppId }:{ FakeSignature }:{ FakeNonce }:{ FakeTimeStamp }";
+        public static readonly string FakeParameter = $"{ FakeAppId }:{ FakeSignature }:{ FakeNonce }:{ FakeTimestamp }";
 
         public static readonly Uri FakeUri = new Uri("http://localhost.dev");
 
