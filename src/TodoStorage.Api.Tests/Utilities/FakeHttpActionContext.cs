@@ -42,7 +42,7 @@ namespace TodoStorage.Api.Tests.Utilities
 
         public const string FakeNonce = "nonce12";
 
-        public const string FakeTimeStamp = "399481200";
+        public const ulong FakeTimeStamp = 399481200ul;
 
         public static readonly string FakeParameter = $"{ FakeAppId }:{ FakeSignature }:{ FakeNonce }:{ FakeTimeStamp }";
 
