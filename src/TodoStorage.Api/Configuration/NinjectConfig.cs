@@ -54,6 +54,8 @@ namespace TodoStorage.Api.Configuration
                     .From("TodoStorage.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
                     .Join
                     .From("TodoStorage.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
+                    .Join
+                    .From("TodoStorage.Security, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
                     .BindDefaultInterfaces();
             });
         }        
