@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="TodoStorage.Security.HashingKey" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="4.5" Width="2.5" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="HashingKey" Hidden="true" />
+      <Field Name="identifier" Hidden="true" />
+      <Field Name="secret" Hidden="true" />
+    </Members>
+    <AssociationLine Name="hasher" Type="TodoStorage.Security.IMessageHasher" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.25" Y="5.125" />
+        <Point X="3.625" Y="5.125" />
+        <Point X="3.625" Y="3.302" />
+        <Point X="4.25" Y="3.302" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAgAAAAAAAAAAAAIBAAAAAAAAAQCA=</HashCode>
+      <FileName>HashingKey.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="hasher" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TodoStorage.Security.HashingKeyFactory" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="1.5" Width="2.5" />
+    <Members>
+      <Method Name="HashingKeyFactory" Hidden="true" />
+    </Members>
+    <AssociationLine Name="hasher" Type="TodoStorage.Security.IMessageHasher" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.25" Y="2.279" />
+        <Point X="5.625" Y="2.279" />
+        <Point X="5.625" Y="2.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAQQA=</HashCode>
+      <FileName>HashingKeyFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="authenticationRepository" />
+      <Field Name="hasher" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TodoStorage.Security.Message" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1.25" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIAQAAAAAAACIEgAAjAAAAAwAAAIAABAAAAAQACAE=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TodoStorage.Security.MessageFactory" BaseTypeListCollapsed="true">
+    <Position X="4" Y="7.25" Width="2.75" />
+    <Members>
+      <Method Name="MessageFactory" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAEAAAAAAAAAA=</HashCode>
+      <FileName>MessageFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="hashConverter" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TodoStorage.Security.MessageHasher" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="4.25" Width="2.75" />
+    <Members>
+      <Method Name="MessageHasher" Hidden="true" />
+    </Members>
+    <AssociationLine Name="algorithm" Type="System.Security.Cryptography.HashAlgorithm">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.122" Y="0.311" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MessageHasher.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="algorithm" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TodoStorage.Security.HashConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HashConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Security.Cryptography.HashAlgorithm" Collapsed="true">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="1.061" />
+  </Class>
+  <Interface Name="TodoStorage.Security.IAuthenticationRepository" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IAuthenticationRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoStorage.Security.IHashConverter" Collapsed="true">
+    <Position X="7.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IHashConverter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoStorage.Security.IHashingKey">
+    <Position X="0.75" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IHashingKey.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoStorage.Security.IHashingKeyFactory" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IHashingKeyFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoStorage.Security.IMessage" Collapsed="true">
+    <Position X="1.25" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAjAAAAAAAAAAAAAAAAAAQACAE=</HashCode>
+      <FileName>IMessage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoStorage.Security.IMessageFactory" Collapsed="true">
+    <Position X="4" Y="6.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMessageFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoStorage.Security.IMessageHasher">
+    <Position X="4.25" Y="2.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMessageHasher.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
