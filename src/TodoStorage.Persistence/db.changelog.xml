@@ -102,4 +102,35 @@
       referencedTableName="Authentication" referencedColumnNames="AppId"
       onUpdate="CASCADE" onDelete="CASCADE"/>
   </changeSet>
+  <changeSet id="10" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <createTable tableName="Log">
+      <column autoIncrement="true" name="Id" type="int">
+        <constraints primaryKey="true" primaryKeyName="PK_Log_Id"/>
+      </column>
+      <column name="MachineName" type="nvarchar(200)"/>
+      <column name="SiteName" type="nvarchar(200)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="Logged" type="datetime">
+        <constraints nullable="false"/>
+      </column>
+      <column name="Level" type="varchar(5)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="UserName" type="nvarchar(200)"/>
+      <column name="Message" type="nvarchar(MAX)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="Logger" type="nvarchar(300)"/>
+      <column name="Properties" type="nvarchar(MAX)"/>
+      <column name="ServerName" type="nvarchar(200)"/>
+      <column name="Port" type="nvarchar(100)"/>
+      <column name="Url" type="nvarchar(2000)"/>
+      <column name="Https" type="bit"/>
+      <column name="ServerAddress" type="nvarchar(100)"/>
+      <column name="RemoteAddress" type="nvarchar(100)"/>
+      <column name="Callsite" type="nvarchar(300)"/>
+      <column name="Exception" type="nvarchar(MAX)"/>
+    </createTable>
+  </changeSet>
 </databaseChangeLog>
