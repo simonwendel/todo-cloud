@@ -4,6 +4,7 @@
 namespace TodoStorage.Api.Configuration
 {
     using System;
+    using System.Security.Cryptography;
     using System.Web;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
@@ -58,6 +59,8 @@ namespace TodoStorage.Api.Configuration
                     .From("TodoStorage.Security, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
                     .BindDefaultInterfaces();
             });
+
+            kernel.Bind<HashAlgorithm>().To<HMACSHA256>();
         }        
     }
 }
