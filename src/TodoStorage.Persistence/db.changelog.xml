@@ -133,4 +133,12 @@
       <column name="Exception" type="nvarchar(MAX)"/>
     </createTable>
   </changeSet>
+  <changeSet id="11" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <createProcedure
+      dbms="mssql"
+      path="LogAddEntry.sql"
+      relativeToChangelogFile="true"
+      procedureName="LogAddEntry"
+      encoding="utf8" />
+  </changeSet>
 </databaseChangeLog>

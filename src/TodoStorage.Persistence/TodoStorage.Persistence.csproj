@@ -67,6 +67,7 @@
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
     <Content Include="db.changelog.xml" />
+    <Content Include="LogAddEntry.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoStorage.Domain\TodoStorage.Domain.csproj">
