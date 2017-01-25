@@ -142,6 +142,7 @@
     <Compile Include="Authorization\MessageExtractor.cs" />
     <Compile Include="Configuration\LogExceptionFilterAttribute.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
+    <Compile Include="Controllers\TodoController.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Configuration\WebApiConfig.cs" />
     <Compile Include="Global.asax.cs">
@@ -165,7 +166,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
