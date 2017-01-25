@@ -33,6 +33,14 @@ namespace TodoStorage.Api.Configuration
                 throw new ArgumentNullException(nameof(config));
             }
 
+            var logFilter = config.DependencyResolver.GetService(typeof(LogExceptionFilterAttribute)) as IFilter;
+            if (logFilter == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            config.Filters.Add(logFilter);
+
             var keyFilter = config.DependencyResolver.GetService(typeof(KeyAuthorizeAttribute)) as IFilter;
             if (keyFilter == null)
             {
