@@ -22,7 +22,7 @@ namespace TodoStorage.Api.Authorization
     using SimonWendel.GuardStatements;
     using TodoStorage.Security;
 
-    public class SignedMessagePrincipal : IPrincipal
+    internal class SignedMessagePrincipal : IPrincipal
     {
         private IMessage message;
 
