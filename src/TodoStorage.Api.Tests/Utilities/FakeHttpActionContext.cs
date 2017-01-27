@@ -18,7 +18,6 @@
 
 namespace TodoStorage.Api.Tests.Utilities
 {
-    using System;
     using System.Collections.ObjectModel;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -32,24 +31,6 @@ namespace TodoStorage.Api.Tests.Utilities
     /// </summary>
     internal class FakeHttpActionContext : HttpActionContext
     {
-        public const string FakeContent = "someValue=1&otherValue=this";
-
-        public const string FakeScheme = "xhmac";
-
-        public const string FakeSignature = "9a35c321a56e88e0726dff3955a97f5bdf55ab78ab6e0d4bd39b7e5ac72c9dba";
-
-        public const string FakeNonce = "nonce12";
-
-        public const ulong FakeTimestamp = 399481200ul;
-
-        public static readonly Guid FakeAppId = Guid.NewGuid();
-
-        public static readonly string FakeParameter = $"{ FakeAppId }:{ FakeSignature }:{ FakeNonce }:{ FakeTimestamp }";
-
-        public static readonly Uri FakeUri = new Uri("http://localhost.dev");
-
-        public static readonly HttpMethod FakeMethod = new HttpMethod("GET");
-
         public FakeHttpActionContext()
             : base()
         {
@@ -66,10 +47,10 @@ namespace TodoStorage.Api.Tests.Utilities
                 .Returns(new Collection<AllowAnonymousAttribute>());
 
             ControllerContext = new HttpControllerContext();
-            ControllerContext.Request = new HttpRequestMessage(FakeMethod, FakeUri);
+            ControllerContext.Request = new HttpRequestMessage(ContextConstants.FakeMethod, ContextConstants.FakeUri);
 
-            ControllerContext.Request.Headers.Authorization = new AuthenticationHeaderValue(FakeScheme, FakeParameter);
-            ControllerContext.Request.Content = new StringContent(FakeContent);
+            ControllerContext.Request.Headers.Authorization = new AuthenticationHeaderValue(ContextConstants.FakeScheme, ContextConstants.FakeParameter);
+            ControllerContext.Request.Content = new StringContent(ContextConstants.FakeContent);
 
             Response = new HttpResponseMessage();
 

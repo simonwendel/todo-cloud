@@ -93,13 +93,13 @@ namespace TodoStorage.Api.Tests.Authorization
             Assert.That(extractedMessage, Is.SameAs(message));
             messageFactory.Verify(
                 f => f.Build(
-                    It.Is<Guid>(g => g == FakeHttpActionContext.FakeAppId),
-                    It.Is<string>(s => s.Equals(FakeHttpActionContext.FakeMethod.Method)),
-                    It.Is<Uri>(u => u == FakeHttpActionContext.FakeUri),
-                    It.Is<ulong>(t => t == FakeHttpActionContext.FakeTimestamp),
-                    It.Is<string>(n => n.Equals(FakeHttpActionContext.FakeNonce)),
-                    It.Is<string>(b => b.Equals(FakeHttpActionContext.FakeContent)),
-                    It.Is<string>(s => s.Equals(FakeHttpActionContext.FakeSignature))),
+                    It.Is<Guid>(g => g == ContextConstants.FakeAppId),
+                    It.Is<string>(s => s.Equals(ContextConstants.FakeMethod.Method)),
+                    It.Is<Uri>(u => u == ContextConstants.FakeUri),
+                    It.Is<ulong>(t => t == ContextConstants.FakeTimestamp),
+                    It.Is<string>(n => n.Equals(ContextConstants.FakeNonce)),
+                    It.Is<string>(b => b.Equals(ContextConstants.FakeContent)),
+                    It.Is<string>(s => s.Equals(ContextConstants.FakeSignature))),
                 Times.Once);
         }
     }

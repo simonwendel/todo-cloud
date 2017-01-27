@@ -35,13 +35,13 @@ namespace TodoStorage.Api.Tests.Utilities
         [Test]
         public void Ctor_FakesMethod()
         {
-            Assert.That(sut.Request.Method, Is.EqualTo(FakeHttpActionContext.FakeMethod));
+            Assert.That(sut.Request.Method, Is.EqualTo(ContextConstants.FakeMethod));
         }
 
         [Test]
         public void Ctor_FakesUri()
         {
-            Assert.That(sut.Request.RequestUri, Is.EqualTo(FakeHttpActionContext.FakeUri));
+            Assert.That(sut.Request.RequestUri, Is.EqualTo(ContextConstants.FakeUri));
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace TodoStorage.Api.Tests.Utilities
         {
             var contentTask = await sut.Request.Content.ReadAsStringAsync();
 
-            Assert.That(contentTask, Is.EqualTo(FakeHttpActionContext.FakeContent));
+            Assert.That(contentTask, Is.EqualTo(ContextConstants.FakeContent));
         }
 
         [Test]
@@ -58,8 +58,8 @@ namespace TodoStorage.Api.Tests.Utilities
             var scheme = sut.Request.Headers.Authorization.Scheme;
             var parameter = sut.Request.Headers.Authorization.Parameter;
 
-            Assert.That(scheme, Is.EqualTo(FakeHttpActionContext.FakeScheme));
-            Assert.That(parameter, Is.EqualTo(FakeHttpActionContext.FakeParameter));
+            Assert.That(scheme, Is.EqualTo(ContextConstants.FakeScheme));
+            Assert.That(parameter, Is.EqualTo(ContextConstants.FakeParameter));
         }
     }
 }
