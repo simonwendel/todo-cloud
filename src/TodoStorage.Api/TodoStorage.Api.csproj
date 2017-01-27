@@ -140,6 +140,7 @@
     <Compile Include="Authorization\IMessageExtractor.cs" />
     <Compile Include="Authorization\KeyAuthorizeAttribute.cs" />
     <Compile Include="Authorization\MessageExtractor.cs" />
+    <Compile Include="Authorization\SignedMessagePrincipal.cs" />
     <Compile Include="Configuration\LogExceptionFilterAttribute.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
     <Compile Include="Controllers\TodoController.cs" />
