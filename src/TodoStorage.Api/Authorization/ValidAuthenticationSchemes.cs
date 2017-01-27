@@ -20,6 +20,6 @@ namespace TodoStorage.Api.Authorization
 {
     public static class ValidAuthenticationSchemes
     {
-        public const string XHMAC = "xhmac";
+        public const string Hmac = "xhmac";
     }
 }
