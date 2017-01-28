@@ -47,25 +47,32 @@ namespace TodoStorage.Api.Authorization
             var authParameter = context.Request.Headers.Authorization.Parameter;
             var fields = authParameter.Split(':');
 
-            var appId = new Guid(fields[0]);
-            var signature = fields[1];
-            var nonce = fields[2];
-            var timestamp = Convert.ToUInt64(fields[3], CultureInfo.InvariantCulture);
-
-            var method = context.Request.Method.Method;
-            var uri = context.Request.RequestUri;
-
-            // no point in turning the whole method into async because of this
-            // we're not waiting on anything else
-            string content;
-            using (var contentTask = context.Request.Content.ReadAsStringAsync())
+            try
             {
-                contentTask.Wait();
-                content = contentTask.Result;
-            }
+                var appId = new Guid(fields[0]);
+                var signature = fields[1];
+                var nonce = fields[2];
+                var timestamp = Convert.ToUInt64(fields[3], CultureInfo.InvariantCulture);
 
-            return messageFactory.Build(
-                appId, method, uri, timestamp, nonce, content, signature);
+                var method = context.Request.Method.Method;
+                var uri = context.Request.RequestUri;
+
+                // no point in turning the whole method into async because of this
+                // we're not waiting on anything else
+                string content;
+                using (var contentTask = context.Request.Content.ReadAsStringAsync())
+                {
+                    contentTask.Wait();
+                    content = contentTask.Result;
+                }
+
+                return messageFactory.Build(
+                    appId, method, uri, timestamp, nonce, content, signature);
+            }
+            catch (Exception ex)
+            {
+                throw new BadMessageFormatException("Ill-formed message", ex);
+            }
         }
     }
 }

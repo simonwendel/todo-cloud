@@ -86,6 +86,27 @@ namespace TodoStorage.Api.Tests.Authorization
         }
 
         [Test]
+        public void ExtractMessage_EncountersException_ThrowsSemanticallyAptException()
+        {
+            var context = new FakeHttpActionContext();
+            var auth = context.Request.Headers.Authorization;
+
+            // the string "parsethis!" will be hard to parse to a ulong
+            context.Request.Headers.Authorization = 
+                new AuthenticationHeaderValue(
+                    auth.Scheme, 
+                    auth.Parameter.Replace(ContextConstants.FakeTimestamp.ToString(), "parsethis!"));
+
+            TestDelegate extractCall =
+                () => sut.ExtractMessage(context);
+
+            Assert.That(
+                extractCall, 
+                Throws.TypeOf<BadMessageFormatException>()
+                    .With.InnerException.TypeOf<FormatException>());
+        }
+
+        [Test]
         public void ExtractMessage_GivenActionContext_ExtractsMessage()
         {
             var extractedMessage = sut.ExtractMessage(new FakeHttpActionContext());
