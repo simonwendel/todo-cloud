@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\IMessageExtractor.cs" />
+    <Compile Include="Authorization\BadMessageFormatException.cs" />
     <Compile Include="Authorization\KeyAuthorizeAttribute.cs" />
     <Compile Include="Authorization\MessageExtractor.cs" />
     <Compile Include="Authorization\SignedMessagePrincipal.cs" />
