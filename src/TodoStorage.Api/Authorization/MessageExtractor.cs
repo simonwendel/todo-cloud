@@ -42,7 +42,7 @@ namespace TodoStorage.Api.Authorization
             var authHeader = context.Request.Headers.Authorization;
             var authScheme = authHeader.Scheme;
 
-            Guard.EnsureThat(authScheme.Equals("xhmac"), nameof(context));
+            Guard.EnsureThat(authScheme.Equals(ValidAuthenticationSchemes.Hmac), nameof(context));
 
             var authParameter = context.Request.Headers.Authorization.Parameter;
             var fields = authParameter.Split(':');
