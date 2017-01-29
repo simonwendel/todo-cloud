@@ -34,7 +34,7 @@ namespace TodoStorage.Security
 
         public byte[] HashMessage(string message)
         {
-            Guard.EnsureNotNull(message);
+            Guard.EnsureNotNull(message, nameof(message));
 
             var messageBytes = EncodingOption.Default.GetBytes(message);
             return algorithm.ComputeHash(messageBytes);

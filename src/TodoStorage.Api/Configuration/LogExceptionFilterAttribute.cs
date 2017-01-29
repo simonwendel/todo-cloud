@@ -26,7 +26,7 @@ namespace TodoStorage.Api.Configuration
     {
         public override void OnException(HttpActionExecutedContext context)
         {
-            Guard.EnsureNotNull(context);
+            Guard.EnsureNotNull(context, nameof(context));
             LogManager.GetLogger<LogExceptionFilterAttribute>()
                 .Fatal("Exception caught globally", context.Exception);
         }

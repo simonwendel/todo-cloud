@@ -28,7 +28,7 @@ namespace TodoStorage.Api.Authorization
 
         public SignedMessagePrincipal(IMessage message)
         {
-            Guard.EnsureNotNull(message);
+            Guard.EnsureNotNull(message, nameof(message));
 
             this.message = message;
         }

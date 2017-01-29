@@ -28,7 +28,7 @@ namespace TodoStorage.Api.Controllers
 
         public TodoController(ITodoListFactory todoListFactory)
         {
-            Guard.EnsureNotNull(todoListFactory);
+            Guard.EnsureNotNull(todoListFactory, nameof(todoListFactory));
 
             this.todoListFactory = todoListFactory;
         }

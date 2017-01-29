@@ -42,12 +42,12 @@ namespace TodoStorage.Security
 
         public Message(Guid appId, string method, string path, ulong timestamp, string nonce, string body, byte[] signature)
         {
-            Guard.EnsureNonempty(appId);
-            Guard.EnsureNotNull(method);
-            Guard.EnsureNotNull(path);
-            Guard.EnsureNotNull(nonce);
-            Guard.EnsureNotNull(body);
-            Guard.EnsureNotNull(signature);
+            Guard.EnsureNonempty(appId, nameof(appId));
+            Guard.EnsureNotNull(method, nameof(method));
+            Guard.EnsureNotNull(path, nameof(path));
+            Guard.EnsureNotNull(nonce, nameof(nonce));
+            Guard.EnsureNotNull(body, nameof(body));
+            Guard.EnsureNotNull(signature, nameof(signature));
 
             this.appId = appId;
             this.method = method;
