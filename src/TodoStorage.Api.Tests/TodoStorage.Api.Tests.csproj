@@ -80,6 +80,7 @@
     <Compile Include="Authorization\AuthenticationFailureResultTests.cs" />
     <Compile Include="Authorization\KeyAuthorizeAttributeTests.cs" />
     <Compile Include="Authorization\MessageExtractorTests.cs" />
+    <Compile Include="Authorization\HmacAuthenticatorTests.cs" />
     <Compile Include="Authorization\SignedMessagePrincipalTests.cs" />
     <Compile Include="Authorization\TaskExtensionTests.cs" />
     <Compile Include="Configuration\LogExceptionFilterAttributeTests.cs" />
