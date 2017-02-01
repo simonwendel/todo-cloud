@@ -26,7 +26,7 @@ namespace TodoStorage.Api.Tests.Utilities
     internal class FakeHttpAuthenticationContext : HttpAuthenticationContext
     {
         public FakeHttpAuthenticationContext()
-            : base(new FakeHttpActionContext(), Mock.Of<IPrincipal>())
+            : this(new FakeHttpActionContext(), Mock.Of<IPrincipal>())
         {
         }
 
