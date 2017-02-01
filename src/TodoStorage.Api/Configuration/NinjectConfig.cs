@@ -10,6 +10,7 @@ namespace TodoStorage.Api.Configuration
     using Ninject;
     using Ninject.Extensions.Conventions;
     using Ninject.Web.Common;
+    using TodoStorage.Api.Authorization;
 
     public static class NinjectConfig 
     {
@@ -61,6 +62,7 @@ namespace TodoStorage.Api.Configuration
             });
 
             kernel.Bind<HashAlgorithm>().To<HMACSHA256>();
+            kernel.Bind<IAuthenticator>().To<HmacAuthenticator>();
         }        
     }
 }
