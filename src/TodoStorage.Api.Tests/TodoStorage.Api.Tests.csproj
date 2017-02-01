@@ -88,6 +88,8 @@
     <Compile Include="Utilities\FakeHttpActionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\FakeHttpActionContextTests.cs" />
+    <Compile Include="Utilities\FakeHttpAuthenticationChallengeContext.cs" />
+    <Compile Include="Utilities\FakeHttpAuthenticationChallengeContextTests.cs" />
     <Compile Include="Utilities\FakeHttpAuthenticationContext.cs" />
     <Compile Include="Utilities\FakeHttpAuthenticationContextTests.cs" />
   </ItemGroup>
