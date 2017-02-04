@@ -82,6 +82,7 @@
     <Compile Include="Authorization\HmacChallengerTests.cs" />
     <Compile Include="Authorization\KeyAuthorizeAttributeTests.cs" />
     <Compile Include="Authorization\MessageExtractorTests.cs" />
+    <Compile Include="Authorization\DefaultAuthenticationFilterTests.cs" />
     <Compile Include="Authorization\HmacAuthenticatorTests.cs" />
     <Compile Include="Authorization\SignedMessagePrincipalTests.cs" />
     <Compile Include="Authorization\TaskExtensionTests.cs" />

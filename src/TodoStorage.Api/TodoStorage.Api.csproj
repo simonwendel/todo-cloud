@@ -151,6 +151,7 @@
     <Compile Include="Authorization\SignedMessagePrincipal.cs" />
     <Compile Include="Authorization\TaskExtension.cs" />
     <Compile Include="Authorization\ValidAuthenticationSchemes.cs" />
+    <Compile Include="Authorization\DefaultAuthenticationFilter.cs" />
     <Compile Include="Configuration\LogExceptionFilterAttribute.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
     <Compile Include="Controllers\TodoController.cs" />
