@@ -145,6 +145,7 @@
     <Compile Include="Authorization\KeyAuthorizeAttribute.cs" />
     <Compile Include="Authorization\MessageExtractor.cs" />
     <Compile Include="Authorization\HmacAuthenticator.cs" />
+    <Compile Include="Authorization\AuthenticationChallengeResult.cs" />
     <Compile Include="Authorization\SignedMessagePrincipal.cs" />
     <Compile Include="Authorization\TaskExtension.cs" />
     <Compile Include="Authorization\ValidAuthenticationSchemes.cs" />
