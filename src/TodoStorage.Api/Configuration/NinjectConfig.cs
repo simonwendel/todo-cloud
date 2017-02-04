@@ -63,6 +63,7 @@ namespace TodoStorage.Api.Configuration
 
             kernel.Bind<HashAlgorithm>().To<HMACSHA256>();
             kernel.Bind<IAuthenticator>().To<HmacAuthenticator>();
+            kernel.Bind<IChallenger>().To<HmacChallenger>();
         }        
     }
 }
