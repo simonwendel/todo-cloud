@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Authorization\AuthenticationChallengeResultTests.cs" />
     <Compile Include="Authorization\AuthenticationFailureResultTests.cs" />
+    <Compile Include="Authorization\HmacChallengerTests.cs" />
     <Compile Include="Authorization\KeyAuthorizeAttributeTests.cs" />
     <Compile Include="Authorization\MessageExtractorTests.cs" />
     <Compile Include="Authorization\HmacAuthenticatorTests.cs" />

@@ -139,9 +139,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\AuthenticationFailureResult.cs" />
+    <Compile Include="Authorization\HmacChallenger.cs" />
     <Compile Include="Authorization\IMessageExtractor.cs" />
     <Compile Include="Authorization\BadMessageFormatException.cs" />
     <Compile Include="Authorization\IAuthenticator.cs" />
+    <Compile Include="Authorization\IChallenger.cs" />
     <Compile Include="Authorization\KeyAuthorizeAttribute.cs" />
     <Compile Include="Authorization\MessageExtractor.cs" />
     <Compile Include="Authorization\HmacAuthenticator.cs" />
