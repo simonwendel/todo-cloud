@@ -26,7 +26,7 @@ namespace TodoStorage.Api.Authorization
     using System.Web.Http;
     using SimonWendel.GuardStatements;
 
-    public class AuthenticationFailureResult : IHttpActionResult
+    internal class AuthenticationFailureResult : IHttpActionResult
     {
         private string failureReason;
 
