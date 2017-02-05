@@ -49,14 +49,6 @@ namespace TodoStorage.Api.Configuration
 
             config.Filters.Add(authenticationFilter);
 
-            var keyFilter = config.DependencyResolver.GetService(typeof(KeyAuthorizeAttribute)) as IFilter;
-            if (keyFilter == null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            config.Filters.Add(keyFilter);
-
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

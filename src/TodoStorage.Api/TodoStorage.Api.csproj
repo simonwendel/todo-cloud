@@ -144,7 +144,6 @@
     <Compile Include="Authorization\BadMessageFormatException.cs" />
     <Compile Include="Authorization\IAuthenticator.cs" />
     <Compile Include="Authorization\IChallenger.cs" />
-    <Compile Include="Authorization\KeyAuthorizeAttribute.cs" />
     <Compile Include="Authorization\MessageExtractor.cs" />
     <Compile Include="Authorization\HmacAuthenticator.cs" />
     <Compile Include="Authorization\AuthenticationChallengeResult.cs" />
