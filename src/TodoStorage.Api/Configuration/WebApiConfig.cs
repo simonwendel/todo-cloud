@@ -49,6 +49,8 @@ namespace TodoStorage.Api.Configuration
 
             config.Filters.Add(authenticationFilter);
 
+            config.SuppressHostPrincipal();
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
