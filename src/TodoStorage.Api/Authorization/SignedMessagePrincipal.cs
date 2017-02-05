@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Api.Authorization
 {
+    using System;
     using System.Security.Principal;
     using SimonWendel.GuardStatements;
     using TodoStorage.Security;
@@ -36,6 +37,8 @@ namespace TodoStorage.Api.Authorization
         public IMessage Message => message;
 
         public IIdentity Identity => null;
+
+        public Guid AppId => message.AppId;
 
         public bool IsInRole(string role) => false;
     }

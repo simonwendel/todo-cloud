@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Api.Tests.Authorization
 {
+    using System;
     using System.Linq;
     using Moq;
     using NUnit.Framework;
@@ -28,15 +29,15 @@ namespace TodoStorage.Api.Tests.Authorization
     [TestFixture]
     internal class SignedMessagePrincipalTests
     {
-        private IMessage message;
+        private Mock<IMessage> message;
 
         private SignedMessagePrincipal sut;
 
         [SetUp]
         public void Setup()
         {
-            message = Mock.Of<IMessage>();
-            sut = new SignedMessagePrincipal(message);
+            message = new Mock<IMessage>();
+            sut = new SignedMessagePrincipal(message.Object);
         }
 
         [Test]
@@ -51,7 +52,7 @@ namespace TodoStorage.Api.Tests.Authorization
         [Test]
         public void Ctor_GivenMessage_SetsProperty()
         {
-            Assert.That(sut.Message, Is.SameAs(message));
+            Assert.That(sut.Message, Is.SameAs(message.Object));
         }
 
         [Test]
@@ -69,6 +70,18 @@ namespace TodoStorage.Api.Tests.Authorization
             // maybe a weak test, but it does test something. testing that the 
             // method is always false regardless of input is an extensive problem.
             Assert.That(roles.All(r => sut.IsInRole(r)), Is.False);
+        }
+
+        [Test]
+        public void AppId_ReturnsTheAppIdFromMessage()
+        {
+            var appId = Guid.NewGuid();
+
+            message
+                .SetupGet(m => m.AppId)
+                .Returns(appId);
+
+            Assert.That(sut.AppId, Is.EqualTo(appId));
         }
     }
 }
