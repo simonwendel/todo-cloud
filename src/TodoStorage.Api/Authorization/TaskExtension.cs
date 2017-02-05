@@ -22,8 +22,8 @@ namespace TodoStorage.Api.Authorization
 
     internal static class TaskExtension
     {
-        private static readonly Task completed = Task.FromResult<bool>(true);
+        private static readonly Task SingletonCompleted = Task.FromResult<bool>(true);
 
-        public static Task Completed => completed;
+        public static Task Completed => SingletonCompleted;
     }
 }
