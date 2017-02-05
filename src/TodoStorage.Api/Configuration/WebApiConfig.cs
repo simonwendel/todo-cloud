@@ -51,6 +51,14 @@ namespace TodoStorage.Api.Configuration
 
             config.SuppressHostPrincipal();
 
+            var authorizationFilter = config.DependencyResolver.GetService(typeof(SignedMessageAuthorizeAttribute)) as IFilter;
+            if (authorizationFilter == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            config.Filters.Add(authorizationFilter);
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
