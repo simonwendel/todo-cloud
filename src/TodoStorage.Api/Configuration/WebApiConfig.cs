@@ -42,7 +42,7 @@ namespace TodoStorage.Api.Configuration
             config.Filters.Add(logFilter);
 
             var authenticationFilter = config.DependencyResolver.GetService(typeof(DefaultAuthenticationFilter)) as IFilter;
-            if(authenticationFilter == null)
+            if (authenticationFilter == null)
             {
                 throw new InvalidOperationException();
             }
