@@ -102,8 +102,7 @@ namespace TodoStorage.Api.Tests.Authorization
 
             Assert.That(
                 extractCall, 
-                Throws.TypeOf<BadMessageFormatException>()
-                    .With.InnerException.TypeOf<FormatException>());
+                Throws.TypeOf<BadMessageFormatException>().With.InnerException.TypeOf<FormatException>());
         }
 
         [Test]
