@@ -154,6 +154,7 @@
     <Compile Include="Authorization\DefaultAuthenticationFilter.cs" />
     <Compile Include="Configuration\LogExceptionFilterAttribute.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
+    <Compile Include="Controllers\ApiControllerBase.cs" />
     <Compile Include="Controllers\TodoController.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Configuration\WebApiConfig.cs" />

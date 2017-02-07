@@ -87,6 +87,7 @@
     <Compile Include="Authorization\SignedMessagePrincipalTests.cs" />
     <Compile Include="Authorization\TaskExtensionTests.cs" />
     <Compile Include="Configuration\LogExceptionFilterAttributeTests.cs" />
+    <Compile Include="Controllers\ApiControllerBaseTests.cs" />
     <Compile Include="Controllers\TodoControllerTests.cs" />
     <Compile Include="Utilities\ContextConstants.cs" />
     <Compile Include="Utilities\FakeHttpActionContext.cs" />
