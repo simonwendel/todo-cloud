@@ -10,7 +10,6 @@ namespace TodoStorage.Api.Configuration
     using Ninject;
     using Ninject.Extensions.Conventions;
     using Ninject.Web.Common;
-    using TodoStorage.Api.Authorization;
 
     public static class NinjectConfig 
     {
