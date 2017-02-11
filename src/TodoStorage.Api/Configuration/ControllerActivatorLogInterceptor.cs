@@ -38,7 +38,7 @@ namespace TodoStorage.Api.Configuration
                 LogManager.GetLogger<ControllerActivatorLogInterceptor>()
                     .Fatal("Exception caught in Controller Activator", ex);
 
-                throw ex;
+                throw;
             }
         }
     }
