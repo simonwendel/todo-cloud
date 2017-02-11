@@ -6,9 +6,11 @@ namespace TodoStorage.Api.Configuration
     using System;
     using System.Security.Cryptography;
     using System.Web;
+    using System.Web.Http.Dispatcher;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Extensions.Conventions;
+    using Ninject.Extensions.Interception.Infrastructure.Language;
     using Ninject.Web.Common;
 
     public static class NinjectConfig 
@@ -61,6 +63,12 @@ namespace TodoStorage.Api.Configuration
             });
 
             kernel.Bind<HashAlgorithm>().To<HMACSHA256>();
+
+            kernel
+                .Bind<IHttpControllerActivator>()
+                .To<DefaultHttpControllerActivator>()
+                .Intercept()
+                .With<ControllerActivatorLogInterceptor>();
         }        
     }
 }
