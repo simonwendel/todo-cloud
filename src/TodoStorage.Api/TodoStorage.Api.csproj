@@ -75,6 +75,10 @@
       <HintPath>..\packages\Ninject.Extensions.Conventions.3.2.0.0\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject.Extensions.Interception, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Interception.3.2.0.0\lib\net45-full\Ninject.Extensions.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
       <Private>True</Private>
@@ -152,6 +156,7 @@
     <Compile Include="Authorization\TaskExtension.cs" />
     <Compile Include="Authorization\ValidAuthenticationSchemes.cs" />
     <Compile Include="Authorization\DefaultAuthenticationFilter.cs" />
+    <Compile Include="Configuration\ControllerActivatorLogInterceptor.cs" />
     <Compile Include="Configuration\LogExceptionFilterAttribute.cs" />
     <Compile Include="Configuration\NinjectConfig.cs" />
     <Compile Include="Controllers\ApiControllerBase.cs" />
