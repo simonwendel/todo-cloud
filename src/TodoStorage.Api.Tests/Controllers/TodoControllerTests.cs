@@ -18,8 +18,8 @@
 
 namespace TodoStorage.Api.Tests.Controllers
 {
-    using Api.Controllers;
     using NUnit.Framework;
+    using TodoStorage.Api.Controllers;
 
     [TestFixture]
     internal class TodoControllerTests

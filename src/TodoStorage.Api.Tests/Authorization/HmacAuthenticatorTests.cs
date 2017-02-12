@@ -21,9 +21,9 @@ namespace TodoStorage.Api.Tests.Authorization
     using System;
     using System.Net.Http.Headers;
     using System.Web.Http.Controllers;
-    using Api.Authorization;
     using Moq;
     using NUnit.Framework;
+    using TodoStorage.Api.Authorization;
     using TodoStorage.Api.Tests.Utilities;
     using TodoStorage.Security;
 

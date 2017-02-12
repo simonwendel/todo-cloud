@@ -20,10 +20,10 @@ namespace TodoStorage.Api.Tests.Configuration
 {
     using System;
     using System.Web.Http.Filters;
-    using Api.Configuration;
     using Common.Logging;
     using Moq;
     using NUnit.Framework;
+    using TodoStorage.Api.Configuration;
 
     [TestFixture]
     internal class LogExceptionFilterAttributeTests
