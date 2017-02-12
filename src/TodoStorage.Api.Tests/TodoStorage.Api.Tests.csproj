@@ -100,6 +100,7 @@
     <Compile Include="Authorization\TaskExtensionTests.cs" />
     <Compile Include="Configuration\ControllerActivatorLogInterceptorTests.cs" />
     <Compile Include="Configuration\LogExceptionFilterAttributeTests.cs" />
+    <Compile Include="Configuration\NinjectConfigTests.cs" />
     <Compile Include="Controllers\ApiControllerBaseTests.cs" />
     <Compile Include="Controllers\TodoControllerTests.cs" />
     <Compile Include="Utilities\ContextConstants.cs" />
@@ -119,6 +120,10 @@
     <ProjectReference Include="..\TodoStorage.Domain\TodoStorage.Domain.csproj">
       <Project>{8ea6b688-81c0-44d9-b241-7f5361c48c8a}</Project>
       <Name>TodoStorage.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TodoStorage.Persistence\TodoStorage.Persistence.csproj">
+      <Project>{d327172c-35dc-4566-9c3f-7f947aaf71e9}</Project>
+      <Name>TodoStorage.Persistence</Name>
     </ProjectReference>
     <ProjectReference Include="..\TodoStorage.Security\TodoStorage.Security.csproj">
       <Project>{27fa62da-d74b-4bef-916a-24c15688eaf0}</Project>

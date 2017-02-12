@@ -29,7 +29,7 @@ namespace TodoStorage.Api.Configuration
             Bootstrapper.ShutDown();
         }
 
-        private static IKernel CreateKernel()
+        internal static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
             try
