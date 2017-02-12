@@ -28,7 +28,7 @@ namespace TodoStorage.Api.Tests.Controllers
     using TodoStorage.Security;
 
     [TestFixture]
-    internal class ApiControllerBaseTests
+    internal class ApiControllerBaseTests : IDisposable
     {
         private TestApiController sut;
 
@@ -66,6 +66,28 @@ namespace TodoStorage.Api.Tests.Controllers
 
             Assert.That(sut.ApplicationId, Is.EqualTo(appId));
         }
+
+        #region IDisposable
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (sut != null)
+                {
+                    sut.Dispose();
+                    sut = null;
+                }
+            }
+        }
+
+        #endregion
 
         private void SetPrincipal(IPrincipal principal)
         {
