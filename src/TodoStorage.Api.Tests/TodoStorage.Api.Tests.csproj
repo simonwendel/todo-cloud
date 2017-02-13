@@ -111,6 +111,8 @@
     <Compile Include="Utilities\FakeHttpAuthenticationChallengeContextTests.cs" />
     <Compile Include="Utilities\FakeHttpAuthenticationContext.cs" />
     <Compile Include="Utilities\FakeHttpAuthenticationContextTests.cs" />
+    <Compile Include="Utilities\MockLoggerFactory.cs" />
+    <Compile Include="Utilities\MockLoggerFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoStorage.Api\TodoStorage.Api.csproj">
