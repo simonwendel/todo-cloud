@@ -24,6 +24,7 @@ namespace TodoStorage.Api.Tests.Configuration
     using Ninject.Extensions.Interception;
     using NUnit.Framework;
     using TodoStorage.Api.Configuration;
+    using TodoStorage.Api.Tests.Utilities;
 
     [TestFixture]
     internal class ControllerActivatorLogInterceptorTests
@@ -39,7 +40,10 @@ namespace TodoStorage.Api.Tests.Configuration
         {
             invocation = new Mock<IInvocation>();
 
-            logger = CreateLogger();
+            var loggerFactory = 
+                new MockLoggerFactory<ControllerActivatorLogInterceptor>();
+
+            logger = loggerFactory.CreateLogger();
             logger.Setup(
                 l => l.Fatal(It.IsAny<string>(), It.IsAny<Exception>()));
 
@@ -88,22 +92,6 @@ namespace TodoStorage.Api.Tests.Configuration
                     It.IsAny<string>(),
                     It.IsAny<Exception>()),
                 Times.Never);
-        }
-
-        private Mock<ILog> CreateLogger()
-        {
-            var logger = new Mock<ILog>();
-
-            var exception = new Exception();
-
-            var loggerAdapter = new Mock<ILoggerFactoryAdapter>();
-            loggerAdapter
-                .Setup(l => l.GetLogger(typeof(ControllerActivatorLogInterceptor)))
-                .Returns(logger.Object);
-
-            LogManager.Adapter = loggerAdapter.Object;
-
-            return logger;
         }
     }
 }

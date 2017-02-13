@@ -24,6 +24,7 @@ namespace TodoStorage.Api.Tests.Configuration
     using Moq;
     using NUnit.Framework;
     using TodoStorage.Api.Configuration;
+    using TodoStorage.Api.Tests.Utilities;
 
     [TestFixture]
     internal class LogExceptionFilterAttributeTests
@@ -35,7 +36,10 @@ namespace TodoStorage.Api.Tests.Configuration
         [SetUp]
         public void Setup()
         {
-            logger = CreateLogger();
+            var loggerFactory = 
+                new MockLoggerFactory<LogExceptionFilterAttribute>();
+
+            logger = loggerFactory.CreateLogger();
             logger.Setup(
                 l => l.Fatal(It.IsAny<string>(), It.IsAny<Exception>()));
 
@@ -67,22 +71,6 @@ namespace TodoStorage.Api.Tests.Configuration
                     It.Is<string>(s => s.Equals("Exception caught globally")), 
                     It.Is<Exception>(e => e == exception)), 
                 Times.Once);
-        }
-
-        private Mock<ILog> CreateLogger()
-        {
-            var logger = new Mock<ILog>();
-
-            var exception = new Exception();
-
-            var loggerAdapter = new Mock<ILoggerFactoryAdapter>();
-            loggerAdapter
-                .Setup(l => l.GetLogger(typeof(LogExceptionFilterAttribute)))
-                .Returns(logger.Object);
-
-            LogManager.Adapter = loggerAdapter.Object;
-
-            return logger;
         }
     }
 }
