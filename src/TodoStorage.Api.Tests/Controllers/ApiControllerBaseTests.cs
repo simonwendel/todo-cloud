@@ -25,6 +25,7 @@ namespace TodoStorage.Api.Tests.Controllers
     using NUnit.Framework;
     using TodoStorage.Api.Authorization;
     using TodoStorage.Api.Controllers;
+    using TodoStorage.Domain;
     using TodoStorage.Security;
 
     [TestFixture]
@@ -39,32 +40,33 @@ namespace TodoStorage.Api.Tests.Controllers
         }
 
         [Test]
-        public void ApplicationId_IfNullPrincipal_ThrowsException()
+        public void Key_IfNullPrincipal_ThrowsException()
         {
             SetPrincipal(null);
 
-            Assert.That(() => sut.ApplicationId, Throws.InvalidOperationException);
+            Assert.That(() => sut.Key, Throws.InvalidOperationException);
         }
 
         [Test]
-        public void ApplicationId_IfNotSignedMessagePrincipal_ThrowsException()
+        public void Key_IfNotSignedMessagePrincipal_ThrowsException()
         {
             SetPrincipal(Mock.Of<IPrincipal>());
 
-            Assert.That(() => sut.ApplicationId, Throws.InvalidOperationException);
+            Assert.That(() => sut.Key, Throws.InvalidOperationException);
         }
 
         [Test]
-        public void ApplicationId_ReturnsAppIdFromPrincipal()
+        public void Key_ReturnsAppIdFromPrincipal()
         {
             var appId = Guid.NewGuid();
+            var key = new CollectionKey(appId);
 
             var principal = CreateSignedMessagePrincipal(appId);
             SetPrincipal(principal);
 
             var sut = new TestApiController();
 
-            Assert.That(sut.ApplicationId, Is.EqualTo(appId));
+            Assert.That(sut.Key, Is.EqualTo(key));
         }
 
         #region IDisposable
@@ -108,7 +110,7 @@ namespace TodoStorage.Api.Tests.Controllers
         {
             // Overrides app id property to raise access to internal
             // making it accessible to the external test fixture
-            internal new Guid ApplicationId => base.ApplicationId;
+            internal new CollectionKey Key => base.Key;
         }
     }
 }

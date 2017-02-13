@@ -21,27 +21,28 @@ namespace TodoStorage.Api.Controllers
     using System;
     using System.Web.Http;
     using TodoStorage.Api.Authorization;
+    using TodoStorage.Domain;
 
     public abstract class ApiControllerBase : ApiController
     {
-        private Guid applicationId;
+        private CollectionKey key;
 
-        protected Guid ApplicationId
+        protected CollectionKey Key
         {
             get
             {
-                if (applicationId == Guid.Empty)
+                if (key == null)
                 {
                     var messagePrincipal = User as SignedMessagePrincipal;
                     if (messagePrincipal == null)
                     {
                         throw new InvalidOperationException();
                     }
-
-                    applicationId = messagePrincipal.AppId;
+                    
+                    key = new CollectionKey(messagePrincipal.AppId);
                 }
 
-                return applicationId;
+                return key;
             }
         }
     }
