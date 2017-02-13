@@ -18,11 +18,10 @@
 
 namespace TodoStorage.Api.Controllers
 {
-    using System.Web.Http;
     using SimonWendel.GuardStatements;
     using TodoStorage.Domain;
 
-    public class TodoController : ApiController
+    public class TodoController : ApiControllerBase
     {
         private ITodoListFactory todoListFactory;
 
