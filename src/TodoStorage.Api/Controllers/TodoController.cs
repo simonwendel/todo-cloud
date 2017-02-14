@@ -23,13 +23,13 @@ namespace TodoStorage.Api.Controllers
 
     public class TodoController : ApiControllerBase
     {
-        private ITodoListFactory todoListFactory;
+        private ITodoList todoList;
 
         public TodoController(ITodoListFactory todoListFactory)
         {
             Guard.EnsureNotNull(todoListFactory, nameof(todoListFactory));
 
-            this.todoListFactory = todoListFactory;
+            todoList = todoListFactory.Create(Key);
         }
     }
 }

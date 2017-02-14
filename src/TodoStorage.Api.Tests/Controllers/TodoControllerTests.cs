@@ -18,12 +18,34 @@
 
 namespace TodoStorage.Api.Tests.Controllers
 {
+    using System;
+    using Moq;
     using NUnit.Framework;
     using TodoStorage.Api.Controllers;
+    using TodoStorage.Domain;
 
     [TestFixture]
-    internal class TodoControllerTests
+    internal class TodoControllerTests : ControllerTestFixtureBase
     {
+        private Mock<ITodoListFactory> todoListFactory;
+
+        private Mock<ITodoList> todoList;
+
+        private TodoController sut;
+
+        [SetUp]
+        public void Setup()
+        {
+            SetPrincipal(Guid.NewGuid());
+
+            todoListFactory = new Mock<ITodoListFactory>();
+            todoList = new Mock<ITodoList>();
+
+            todoListFactory
+                .Setup(f => f.Create(It.IsAny<CollectionKey>()))
+                .Returns(todoList.Object);
+        }
+
         [Test]
         public void Ctor_GivenNullTodoListFactory_ThrowsException()
         {
@@ -31,6 +53,16 @@ namespace TodoStorage.Api.Tests.Controllers
                 () => new TodoController(null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Ctor_GivenTodoListFactory_RetrievesTodoList()
+        {
+            sut = new TodoController(todoListFactory.Object);
+
+            todoListFactory.Verify(
+                f => f.Create(It.IsAny<CollectionKey>()),
+                Times.Once);
         }
     }
 }
