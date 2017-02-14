@@ -20,16 +20,13 @@ namespace TodoStorage.Api.Tests.Controllers
 {
     using System;
     using System.Security.Principal;
-    using System.Threading;
     using Moq;
     using NUnit.Framework;
-    using TodoStorage.Api.Authorization;
     using TodoStorage.Api.Controllers;
     using TodoStorage.Domain;
-    using TodoStorage.Security;
 
     [TestFixture]
-    internal class ApiControllerBaseTests : IDisposable
+    internal class ApiControllerBaseTests : ControllerTestFixtureBase, IDisposable
     {
         private TestApiController sut;
 
@@ -90,21 +87,6 @@ namespace TodoStorage.Api.Tests.Controllers
         }
 
         #endregion
-
-        private void SetPrincipal(IPrincipal principal)
-        {
-            Thread.CurrentPrincipal = principal;
-        }
-
-        private IPrincipal CreateSignedMessagePrincipal(Guid appId)
-        {
-            var message = new Mock<IMessage>();
-            message
-                .SetupGet(m => m.AppId)
-                .Returns(appId);
-
-            return new SignedMessagePrincipal(message.Object);
-        }
 
         private class TestApiController : ApiControllerBase
         {
