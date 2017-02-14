@@ -19,17 +19,22 @@
 namespace TodoStorage.Api.Tests.Controllers
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Moq;
     using NUnit.Framework;
+    using Ploeh.AutoFixture;
     using TodoStorage.Api.Controllers;
     using TodoStorage.Domain;
 
     [TestFixture]
     internal class TodoControllerTests : ControllerTestFixtureBase
     {
-        private Mock<ITodoListFactory> todoListFactory;
+        private IReadOnlyList<Todo> items;
 
         private Mock<ITodoList> todoList;
+
+        private Mock<ITodoListFactory> todoListFactory;
 
         private TodoController sut;
 
@@ -38,12 +43,23 @@ namespace TodoStorage.Api.Tests.Controllers
         {
             SetPrincipal(Guid.NewGuid());
 
-            todoListFactory = new Mock<ITodoListFactory>();
-            todoList = new Mock<ITodoList>();
+            var fixture = new Fixture();
+            items = fixture
+                .CreateMany<Todo>()
+                .ToList()
+                .AsReadOnly();
 
+            todoList = new Mock<ITodoList>();
+            todoList
+                .SetupGet(l => l.Items)
+                .Returns(items);
+
+            todoListFactory = new Mock<ITodoListFactory>();
             todoListFactory
                 .Setup(f => f.Create(It.IsAny<CollectionKey>()))
                 .Returns(todoList.Object);
+
+            sut = new TodoController(todoListFactory.Object);
         }
 
         [Test]
@@ -58,11 +74,17 @@ namespace TodoStorage.Api.Tests.Controllers
         [Test]
         public void Ctor_GivenTodoListFactory_RetrievesTodoList()
         {
-            sut = new TodoController(todoListFactory.Object);
-
             todoListFactory.Verify(
                 f => f.Create(It.IsAny<CollectionKey>()),
                 Times.Once);
+        }
+
+        [Test]
+        public void Get_NullaryInvocation_ReturnsTodoItems()
+        {
+            var todo = sut.Get();
+
+            Assert.That(todo, Is.EquivalentTo(items));
         }
     }
 }

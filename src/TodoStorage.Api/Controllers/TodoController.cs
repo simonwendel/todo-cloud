@@ -18,6 +18,7 @@
 
 namespace TodoStorage.Api.Controllers
 {
+    using System.Collections.Generic;
     using SimonWendel.GuardStatements;
     using TodoStorage.Domain;
 
@@ -30,6 +31,11 @@ namespace TodoStorage.Api.Controllers
             Guard.EnsureNotNull(todoListFactory, nameof(todoListFactory));
 
             todoList = todoListFactory.Create(Key);
+        }
+
+        public IEnumerable<Todo> Get()
+        {
+            return todoList.Items;
         }
     }
 }
