@@ -32,7 +32,12 @@ namespace TodoStorage.Api.Tests.Controllers
             Thread.CurrentPrincipal = principal;
         }
 
-        protected IPrincipal CreateSignedMessagePrincipal(Guid appId)
+        protected void SetPrincipal(Guid appId)
+        {
+            Thread.CurrentPrincipal = CreateSignedMessagePrincipal(appId);
+        }
+
+        private IPrincipal CreateSignedMessagePrincipal(Guid appId)
         {
             var message = new Mock<IMessage>();
             message

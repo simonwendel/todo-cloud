@@ -57,9 +57,8 @@ namespace TodoStorage.Api.Tests.Controllers
         {
             var appId = Guid.NewGuid();
             var key = new CollectionKey(appId);
-
-            var principal = CreateSignedMessagePrincipal(appId);
-            SetPrincipal(principal);
+            
+            SetPrincipal(appId);
 
             var sut = new TestApiController();
 
