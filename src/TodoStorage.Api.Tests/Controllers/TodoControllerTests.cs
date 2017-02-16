@@ -30,6 +30,8 @@ namespace TodoStorage.Api.Tests.Controllers
     [TestFixture]
     internal class TodoControllerTests : ControllerTestFixtureBase
     {
+        private Fixture fixture;
+
         private IReadOnlyList<Todo> items;
 
         private Mock<ITodoList> todoList;
@@ -43,7 +45,8 @@ namespace TodoStorage.Api.Tests.Controllers
         {
             SetPrincipal(Guid.NewGuid());
 
-            var fixture = new Fixture();
+            fixture = new Fixture();
+
             items = fixture
                 .CreateMany<Todo>()
                 .ToList()
@@ -85,6 +88,30 @@ namespace TodoStorage.Api.Tests.Controllers
             var todo = sut.Get();
 
             Assert.That(todo, Is.EquivalentTo(items));
+        }
+
+        [Test]
+        public void Post_GivenNullTodo_ThrowsException()
+        {
+            TestDelegate postCall =
+                () => sut.Post(null);
+
+            Assert.That(postCall, Throws.ArgumentNullException);
+            todoList.Verify(
+                l => l.Add(It.IsAny<Todo>()),
+                Times.Never);
+        }
+
+        [Test]
+        public void Post_GivenTodo_AddsTodoToList()
+        {
+            var newTodo = fixture.Create<Todo>();
+
+            sut.Post(newTodo);
+
+            todoList.Verify(
+                l => l.Add(It.Is<Todo>(t => t == newTodo)),
+                Times.Once);
         }
     }
 }

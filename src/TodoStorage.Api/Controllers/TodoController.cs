@@ -37,5 +37,12 @@ namespace TodoStorage.Api.Controllers
         {
             return todoList.Items;
         }
+
+        public void Post(Todo todo)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+
+            todoList.Add(todo);
+        }
     }
 }
