@@ -28,7 +28,7 @@ namespace TodoStorage.Api.Tests.Controllers
     using TodoStorage.Domain;
 
     [TestFixture]
-    internal class TodoControllerTests : ControllerTestFixtureBase
+    internal class TodoControllerTests : ControllerTestFixtureBase, IDisposable
     {
         private Fixture fixture;
 
@@ -113,5 +113,27 @@ namespace TodoStorage.Api.Tests.Controllers
                 l => l.Add(It.Is<Todo>(t => t == newTodo)),
                 Times.Once);
         }
+
+        #region IDisposable
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (sut == null)
+                {
+                    sut.Dispose();
+                    sut = null;
+                }
+            }
+        }
+
+        #endregion
     }
 }
