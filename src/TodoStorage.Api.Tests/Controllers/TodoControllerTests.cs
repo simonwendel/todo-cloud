@@ -46,27 +46,8 @@ namespace TodoStorage.Api.Tests.Controllers
         {
             SetPrincipal(Guid.NewGuid());
 
-            var fixture = new Fixture();
-
-            items = fixture
-                .CreateMany<Todo>()
-                .ToList()
-                .AsReadOnly();
-
-            newTodo = fixture.Create<Todo>();
-
-            todoList = new Mock<ITodoList>();
-            todoList
-                .SetupGet(l => l.Items)
-                .Returns(items);
-
-            todoList
-                .Setup(l => l.Add(It.IsAny<Todo>()));
-
-            todoListFactory = new Mock<ITodoListFactory>();
-            todoListFactory
-                .Setup(f => f.Create(It.IsAny<CollectionKey>()))
-                .Returns(todoList.Object);
+            CreateTodoListMock();
+            CreateTodoListFactoryMock();
 
             sut = new TodoController(todoListFactory.Object);
         }
@@ -152,5 +133,33 @@ namespace TodoStorage.Api.Tests.Controllers
         }
 
         #endregion
+
+        private void CreateTodoListMock()
+        {
+            var fixture = new Fixture();
+
+            items = fixture
+                .CreateMany<Todo>()
+                .ToList()
+                .AsReadOnly();
+
+            newTodo = fixture.Create<Todo>();
+
+            todoList = new Mock<ITodoList>();
+            todoList
+                .SetupGet(l => l.Items)
+                .Returns(items);
+
+            todoList
+                .Setup(l => l.Add(It.IsAny<Todo>()));
+        }
+
+        private void CreateTodoListFactoryMock()
+        {
+            todoListFactory = new Mock<ITodoListFactory>();
+            todoListFactory
+                .Setup(f => f.Create(It.IsAny<CollectionKey>()))
+                .Returns(todoList.Object);
+        }
     }
 }
