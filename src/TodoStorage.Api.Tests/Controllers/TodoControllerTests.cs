@@ -21,6 +21,7 @@ namespace TodoStorage.Api.Tests.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Http.Results;
     using Moq;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
@@ -30,13 +31,13 @@ namespace TodoStorage.Api.Tests.Controllers
     [TestFixture]
     internal class TodoControllerTests : ControllerTestFixtureBase, IDisposable
     {
-        private Fixture fixture;
-
         private IReadOnlyList<Todo> items;
 
         private Mock<ITodoList> todoList;
 
         private Mock<ITodoListFactory> todoListFactory;
+
+        private Todo newTodo;
 
         private TodoController sut;
 
@@ -45,17 +46,22 @@ namespace TodoStorage.Api.Tests.Controllers
         {
             SetPrincipal(Guid.NewGuid());
 
-            fixture = new Fixture();
+            var fixture = new Fixture();
 
             items = fixture
                 .CreateMany<Todo>()
                 .ToList()
                 .AsReadOnly();
 
+            newTodo = fixture.Create<Todo>();
+
             todoList = new Mock<ITodoList>();
             todoList
                 .SetupGet(l => l.Items)
                 .Returns(items);
+
+            todoList
+                .Setup(l => l.Add(It.IsAny<Todo>()));
 
             todoListFactory = new Mock<ITodoListFactory>();
             todoListFactory
@@ -105,13 +111,24 @@ namespace TodoStorage.Api.Tests.Controllers
         [Test]
         public void Post_GivenTodo_AddsTodoToList()
         {
-            var newTodo = fixture.Create<Todo>();
-
             sut.Post(newTodo);
 
             todoList.Verify(
                 l => l.Add(It.Is<Todo>(t => t == newTodo)),
                 Times.Once);
+        }
+
+        [Test]
+        public void Post_GivenTodo_ReturnsCreatedResponse()
+        {
+            var expectedLocation = new Uri("/api/todo", UriKind.Relative);
+
+            var response = sut.Post(newTodo) as CreatedNegotiatedContentResult<Todo>;
+
+            Assert.That(response, Is.Not.Null);
+            Assert.That(
+                response.Location, 
+                Is.EqualTo(expectedLocation));
         }
 
         #region IDisposable

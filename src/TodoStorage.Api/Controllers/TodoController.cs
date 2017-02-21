@@ -19,6 +19,7 @@
 namespace TodoStorage.Api.Controllers
 {
     using System.Collections.Generic;
+    using System.Web.Http;
     using SimonWendel.GuardStatements;
     using TodoStorage.Domain;
 
@@ -38,11 +39,12 @@ namespace TodoStorage.Api.Controllers
             return todoList.Items;
         }
 
-        public void Post(Todo todo)
+        public IHttpActionResult Post(Todo todo)
         {
             Guard.EnsureNotNull(todo, nameof(todo));
 
             todoList.Add(todo);
+            return Created("/api/todo", todo);
         }
     }
 }
