@@ -107,6 +107,10 @@
       <HintPath>..\packages\NLog.Web.4.3.0\lib\net35\NLog.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ploeh.Hyprlinkr, Version=2.0.1.0, Culture=neutral, PublicKeyToken=328c7edd5b51bfe0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hyprlinkr.2.0.1\lib\net45\Ploeh.Hyprlinkr.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SimonWendel.GuardStatements, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SimonWendel.GuardStatements.1.2.0\lib\net45\SimonWendel.GuardStatements.dll</HintPath>
       <Private>True</Private>
