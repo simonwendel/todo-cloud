@@ -28,9 +28,9 @@ namespace TodoStorage.Api.Controllers
 
     public class TodoController : ApiControllerBase
     {
-        private ITodoList todoList;
+        private readonly ITodoList todoList;
 
-        private Func<HttpRequestMessage, IResourceLinker> linkerStrategy;
+        private readonly Func<HttpRequestMessage, IResourceLinker> linkerStrategy;
 
         public TodoController(ITodoListFactory todoListFactory, Func<HttpRequestMessage, IResourceLinker> linkerStrategy)
         {
