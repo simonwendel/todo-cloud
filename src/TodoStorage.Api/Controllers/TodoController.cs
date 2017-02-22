@@ -53,7 +53,9 @@ namespace TodoStorage.Api.Controllers
             Guard.EnsureNotNull(todo, nameof(todo));
 
             todoList.Add(todo);
-            return Created(Linker.GetUri<TodoController>(c => c.Get()), todo);
+
+            var redirectUri = Linker.GetUri<TodoController>(c => c.Get());
+            return Created(redirectUri, todo);
         }
     }
 }
