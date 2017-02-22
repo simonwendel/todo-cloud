@@ -21,10 +21,13 @@ namespace TodoStorage.Api.Tests.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
+    using System.Net.Http;
     using System.Web.Http.Results;
     using Moq;
     using NUnit.Framework;
     using Ploeh.AutoFixture;
+    using Ploeh.Hyprlinkr;
     using TodoStorage.Api.Controllers;
     using TodoStorage.Domain;
 
@@ -37,6 +40,12 @@ namespace TodoStorage.Api.Tests.Controllers
 
         private Mock<ITodoListFactory> todoListFactory;
 
+        private Func<HttpRequestMessage, IResourceLinker> linkerStrategy;
+
+        private Mock<IResourceLinker> resourceLinker;
+
+        private Uri redirectLocation;
+
         private Todo newTodo;
 
         private TodoController sut;
@@ -48,15 +57,28 @@ namespace TodoStorage.Api.Tests.Controllers
 
             CreateTodoListMock();
             CreateTodoListFactoryMock();
+            CreateResourceLinkerMock();
 
-            sut = new TodoController(todoListFactory.Object);
+            linkerStrategy = 
+                request => resourceLinker.Object;
+
+            sut = new TodoController(todoListFactory.Object, linkerStrategy);
         }
 
         [Test]
         public void Ctor_GivenNullTodoListFactory_ThrowsException()
         {
             TestDelegate constructorCall =
-                () => new TodoController(null);
+                () => new TodoController(null, linkerStrategy);
+
+            Assert.That(constructorCall, Throws.ArgumentNullException);
+        }
+
+        [Test]
+        public void Ctor_GivenNullLinkerStrategy_ThrowsException()
+        {
+            TestDelegate constructorCall =
+                () => new TodoController(todoListFactory.Object, null);
 
             Assert.That(constructorCall, Throws.ArgumentNullException);
         }
@@ -102,14 +124,12 @@ namespace TodoStorage.Api.Tests.Controllers
         [Test]
         public void Post_GivenTodo_ReturnsCreatedResponse()
         {
-            var expectedLocation = new Uri("/api/todo", UriKind.Relative);
-
             var response = sut.Post(newTodo) as CreatedNegotiatedContentResult<Todo>;
 
             Assert.That(response, Is.Not.Null);
             Assert.That(
                 response.Location, 
-                Is.EqualTo(expectedLocation));
+                Is.EqualTo(redirectLocation));
         }
 
         #region IDisposable
@@ -160,6 +180,16 @@ namespace TodoStorage.Api.Tests.Controllers
             todoListFactory
                 .Setup(f => f.Create(It.IsAny<CollectionKey>()))
                 .Returns(todoList.Object);
+        }
+
+        private void CreateResourceLinkerMock()
+        {
+            redirectLocation = new Uri("http://localhost/api/todo/whatever");
+
+            resourceLinker = new Mock<IResourceLinker>();
+            resourceLinker
+                .Setup(r => r.GetUri<TodoController>(It.IsAny<Expression<Action<TodoController>>>()))
+                .Returns(redirectLocation);
         }
     }
 }

@@ -18,8 +18,11 @@
 
 namespace TodoStorage.Api.Controllers
 {
+    using System;
     using System.Collections.Generic;
+    using System.Net.Http;
     using System.Web.Http;
+    using Ploeh.Hyprlinkr;
     using SimonWendel.GuardStatements;
     using TodoStorage.Domain;
 
@@ -27,12 +30,18 @@ namespace TodoStorage.Api.Controllers
     {
         private ITodoList todoList;
 
-        public TodoController(ITodoListFactory todoListFactory)
+        private Func<HttpRequestMessage, IResourceLinker> linkerStrategy;
+
+        public TodoController(ITodoListFactory todoListFactory, Func<HttpRequestMessage, IResourceLinker> linkerStrategy)
         {
             Guard.EnsureNotNull(todoListFactory, nameof(todoListFactory));
+            Guard.EnsureNotNull(linkerStrategy, nameof(linkerStrategy));
 
             todoList = todoListFactory.Create(Key);
+            this.linkerStrategy = linkerStrategy;
         }
+
+        private IResourceLinker Linker => linkerStrategy(Request);
 
         public IEnumerable<Todo> Get()
         {
@@ -44,7 +53,7 @@ namespace TodoStorage.Api.Controllers
             Guard.EnsureNotNull(todo, nameof(todo));
 
             todoList.Add(todo);
-            return Created("/api/todo", todo);
+            return Created(Linker.GetUri<TodoController>(c => c.Get()), todo);
         }
     }
 }
