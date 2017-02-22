@@ -25,9 +25,9 @@ namespace TodoStorage.Api.Authorization
 
     internal class DefaultAuthenticationFilter : IAuthenticationFilter
     {
-        private IAuthenticator authenticator;
+        private readonly IAuthenticator authenticator;
 
-        private IChallenger challenger;
+        private readonly IChallenger challenger;
 
         public DefaultAuthenticationFilter(IAuthenticator authenticator, IChallenger challenger)
         {

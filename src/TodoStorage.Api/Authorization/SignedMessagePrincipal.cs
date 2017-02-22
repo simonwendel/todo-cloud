@@ -25,7 +25,7 @@ namespace TodoStorage.Api.Authorization
 
     internal class SignedMessagePrincipal : IPrincipal
     {
-        private IMessage message;
+        private readonly IMessage message;
 
         public SignedMessagePrincipal(IMessage message)
         {

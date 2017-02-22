@@ -24,9 +24,9 @@ namespace TodoStorage.Api.Authorization
 
     internal class HmacAuthenticator : IAuthenticator
     {
-        private IHashingKeyFactory keyFactory;
+        private readonly IHashingKeyFactory keyFactory;
 
-        private IMessageExtractor messageExtractor;
+        private readonly IMessageExtractor messageExtractor;
 
         public HmacAuthenticator(IHashingKeyFactory keyFactory, IMessageExtractor messageExtractor)
         {

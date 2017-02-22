@@ -28,9 +28,9 @@ namespace TodoStorage.Api.Authorization
 
     internal class AuthenticationFailureResult : IHttpActionResult
     {
-        private string failureReason;
+        private readonly string failureReason;
 
-        private HttpRequestMessage failingRequest;
+        private readonly HttpRequestMessage failingRequest;
 
         public AuthenticationFailureResult(string failureReason, HttpRequestMessage failingRequest)
         {
