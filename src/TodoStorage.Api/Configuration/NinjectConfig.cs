@@ -4,6 +4,7 @@
 namespace TodoStorage.Api.Configuration
 {
     using System;
+    using System.Net.Http;
     using System.Security.Cryptography;
     using System.Web;
     using System.Web.Http.Dispatcher;
@@ -12,6 +13,7 @@ namespace TodoStorage.Api.Configuration
     using Ninject.Extensions.Conventions;
     using Ninject.Extensions.Interception.Infrastructure.Language;
     using Ninject.Web.Common;
+    using Ploeh.Hyprlinkr;
 
     public static class NinjectConfig 
     {
@@ -69,6 +71,13 @@ namespace TodoStorage.Api.Configuration
                 .To<DefaultHttpControllerActivator>()
                 .Intercept()
                 .With<ControllerActivatorLogInterceptor>();
+
+            // a bit convoluted way of injecting a routelinker, but this is the most 
+            // sane way I could find of deferring the creation of the RouteLinker until 
+            // a request would be properly initialized
+            kernel
+                .Bind<Func<HttpRequestMessage, IResourceLinker>>()
+                .ToMethod(context => (request => new RouteLinker(request)));
         }        
     }
 }
