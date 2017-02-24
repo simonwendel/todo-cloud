@@ -45,9 +45,9 @@ namespace TodoStorage.Api.Controllers
 
         private IResourceLinker Linker => linkerStrategy(Request);
 
-        public IEnumerable<Todo> Get()
+        public IHttpActionResult Get()
         {
-            return todoList.Items;
+            return Ok<IEnumerable<Todo>>(todoList.Items);
         }
 
         public IHttpActionResult Post(Todo todo)

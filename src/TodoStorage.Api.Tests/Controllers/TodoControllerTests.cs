@@ -97,9 +97,10 @@ namespace TodoStorage.Api.Tests.Controllers
         [Test]
         public void Get_NullaryInvocation_ReturnsTodoItems()
         {
-            var todo = sut.Get();
+            var response = sut.Get() as OkNegotiatedContentResult<IEnumerable<Todo>>;
 
-            Assert.That(todo, Is.EquivalentTo(items));
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Content, Is.EquivalentTo(items));
         }
 
         [Test]
