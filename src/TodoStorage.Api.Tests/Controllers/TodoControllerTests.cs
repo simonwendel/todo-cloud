@@ -48,6 +48,8 @@ namespace TodoStorage.Api.Tests.Controllers
 
         private Todo newTodo;
 
+        private Todo existingTodo;
+
         private TodoController sut;
 
         [SetUp]
@@ -133,6 +135,63 @@ namespace TodoStorage.Api.Tests.Controllers
                 Is.EqualTo(redirectLocation));
         }
 
+        [Test]
+        public void Put_GivenNullTodo_ThrowsException()
+        {
+            TestDelegate putCall =
+                () => sut.Put(null);
+
+            Assert.That(putCall, Throws.ArgumentNullException);
+
+            todoList.Verify(
+                 l => l.Add(It.IsAny<Todo>()),
+                 Times.Never);
+            todoList.Verify(
+                l => l.Update(It.IsAny<Todo>()),
+                Times.Never);
+        }
+
+        [Test]
+        public void Put_GivenExistingTodo_UpdatesTodo()
+        {
+            sut.Put(existingTodo);
+
+            todoList.Verify(
+                l => l.Update(It.Is<Todo>(t => t == existingTodo)),
+                Times.Once);
+        }
+
+        [Test]
+        public void Put_GivenExistingTodo_ReturnsOkResponse()
+        {
+            var response = sut.Put(existingTodo) as OkNegotiatedContentResult<Todo>;
+
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Content, Is.Not.Null);
+        }
+
+        [Test]
+        public void Put_GivenNewTodo_AddsTodo()
+        {
+            sut.Put(newTodo);
+
+            todoList.Verify(
+                l => l.Add(It.Is<Todo>(t => t == newTodo)),
+                Times.Once);
+        }
+
+        [Test]
+        public void Put_GivenNewTodo_ReturnsCreatedResponse()
+        {
+            var response = sut.Put(newTodo) as CreatedNegotiatedContentResult<Todo>;
+
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Content, Is.Not.Null);
+            Assert.That(
+                response.Location,
+                Is.EqualTo(redirectLocation));
+        }
+
         #region IDisposable
 
         public void Dispose()
@@ -165,6 +224,7 @@ namespace TodoStorage.Api.Tests.Controllers
                 .AsReadOnly();
 
             newTodo = fixture.Create<Todo>();
+            existingTodo = items[0];
 
             todoList = new Mock<ITodoList>();
             todoList
@@ -173,6 +233,9 @@ namespace TodoStorage.Api.Tests.Controllers
 
             todoList
                 .Setup(l => l.Add(It.IsAny<Todo>()));
+
+            todoList
+                .Setup(l => l.Update(It.IsAny<Todo>()));
         }
 
         private void CreateTodoListFactoryMock()

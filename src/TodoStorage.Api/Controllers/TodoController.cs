@@ -20,6 +20,7 @@ namespace TodoStorage.Api.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
     using System.Web.Http;
     using Ploeh.Hyprlinkr;
@@ -56,6 +57,20 @@ namespace TodoStorage.Api.Controllers
 
             var redirectUri = Linker.GetUri<TodoController>(c => c.Get());
             return Created(redirectUri, todo);
+        }
+
+        public IHttpActionResult Put(Todo todo)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+
+            var haveIt = todoList.Items.Contains(todo);
+            if (haveIt)
+            {
+                todoList.Update(todo);
+                return Ok(todo);
+            }
+
+            return Post(todo);
         }
     }
 }
