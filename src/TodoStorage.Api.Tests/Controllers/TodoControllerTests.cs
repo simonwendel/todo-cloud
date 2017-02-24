@@ -95,12 +95,29 @@ namespace TodoStorage.Api.Tests.Controllers
         }
 
         [Test]
-        public void Get_NullaryInvocation_ReturnsTodoItems()
+        public void Get_NullaryInvocation_ReturnsCompleteListOfTodoItems()
         {
             var response = sut.Get() as OkNegotiatedContentResult<IEnumerable<Todo>>;
 
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Content, Is.EquivalentTo(items));
+        }
+
+        [Test]
+        public void Get_GivenUnrecognizedId_ReturnsNotFoundResponse()
+        {
+            var response = sut.Get(newTodo.Id.Value) as NotFoundResult;
+
+            Assert.That(response, Is.Not.Null);
+        }
+
+        [Test]
+        public void Get_GivenRecognizedId_ReturnsOkResponse()
+        {
+            var response = sut.Get(existingTodo.Id.Value) as OkNegotiatedContentResult<Todo>;
+
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Content, Is.SameAs(existingTodo));
         }
 
         [Test]

@@ -49,6 +49,17 @@ namespace TodoStorage.Api.Controllers
         {
             return Ok<IEnumerable<Todo>>(todoList.Items);
         }
+        
+        public IHttpActionResult Get(int id)
+        {
+            var todo = todoList.Items.SingleOrDefault(t => t.Id.Value == id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(todo);
+        }
 
         public IHttpActionResult Post(Todo todo)
         {
