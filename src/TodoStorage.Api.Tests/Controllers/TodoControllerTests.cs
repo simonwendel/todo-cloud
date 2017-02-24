@@ -158,7 +158,7 @@ namespace TodoStorage.Api.Tests.Controllers
         public void Put_GivenNullTodo_ThrowsException()
         {
             TestDelegate putCall =
-                () => sut.Put(null);
+                () => sut.Put(existingTodo.Id.Value, null);
 
             Assert.That(putCall, Throws.ArgumentNullException);
 
@@ -173,7 +173,7 @@ namespace TodoStorage.Api.Tests.Controllers
         [Test]
         public void Put_GivenExistingTodo_UpdatesTodo()
         {
-            sut.Put(existingTodo);
+            sut.Put(existingTodo.Id.Value, existingTodo);
 
             todoList.Verify(
                 l => l.Update(It.Is<Todo>(t => t == existingTodo)),
@@ -183,7 +183,7 @@ namespace TodoStorage.Api.Tests.Controllers
         [Test]
         public void Put_GivenExistingTodo_ReturnsOkResponse()
         {
-            var response = sut.Put(existingTodo) as OkNegotiatedContentResult<Todo>;
+            var response = sut.Put(existingTodo.Id.Value, existingTodo) as OkNegotiatedContentResult<Todo>;
 
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Content, Is.Not.Null);
@@ -192,7 +192,7 @@ namespace TodoStorage.Api.Tests.Controllers
         [Test]
         public void Put_GivenNewTodo_AddsTodo()
         {
-            sut.Put(newTodo);
+            sut.Put(newTodo.Id.Value, newTodo);
 
             todoList.Verify(
                 l => l.Add(It.Is<Todo>(t => t == newTodo)),
@@ -202,7 +202,7 @@ namespace TodoStorage.Api.Tests.Controllers
         [Test]
         public void Put_GivenNewTodo_ReturnsCreatedResponse()
         {
-            var response = sut.Put(newTodo) as CreatedNegotiatedContentResult<Todo>;
+            var response = sut.Put(newTodo.Id.Value, newTodo) as CreatedNegotiatedContentResult<Todo>;
 
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Content, Is.Not.Null);
@@ -212,32 +212,20 @@ namespace TodoStorage.Api.Tests.Controllers
         }
 
         [Test]
-        public void Delete_GivenNullTodo_ThrowsException()
+        public void Delete_GivenInvalidId_ReturnsNotFoundResponse()
         {
-            TestDelegate deleteCall =
-                () => sut.Delete(null);
-
-            Assert.That(deleteCall, Throws.ArgumentNullException);
-            todoList.Verify(
-                 l => l.Delete(It.IsAny<Todo>()),
-                 Times.Never);
-        }
-
-        [Test]
-        public void Delete_GivenUnrecognizedTodo_ReturnsNotFoundResponse()
-        {
-            var response = sut.Delete(newTodo) as NotFoundResult;
+            var response = sut.Delete(newTodo.Id.Value) as NotFoundResult;
 
             Assert.That(response, Is.Not.Null);
             todoList.Verify(
-                l => l.Delete(It.Is<Todo>(t => t == newTodo)),
+                l => l.Delete(It.IsAny<Todo>()),
                 Times.Never);
         }
 
         [Test]
         public void Delete_GivenExistingTodo_DeletesTodo()
         {
-            sut.Delete(existingTodo);
+            sut.Delete(existingTodo.Id.Value);
 
             todoList.Verify(
                 l => l.Delete(It.Is<Todo>(t => t == existingTodo)),
@@ -247,7 +235,7 @@ namespace TodoStorage.Api.Tests.Controllers
         [Test]
         public void Delete_GivenExistingTodo_ReturnsNoContentResponse()
         {
-            var response = sut.Delete(existingTodo) as StatusCodeResult;
+            var response = sut.Delete(existingTodo.Id.Value) as StatusCodeResult;
 
             Assert.That(response, Is.Not.Null);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));

@@ -52,7 +52,7 @@ namespace TodoStorage.Api.Controllers
         
         public IHttpActionResult Get(int id)
         {
-            var todo = todoList.Items.SingleOrDefault(t => t.Id.Value == id);
+            var todo = FindTodoBy(id);
             if (todo == null)
             {
                 return NotFound();
@@ -71,32 +71,37 @@ namespace TodoStorage.Api.Controllers
             return Created(redirectUri, todo);
         }
 
-        public IHttpActionResult Put(Todo todo)
+        public IHttpActionResult Put(int id, Todo todo)
         {
             Guard.EnsureNotNull(todo, nameof(todo));
 
-            var haveIt = todoList.Items.Contains(todo);
-            if (haveIt)
+            var persisted = FindTodoBy(id);
+            if (persisted == null)
             {
-                todoList.Update(todo);
-                return Ok(todo);
+                return Post(todo);
             }
 
-            return Post(todo);
+            todoList.Update(todo);
+            return Ok(todo);
         }
 
-        public IHttpActionResult Delete(Todo todo)
+        public IHttpActionResult Delete(int id)
         {
-            Guard.EnsureNotNull(todo, nameof(todo));
-
-            var haveIt = todoList.Items.Contains(todo);
-            if (haveIt)
+            var persisted = FindTodoBy(id);
+            if (persisted == null)
             {
-                todoList.Delete(todo);
-                return StatusCode(HttpStatusCode.NoContent);
+                return NotFound();
             }
 
-            return NotFound();
+            todoList.Delete(persisted);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        private Todo FindTodoBy(int id)
+        {
+            return todoList.Items
+                .Where(t => t.Id.HasValue)
+                .SingleOrDefault(t => t.Id.Value == id);
         }
     }
 }
