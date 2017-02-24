@@ -171,6 +171,15 @@ namespace TodoStorage.Api.Tests.Controllers
         }
 
         [Test]
+        public void Put_GivenNonMatchingIds_ReturnsBadRequestResponse()
+        {
+            var response = sut.Put(newTodo.Id.Value + 1, newTodo) as BadRequestErrorMessageResult;
+
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Message, Is.EqualTo("Id mismatch between URL and body."));
+        }
+
+        [Test]
         public void Put_GivenExistingTodo_UpdatesTodo()
         {
             sut.Put(existingTodo.Id.Value, existingTodo);
