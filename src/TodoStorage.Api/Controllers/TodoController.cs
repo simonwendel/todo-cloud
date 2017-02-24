@@ -21,6 +21,7 @@ namespace TodoStorage.Api.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Net.Http;
     using System.Web.Http;
     using Ploeh.Hyprlinkr;
@@ -71,6 +72,20 @@ namespace TodoStorage.Api.Controllers
             }
 
             return Post(todo);
+        }
+
+        public IHttpActionResult Delete(Todo todo)
+        {
+            Guard.EnsureNotNull(todo, nameof(todo));
+
+            var haveIt = todoList.Items.Contains(todo);
+            if (haveIt)
+            {
+                todoList.Delete(todo);
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+            return NotFound();
         }
     }
 }

@@ -22,6 +22,7 @@ namespace TodoStorage.Api.Tests.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Net;
     using System.Net.Http;
     using System.Web.Http.Results;
     using Moq;
@@ -190,6 +191,48 @@ namespace TodoStorage.Api.Tests.Controllers
             Assert.That(
                 response.Location,
                 Is.EqualTo(redirectLocation));
+        }
+
+        [Test]
+        public void Delete_GivenNullTodo_ThrowsException()
+        {
+            TestDelegate deleteCall =
+                () => sut.Delete(null);
+
+            Assert.That(deleteCall, Throws.ArgumentNullException);
+            todoList.Verify(
+                 l => l.Delete(It.IsAny<Todo>()),
+                 Times.Never);
+        }
+
+        [Test]
+        public void Delete_GivenUnrecognizedTodo_ReturnsNotFoundResponse()
+        {
+            var response = sut.Delete(newTodo) as NotFoundResult;
+
+            Assert.That(response, Is.Not.Null);
+            todoList.Verify(
+                l => l.Delete(It.Is<Todo>(t => t == newTodo)),
+                Times.Never);
+        }
+
+        [Test]
+        public void Delete_GivenExistingTodo_DeletesTodo()
+        {
+            sut.Delete(existingTodo);
+
+            todoList.Verify(
+                l => l.Delete(It.Is<Todo>(t => t == existingTodo)),
+                Times.Once);
+        }
+
+        [Test]
+        public void Delete_GivenExistingTodo_ReturnsNoContentResponse()
+        {
+            var response = sut.Delete(existingTodo) as StatusCodeResult;
+
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
         }
 
         #region IDisposable
