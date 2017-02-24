@@ -67,7 +67,7 @@ namespace TodoStorage.Api.Controllers
 
             todoList.Add(todo);
 
-            var redirectUri = Linker.GetUri<TodoController>(c => c.Get());
+            var redirectUri = Linker.GetUri<TodoController>(c => c.Get(todo.Id.Value));
             return Created(redirectUri, todo);
         }
 
