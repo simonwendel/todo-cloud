@@ -127,6 +127,7 @@ namespace TodoStorage.Api.Tests.Controllers
             var response = sut.Post(newTodo) as CreatedNegotiatedContentResult<Todo>;
 
             Assert.That(response, Is.Not.Null);
+            Assert.That(response.Content, Is.Not.Null);
             Assert.That(
                 response.Location, 
                 Is.EqualTo(redirectLocation));
