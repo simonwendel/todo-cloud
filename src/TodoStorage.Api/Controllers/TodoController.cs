@@ -20,6 +20,7 @@ namespace TodoStorage.Api.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -49,7 +50,7 @@ namespace TodoStorage.Api.Controllers
         {
             return Ok<IEnumerable<Todo>>(todoList.Items);
         }
-        
+
         public IHttpActionResult Get(int id)
         {
             var todo = FindTodoBy(id);
@@ -71,6 +72,11 @@ namespace TodoStorage.Api.Controllers
             return Created(redirectUri, todo);
         }
 
+        [SuppressMessage(
+            "Microsoft.Globalization",
+            "CA1303:Do not pass literals as localized parameters",
+            MessageId = "System.Web.Http.ApiController.BadRequest(System.String)",
+            Justification = "This is not something the end user will see. Resource table is overkill.")]
         public IHttpActionResult Put(int id, Todo todo)
         {
             Guard.EnsureNotNull(todo, nameof(todo));
