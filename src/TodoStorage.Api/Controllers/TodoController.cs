@@ -75,7 +75,7 @@ namespace TodoStorage.Api.Controllers
         {
             Guard.EnsureNotNull(todo, nameof(todo));
 
-            if(todo.Id.HasValue && todo.Id.Value != id)
+            if (todo.Id.HasValue && todo.Id.Value != id)
             {
                 return BadRequest("Id mismatch between URL and body.");
             }
