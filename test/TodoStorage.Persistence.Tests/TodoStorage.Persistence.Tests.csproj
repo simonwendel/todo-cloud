@@ -25,7 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\common\MinimumRecommendedRules_WithoutShortenedUsings.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\common\MinimumRecommendedRules_WithoutShortenedUsings.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -39,35 +39,35 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Moq, Version=4.5.16.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.5.16\lib\net45\Moq.dll</HintPath>
+      <HintPath>..\..\packages\Moq.4.5.16\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ploeh.AutoFixture, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+      <HintPath>..\..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SimonWendel.GuardStatements, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimonWendel.GuardStatements.1.2.0\lib\net45\SimonWendel.GuardStatements.dll</HintPath>
+      <HintPath>..\..\packages\SimonWendel.GuardStatements.1.2.0\lib\net45\SimonWendel.GuardStatements.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SimonWendel.ObjectExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimonWendel.ObjectExtensions.1.0.0\lib\net45\SimonWendel.ObjectExtensions.dll</HintPath>
+      <HintPath>..\..\packages\SimonWendel.ObjectExtensions.1.0.0\lib\net45\SimonWendel.ObjectExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -135,7 +135,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\common\CustomDictionary.xml">
+    <Content Include="..\..\common\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </Content>
     <Content Include="Model.Context.tt">
@@ -150,11 +150,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TodoStorage.Domain\TodoStorage.Domain.csproj">
+    <ProjectReference Include="..\..\src\TodoStorage.Domain\TodoStorage.Domain.csproj">
       <Project>{8EA6B688-81C0-44D9-B241-7F5361C48C8A}</Project>
       <Name>TodoStorage.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TodoStorage.Persistence\TodoStorage.Persistence.csproj">
+    <ProjectReference Include="..\..\src\TodoStorage.Persistence\TodoStorage.Persistence.csproj">
       <Project>{d327172c-35dc-4566-9c3f-7f947aaf71e9}</Project>
       <Name>TodoStorage.Persistence</Name>
     </ProjectReference>

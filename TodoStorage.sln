@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Api", "TodoStorage.Api\TodoStorage.Api.csproj", "{05F55EE7-F003-43DE-B842-4395BD8A25E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Api", "src\TodoStorage.Api\TodoStorage.Api.csproj", "{05F55EE7-F003-43DE-B842-4395BD8A25E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Api.Tests", "TodoStorage.Api.Tests\TodoStorage.Api.Tests.csproj", "{7343CA9A-384E-4A1B-AE2D-E3AC6C1E2602}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Api.Tests", "test\TodoStorage.Api.Tests\TodoStorage.Api.Tests.csproj", "{7343CA9A-384E-4A1B-AE2D-E3AC6C1E2602}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Domain", "TodoStorage.Domain\TodoStorage.Domain.csproj", "{8EA6B688-81C0-44D9-B241-7F5361C48C8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Domain", "src\TodoStorage.Domain\TodoStorage.Domain.csproj", "{8EA6B688-81C0-44D9-B241-7F5361C48C8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Domain.Tests", "TodoStorage.Domain.Tests\TodoStorage.Domain.Tests.csproj", "{69A126A6-6F7F-4C6B-865E-3984853A8621}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Domain.Tests", "test\TodoStorage.Domain.Tests\TodoStorage.Domain.Tests.csproj", "{69A126A6-6F7F-4C6B-865E-3984853A8621}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Persistence.Tests", "TodoStorage.Persistence.Tests\TodoStorage.Persistence.Tests.csproj", "{A8E4E521-1B54-4709-A1E1-1F5518F09E8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Persistence.Tests", "test\TodoStorage.Persistence.Tests\TodoStorage.Persistence.Tests.csproj", "{A8E4E521-1B54-4709-A1E1-1F5518F09E8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Persistence", "TodoStorage.Persistence\TodoStorage.Persistence.csproj", "{D327172C-35DC-4566-9C3F-7F947AAF71E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Persistence", "src\TodoStorage.Persistence\TodoStorage.Persistence.csproj", "{D327172C-35DC-4566-9C3F-7F947AAF71E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{92019FCC-E106-4324-AA17-C9F1CCF3231B}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,9 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TodoStorage.runsettings = TodoStorage.runsettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Security", "TodoStorage.Security\TodoStorage.Security.csproj", "{27FA62DA-D74B-4BEF-916A-24C15688EAF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Security", "src\TodoStorage.Security\TodoStorage.Security.csproj", "{27FA62DA-D74B-4BEF-916A-24C15688EAF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Security.Tests", "TodoStorage.Security.Tests\TodoStorage.Security.Tests.csproj", "{E6CFAA09-DBBB-4CF8-A540-557CD6E4D4DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Security.Tests", "test\TodoStorage.Security.Tests\TodoStorage.Security.Tests.csproj", "{E6CFAA09-DBBB-4CF8-A540-557CD6E4D4DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
