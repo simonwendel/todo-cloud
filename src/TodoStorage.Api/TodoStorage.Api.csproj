@@ -33,7 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\..\common\AllRules_WithoutShortenedUsings.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\rulesets\AllRules_WithoutShortenedUsings.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -151,7 +151,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="..\..\common\CustomDictionary.xml">
+    <CodeAnalysisDictionary Include="..\..\rulesets\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
     <Content Include="Global.asax" />

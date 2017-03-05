@@ -25,7 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\..\common\MinimumRecommendedRules_WithoutShortenedUsings.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\rulesets\MinimumRecommendedRules_WithoutShortenedUsings.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -135,7 +135,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\common\CustomDictionary.xml">
+    <Content Include="..\..\rulesets\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </Content>
     <Content Include="Model.Context.tt">
