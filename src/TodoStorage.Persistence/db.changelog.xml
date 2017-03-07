@@ -141,4 +141,12 @@
       procedureName="LogAddEntry"
       encoding="utf8" />
   </changeSet>
+  <changeSet id="12" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <dropDefaultValue tableName="Authentication" columnName="Created" />
+    <modifyDataType
+      tableName="Authentication"
+      columnName="Created"
+      newDataType="datetime2" />
+    <addDefaultValue tableName="Authentication" columnName="Created" defaultValueDate="${DATETIME_NOW}"/>
+  </changeSet>
 </databaseChangeLog>
