@@ -149,4 +149,10 @@
       newDataType="datetime2" />
     <addDefaultValue tableName="Authentication" columnName="Created" defaultValueDate="${DATETIME_NOW}"/>
   </changeSet>
+  <changeSet id="13" author="Simon Wendel (mail@simonwendel.se)" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <modifyDataType
+      tableName="Authentication"
+      columnName="Secret"
+      newDataType="varbinary(32)" />
+  </changeSet>
 </databaseChangeLog>
