@@ -16,29 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Persistence.Tests
+namespace TodoStorage.Core
 {
-    using NUnit.Framework;
-    using Ploeh.AutoFixture;
-    using SimonWendel.ObjectExtensions;
-    using TodoStorage.Core;
+    using System.Collections.Generic;
 
-    [TestFixture]
-    internal class PersistedTodoModelTests
+    public interface ITodoList
     {
-        [Test]
-        public void Reconstitute_GivenPersistedModel_ReturnsOriginalTodo()
-        {
-            var fixture = new Fixture();
+        IReadOnlyList<Todo> Items { get; }
 
-            var originalTodo = fixture
-                .Create<Todo>()
-                .SetProperty(t => t.Color, Color.Pick("violet"));
+        void Add(Todo todo);
 
-            var sut = new PersistedTodoModel(originalTodo);
-            var reconstitutedTodo = PersistedTodoModel.Reconstitute(sut);
+        void Update(Todo todo);
 
-            Assert.That(reconstitutedTodo, Is.EqualTo(originalTodo));
-        }
+        void Delete(Todo todo);  
     }
 }

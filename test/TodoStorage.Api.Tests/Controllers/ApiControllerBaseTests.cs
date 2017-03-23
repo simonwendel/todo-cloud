@@ -23,7 +23,7 @@ namespace TodoStorage.Api.Tests.Controllers
     using Moq;
     using NUnit.Framework;
     using TodoStorage.Api.Controllers;
-    using TodoStorage.Domain;
+    using TodoStorage.Core;
 
     [TestFixture]
     internal class ApiControllerBaseTests : ControllerTestFixtureBase, IDisposable

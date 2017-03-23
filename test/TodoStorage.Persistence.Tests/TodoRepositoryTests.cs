@@ -22,7 +22,7 @@ namespace TodoStorage.Persistence.Tests
     using NUnit.Framework;
     using Ploeh.AutoFixture;
     using SimonWendel.ObjectExtensions;
-    using TodoStorage.Domain;
+    using TodoStorage.Core;
     using TodoStorage.Persistence.Tests.Seed;
     using TodoStorage.Persistence.Tests.Utilities;
 

@@ -124,9 +124,9 @@
       <Project>{05F55EE7-F003-43DE-B842-4395BD8A25E2}</Project>
       <Name>TodoStorage.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\TodoStorage.Domain\TodoStorage.Domain.csproj">
+    <ProjectReference Include="..\..\src\TodoStorage.Core\TodoStorage.Core.csproj">
       <Project>{8ea6b688-81c0-44d9-b241-7f5361c48c8a}</Project>
-      <Name>TodoStorage.Domain</Name>
+      <Name>TodoStorage.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\TodoStorage.Persistence\TodoStorage.Persistence.csproj">
       <Project>{d327172c-35dc-4566-9c3f-7f947aaf71e9}</Project>

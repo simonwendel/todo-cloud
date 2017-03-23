@@ -16,29 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Persistence.Tests
+namespace TodoStorage.Core
 {
-    using NUnit.Framework;
-    using Ploeh.AutoFixture;
-    using SimonWendel.ObjectExtensions;
-    using TodoStorage.Core;
-
-    [TestFixture]
-    internal class PersistedTodoModelTests
+    public interface ITodoListFactory
     {
-        [Test]
-        public void Reconstitute_GivenPersistedModel_ReturnsOriginalTodo()
-        {
-            var fixture = new Fixture();
-
-            var originalTodo = fixture
-                .Create<Todo>()
-                .SetProperty(t => t.Color, Color.Pick("violet"));
-
-            var sut = new PersistedTodoModel(originalTodo);
-            var reconstitutedTodo = PersistedTodoModel.Reconstitute(sut);
-
-            Assert.That(reconstitutedTodo, Is.EqualTo(originalTodo));
-        }
+        /// <summary>
+        /// Creates a todo list aggregate object initialized with all items associated with the 
+        /// referenced collection key.
+        /// </summary>
+        /// <param name="collectionKey">
+        /// The collection key owning the list aggregate and items contained.
+        /// </param>
+        /// <returns>
+        /// A todo list object, with todo items fetched from the main storage, or a new one if not found.
+        /// </returns>
+        ITodoList Create(CollectionKey collectionKey);
     }
 }

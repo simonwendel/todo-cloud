@@ -150,9 +150,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TodoStorage.Domain\TodoStorage.Domain.csproj">
+    <ProjectReference Include="..\..\src\TodoStorage.Core\TodoStorage.Core.csproj">
       <Project>{8EA6B688-81C0-44D9-B241-7F5361C48C8A}</Project>
-      <Name>TodoStorage.Domain</Name>
+      <Name>TodoStorage.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\TodoStorage.Persistence\TodoStorage.Persistence.csproj">
       <Project>{d327172c-35dc-4566-9c3f-7f947aaf71e9}</Project>

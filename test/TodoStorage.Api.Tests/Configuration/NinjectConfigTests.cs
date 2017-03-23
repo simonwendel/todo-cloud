@@ -23,7 +23,7 @@ namespace TodoStorage.Api.Tests.Configuration
     using NUnit.Framework;
     using TodoStorage.Api.Authorization;
     using TodoStorage.Api.Configuration;
-    using TodoStorage.Domain;
+    using TodoStorage.Core;
     using TodoStorage.Security;
 
     [TestFixture]

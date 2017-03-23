@@ -16,34 +16,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace TodoStorage.Api.Controllers
+namespace TodoStorage.Core
 {
-    using System;
-    using System.Web.Http;
-    using TodoStorage.Api.Authorization;
-    using TodoStorage.Core;
+    using SimonWendel.GuardStatements;
 
-    public abstract class ApiControllerBase : ApiController
+    internal class TodoListFactory : ITodoListFactory
     {
-        private CollectionKey key;
+        private readonly ITodoService todoService;
 
-        protected CollectionKey Key
+        public TodoListFactory(ITodoService todoService)
         {
-            get
-            {
-                if (key == null)
-                {
-                    var messagePrincipal = User as SignedMessagePrincipal;
-                    if (messagePrincipal == null)
-                    {
-                        throw new InvalidOperationException();
-                    }
-                    
-                    key = new CollectionKey(messagePrincipal.AppId);
-                }
+            Guard.EnsureNotNull(todoService, nameof(todoService));
 
-                return key;
-            }
+            this.todoService = todoService;
+        }
+
+        public ITodoList Create(CollectionKey collectionKey)
+        {
+            Guard.EnsureNotNull(collectionKey, nameof(collectionKey));
+
+            return new TodoList(todoService, collectionKey);
         }
     }
 }

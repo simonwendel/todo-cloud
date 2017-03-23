@@ -22,7 +22,7 @@ namespace TodoStorage.Persistence.Tests.Seed
     using System.Collections.Generic;
     using System.Linq;
     using Ploeh.AutoFixture;
-    using TodoStorage.Domain;
+    using TodoStorage.Core;
     using TodoStorage.Persistence.Tests.Utilities;
 
     internal static class Data

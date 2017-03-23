@@ -30,7 +30,7 @@ namespace TodoStorage.Api.Tests.Controllers
     using Ploeh.AutoFixture;
     using Ploeh.Hyprlinkr;
     using TodoStorage.Api.Controllers;
-    using TodoStorage.Domain;
+    using TodoStorage.Core;
 
     [TestFixture]
     internal class TodoControllerTests : ControllerTestFixtureBase, IDisposable

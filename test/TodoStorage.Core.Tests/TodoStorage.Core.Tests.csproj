@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E6CFAA09-DBBB-4CF8-A540-557CD6E4D4DF}</ProjectGuid>
+    <ProjectGuid>{69A126A6-6F7F-4C6B-865E-3984853A8621}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TodoStorage.Security.Tests</RootNamespace>
-    <AssemblyName>TodoStorage.Security.Tests</AssemblyName>
+    <RootNamespace>TodoStorage.Core.Tests</RootNamespace>
+    <AssemblyName>TodoStorage.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -25,8 +25,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\..\rulesets\MinimumRecommendedRules_WithoutShortenedUsings.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,29 +54,38 @@
       <HintPath>..\..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimonWendel.ObjectExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SimonWendel.ObjectExtensions.1.0.0\lib\net45\SimonWendel.ObjectExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise />
+  </Choose>
   <ItemGroup>
-    <Compile Include="HashConverterTests.cs" />
-    <Compile Include="HashingKeyFactoryTests.cs" />
-    <Compile Include="HashingKeyTests.cs" />
-    <Compile Include="MessageFactoryTests.cs" />
-    <Compile Include="MessageHasherTests.cs" />
-    <Compile Include="MessageTests.cs" />
+    <Compile Include="CollectionKeyTests.cs" />
+    <Compile Include="ColorTests.cs" />
+    <Compile Include="AccessControlServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextCodecTests.cs" />
+    <Compile Include="TodoListOperationsTests.cs" />
+    <Compile Include="TodoListFactoryTests.cs" />
+    <Compile Include="TodoListObjectTests.cs" />
+    <Compile Include="TodoServiceTests.cs" />
+    <Compile Include="TodoTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\TodoStorage.Core\TodoStorage.Core.csproj">
-      <Project>{8ea6b688-81c0-44d9-b241-7f5361c48c8a}</Project>
+      <Project>{8EA6B688-81C0-44D9-B241-7F5361C48C8A}</Project>
       <Name>TodoStorage.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\TodoStorage.Security\TodoStorage.Security.csproj">
-      <Project>{27FA62DA-D74B-4BEF-916A-24C15688EAF0}</Project>
-      <Name>TodoStorage.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -84,5 +93,24 @@
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
   </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

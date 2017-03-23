@@ -27,7 +27,7 @@ namespace TodoStorage.Api.Controllers
     using System.Web.Http;
     using Ploeh.Hyprlinkr;
     using SimonWendel.GuardStatements;
-    using TodoStorage.Domain;
+    using TodoStorage.Core;
 
     public class TodoController : ApiControllerBase
     {

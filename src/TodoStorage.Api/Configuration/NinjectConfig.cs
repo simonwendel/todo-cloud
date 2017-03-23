@@ -74,7 +74,7 @@ namespace TodoStorage.Api.Configuration
                 x
                     .FromThisAssembly().IncludingNonePublicTypes().SelectAllClasses()
                     .Join
-                    .From("TodoStorage.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
+                    .From("TodoStorage.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
                     .Join
                     .From("TodoStorage.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
                     .Join

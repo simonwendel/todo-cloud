@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Api", "src\Todo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Api.Tests", "test\TodoStorage.Api.Tests\TodoStorage.Api.Tests.csproj", "{7343CA9A-384E-4A1B-AE2D-E3AC6C1E2602}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Domain", "src\TodoStorage.Domain\TodoStorage.Domain.csproj", "{8EA6B688-81C0-44D9-B241-7F5361C48C8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Core", "src\TodoStorage.Core\TodoStorage.Core.csproj", "{8EA6B688-81C0-44D9-B241-7F5361C48C8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Domain.Tests", "test\TodoStorage.Domain.Tests\TodoStorage.Domain.Tests.csproj", "{69A126A6-6F7F-4C6B-865E-3984853A8621}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Core.Tests", "test\TodoStorage.Core.Tests\TodoStorage.Core.Tests.csproj", "{69A126A6-6F7F-4C6B-865E-3984853A8621}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoStorage.Persistence.Tests", "test\TodoStorage.Persistence.Tests\TodoStorage.Persistence.Tests.csproj", "{A8E4E521-1B54-4709-A1E1-1F5518F09E8D}"
 EndProject
