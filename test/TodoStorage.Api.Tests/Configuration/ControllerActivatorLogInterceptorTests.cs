@@ -21,7 +21,6 @@ namespace TodoStorage.Api.Tests.Configuration
     using System;
     using Common.Logging;
     using Moq;
-    using Ninject.Extensions.Interception;
     using NUnit.Framework;
     using TodoStorage.Api.Configuration;
     using TodoStorage.Api.Tests.Utilities;
@@ -33,12 +32,12 @@ namespace TodoStorage.Api.Tests.Configuration
 
         private Mock<ILog> logger;
 
-        private Mock<IInvocation> invocation;
+        private Mock<Ninject.Extensions.Interception.IInvocation> invocation;
 
         [SetUp]
         public void Setup()
         {
-            invocation = new Mock<IInvocation>();
+            invocation = new Mock<Ninject.Extensions.Interception.IInvocation>();
 
             var loggerFactory = 
                 new MockLoggerFactory<ControllerActivatorLogInterceptor>();

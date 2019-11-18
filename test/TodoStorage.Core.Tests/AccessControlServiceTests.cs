@@ -18,9 +18,9 @@
 
 namespace TodoStorage.Core.Tests
 {
+    using AutoFixture;
     using Moq;
     using NUnit.Framework;
-    using Ploeh.AutoFixture;
     using TodoStorage.Core;
 
     [TestFixture]

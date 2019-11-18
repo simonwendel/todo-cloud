@@ -20,9 +20,9 @@ namespace TodoStorage.Core.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
+    using AutoFixture;
     using Moq;
     using NUnit.Framework;
-    using Ploeh.AutoFixture;
 
     /// <summary>
     /// Unit tests the more domain-centric list operations for the <see cref="TodoList"/> class.

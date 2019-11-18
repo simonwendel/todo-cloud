@@ -20,9 +20,9 @@ namespace TodoStorage.Api.Tests.Authorization
 {
     using System;
     using System.Linq;
+    using AutoFixture;
     using Moq;
     using NUnit.Framework;
-    using Ploeh.AutoFixture;
     using TodoStorage.Api.Authorization;
     using TodoStorage.Security;
 

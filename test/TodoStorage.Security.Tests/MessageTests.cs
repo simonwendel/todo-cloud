@@ -20,8 +20,8 @@ namespace TodoStorage.Security.Tests
 {
     using System;
     using System.Linq;
+    using AutoFixture;
     using NUnit.Framework;
-    using Ploeh.AutoFixture;
 
     [TestFixture]
     internal class MessageTests

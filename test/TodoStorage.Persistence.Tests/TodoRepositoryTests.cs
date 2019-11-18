@@ -19,8 +19,8 @@
 namespace TodoStorage.Persistence.Tests
 {
     using System.Linq;
+    using AutoFixture;
     using NUnit.Framework;
-    using Ploeh.AutoFixture;
     using SimonWendel.ObjectExtensions;
     using TodoStorage.Core;
     using TodoStorage.Persistence.Tests.Seed;

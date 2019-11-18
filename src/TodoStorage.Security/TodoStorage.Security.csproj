@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TodoStorage.Security</RootNamespace>
     <AssemblyName>TodoStorage.Security</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,9 +34,8 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SimonWendel.GuardStatements, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SimonWendel.GuardStatements.1.2.0\lib\net45\SimonWendel.GuardStatements.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SimonWendel.GuardStatements, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SimonWendel.GuardStatements.2.0.0\lib\net45\SimonWendel.GuardStatements.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

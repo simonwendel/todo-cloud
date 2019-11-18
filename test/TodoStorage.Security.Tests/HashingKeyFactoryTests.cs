@@ -20,9 +20,9 @@ namespace TodoStorage.Security.Tests
 {
     using System;
     using System.Linq;
+    using AutoFixture;
     using Moq;
     using NUnit.Framework;
-    using Ploeh.AutoFixture;
 
     [TestFixture]
     internal class HashingKeyFactoryTests

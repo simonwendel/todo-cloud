@@ -25,9 +25,9 @@ namespace TodoStorage.Api.Tests.Controllers
     using System.Net;
     using System.Net.Http;
     using System.Web.Http.Results;
+    using AutoFixture;
     using Moq;
     using NUnit.Framework;
-    using Ploeh.AutoFixture;
     using Ploeh.Hyprlinkr;
     using TodoStorage.Api.Controllers;
     using TodoStorage.Core;

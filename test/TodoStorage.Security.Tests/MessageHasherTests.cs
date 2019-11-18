@@ -21,8 +21,8 @@ namespace TodoStorage.Security.Tests
     using System;
     using System.Linq;
     using System.Security.Cryptography;
+    using AutoFixture;
     using NUnit.Framework;
-    using Ploeh.AutoFixture;
 
     [TestFixture]
     internal class MessageHasherTests : IDisposable

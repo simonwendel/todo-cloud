@@ -20,9 +20,9 @@ namespace TodoStorage.Core.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
+    using AutoFixture;
     using Moq;
     using NUnit.Framework;
-    using Ploeh.AutoFixture;
     using TodoStorage.Core;
 
     /// <summary>

@@ -31,6 +31,7 @@ namespace TodoStorage.Api.Configuration
     using Ninject.Extensions.Conventions;
     using Ninject.Extensions.Interception.Infrastructure.Language;
     using Ninject.Web.Common;
+    using Ninject.Web.Common.WebHost;
     using Ploeh.Hyprlinkr;
 
     public static class NinjectConfig 
@@ -72,13 +73,13 @@ namespace TodoStorage.Api.Configuration
             kernel.Bind(x =>
             {
                 x
-                    .FromThisAssembly().IncludingNonePublicTypes().SelectAllClasses()
+                    .FromThisAssembly().IncludingNonPublicTypes().SelectAllClasses()
                     .Join
-                    .From("TodoStorage.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
+                    .From("TodoStorage.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonPublicTypes().SelectAllClasses()
                     .Join
-                    .From("TodoStorage.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
+                    .From("TodoStorage.Persistence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonPublicTypes().SelectAllClasses()
                     .Join
-                    .From("TodoStorage.Security, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonePublicTypes().SelectAllClasses()
+                    .From("TodoStorage.Security, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null").IncludingNonPublicTypes().SelectAllClasses()
                     .BindDefaultInterfaces();
             });
 
