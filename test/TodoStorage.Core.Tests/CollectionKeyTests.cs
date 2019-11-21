@@ -19,6 +19,7 @@
 namespace TodoStorage.Core.Tests
 {
     using System;
+    using FluentAssertions;
     using NUnit.Framework;
     using TodoStorage.Core;
 
@@ -28,10 +29,8 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Ctor_GivenEmptyGuid_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new CollectionKey(Guid.Empty);
-
-            Assert.That(constructorCall, Throws.ArgumentException);
+            Action constructing = () => new CollectionKey(Guid.Empty);
+            constructing.Should().ThrowExactly<ArgumentException>();
         }
 
         [Test]
@@ -39,16 +38,14 @@ namespace TodoStorage.Core.Tests
         {
             var identifier = Guid.NewGuid();
             var sut = new CollectionKey(identifier);
-
-            Assert.That(sut.Identifier, Is.EqualTo(identifier));
+            sut.Identifier.Should().Be(identifier);
         }
 
         [Test]
         public void Equals_GivenSameObject_ReturnsTrue()
         {
             var sut = new CollectionKey(Guid.NewGuid());
-
-            Assert.That(sut.Equals(sut), Is.True);
+            sut.Equals(sut).Should().BeTrue();
         }
 
         [Test]
@@ -56,16 +53,14 @@ namespace TodoStorage.Core.Tests
         {
             var sut = new CollectionKey(Guid.NewGuid());
             var sameProperties = new CollectionKey(sut.Identifier);
-
-            Assert.That(sut.Equals(sameProperties), Is.True);
+            sut.Equals(sameProperties).Should().BeTrue();
         }
 
         [Test]
         public void Equals_GivenNull_ReturnsFalse()
         {
             var sut = new CollectionKey(Guid.NewGuid());
-
-            Assert.That(sut.Equals(null), Is.False);
+            sut.Equals(null).Should().BeFalse();
         }
 
         [Test]
@@ -73,8 +68,7 @@ namespace TodoStorage.Core.Tests
         {
             var sut = new CollectionKey(Guid.NewGuid());
             var differingProperties = new CollectionKey(Guid.NewGuid());
-
-            Assert.That(sut.Equals(differingProperties), Is.False);
+            sut.Equals(differingProperties).Should().BeFalse();
         }
 
         [Test]
@@ -92,7 +86,7 @@ namespace TodoStorage.Core.Tests
                 hash = (hash * multiplier) + sut.Identifier.GetHashCode();
             }
 
-            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
+            sut.GetHashCode().Should().Be(hash);
         }
     }
 }

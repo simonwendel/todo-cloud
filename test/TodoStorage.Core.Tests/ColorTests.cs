@@ -18,7 +18,8 @@
 
 namespace TodoStorage.Core.Tests
 {
-    using System.Linq;
+    using System;
+    using FluentAssertions;
     using NUnit.Framework;
     using TodoStorage.Core;
 
@@ -28,26 +29,22 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Available_ShouldBeInitialized()
         {
-            Assert.That(Color.Available.Count(), Is.EqualTo(6));
+            Color.Available.Should().HaveCount(6);
         }
 
         [Test]
         public void Pick_GivenNullColorValue_ThrowsException()
         {
-            TestDelegate pickCall =
-                () => Color.Pick(null);
-
-            Assert.That(pickCall, Throws.ArgumentNullException);
+            Action picking = () => Color.Pick(null);
+            picking.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [TestCase("meh")]
         [TestCase("")]
         public void Pick_GivenInvalidValues_ThrowsException(string colorValue)
         {
-            TestDelegate pickCall =
-                () => Color.Pick(colorValue);
-
-            Assert.That(pickCall, Throws.TypeOf<IllegalValueException>());
+            Action picking = () => Color.Pick(colorValue);
+            picking.Should().ThrowExactly<IllegalValueException>();
         }
 
         [Test]
@@ -55,7 +52,7 @@ namespace TodoStorage.Core.Tests
         {
             foreach (var color in Color.Available)
             {
-                Assert.That(Color.Pick(color.Value), Is.EqualTo(color));
+                Color.Pick(color.Value).Should().Be(color);
             }
         }
 
@@ -63,8 +60,7 @@ namespace TodoStorage.Core.Tests
         public void Equals_GivenSameObject_ReturnsTrue()
         {
             var sut = Color.Crimson;
-
-            Assert.That(sut.Equals(sut), Is.True);
+            sut.Equals(sut).Should().BeTrue();
         }
 
         [Test]
@@ -74,16 +70,15 @@ namespace TodoStorage.Core.Tests
             var color2 = Color.Purple;
             var sut = Color.SeaGreen;
 
-            Assert.That(sut.Equals(color1), Is.False);
-            Assert.That(sut.Equals(color2), Is.False);
+            sut.Equals(color1).Should().BeFalse();
+            sut.Equals(color2).Should().BeFalse();
         }
 
         [Test]
         public void Equals_GivenNull_ReturnsFalse()
         {
             var sut = Color.DarkBlue;
-
-            Assert.That(sut.Equals(null), Is.False);
+            sut.Equals(null).Should().BeFalse();
         }
 
         [Test]
@@ -101,7 +96,7 @@ namespace TodoStorage.Core.Tests
                 hash = (hash * multiplier) + sut.Value.GetHashCode();
             }
 
-            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
+            sut.GetHashCode().Should().Be(hash);
         }
     }
 }

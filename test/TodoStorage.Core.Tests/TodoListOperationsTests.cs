@@ -18,9 +18,11 @@
 
 namespace TodoStorage.Core.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using AutoFixture;
+    using FluentAssertions;
     using Moq;
     using NUnit.Framework;
 
@@ -30,15 +32,11 @@ namespace TodoStorage.Core.Tests
     [TestFixture]
     internal class TodoListOperationsTests
     {
-        private TodoList sut;
-
         private Mock<ITodoService> todoService;
-
         private CollectionKey key;
-
         private IList<Todo> todos;
-
         private Todo someTodo;
+        private TodoList sut;
 
         [SetUp]
         public void Setup()
@@ -60,10 +58,8 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Add_GivenNullTodo_ThrowsException()
         {
-            TestDelegate addCall =
-                () => sut.Add(null);
-
-            Assert.That(addCall, Throws.ArgumentNullException);
+            Action adding = () => sut.Add(null);
+            adding.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
@@ -93,10 +89,8 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Update_GivenNullTodo_ThrowsException()
         {
-            TestDelegate updateCall =
-                () => sut.Update(null);
-
-            Assert.That(updateCall, Throws.ArgumentNullException);
+            Action updating = () => sut.Update(null);
+            updating.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
@@ -126,10 +120,8 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Delete_GivenNullTodo_ThrowsException()
         {
-            TestDelegate deleteCall =
-                () => sut.Delete(null);
-
-            Assert.That(deleteCall, Throws.ArgumentNullException);
+            Action deleting = () => sut.Delete(null);
+            deleting.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]

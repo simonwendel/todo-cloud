@@ -18,8 +18,10 @@
 
 namespace TodoStorage.Core.Tests
 {
+    using System;
     using System.Linq;
     using AutoFixture;
+    using FluentAssertions;
     using Moq;
     using NUnit.Framework;
     using TodoStorage.Core;
@@ -27,9 +29,8 @@ namespace TodoStorage.Core.Tests
     [TestFixture]
     internal class TodoListFactoryTests
     {
-        private TodoListFactory sut;
-
         private Mock<ITodoService> todoService;
+        private TodoListFactory sut;
 
         [SetUp]
         public void Setup()
@@ -41,19 +42,15 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Ctor_GivenNullTodoService_ThrowsException()
         {
-            TestDelegate constructorCall = 
-                () => new TodoListFactory(null);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new TodoListFactory(null);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void Create_GivenNullCollectionKey_ThrowsException()
         {
-            TestDelegate methodCall =
-                () => sut.Create(null);
-
-            Assert.That(methodCall, Throws.ArgumentNullException);
+            Action creating = () => sut.Create(null);
+            creating.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
@@ -69,9 +66,7 @@ namespace TodoStorage.Core.Tests
 
             var expected = new TodoList(todoService.Object, collectionKey);
 
-            var actual = sut.Create(collectionKey);
-
-            Assert.That(actual, Is.EqualTo(expected));
+            sut.Create(collectionKey).Should().Be(expected);
             todoService.VerifyAll();
         }
     }

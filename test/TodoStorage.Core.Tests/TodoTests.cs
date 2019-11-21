@@ -20,6 +20,7 @@ namespace TodoStorage.Core.Tests
 {
     using System;
     using AutoFixture;
+    using FluentAssertions;
     using NUnit.Framework;
     using SimonWendel.ObjectExtensions;
     using TodoStorage.Core;
@@ -27,11 +28,9 @@ namespace TodoStorage.Core.Tests
     [TestFixture]
     internal class TodoTests
     {
-        private Todo sut;
-
         private Todo sameProperties;
-
         private Todo[] someDiffering;
+        private Todo sut;
 
         [SetUp]
         public void Setup()
@@ -67,19 +66,19 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Equals_GivenSameObject_ReturnsTrue()
         {
-            Assert.That(sut.Equals(sut), Is.True);
+            sut.Equals(sut).Should().BeTrue();
         }
 
         [Test]
         public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
         {
-            Assert.That(sut.Equals(sameProperties), Is.True);
+            sut.Equals(sameProperties).Should().BeTrue();
         }
 
         [Test]
         public void Equals_GivenNull_ReturnsFalse()
         {
-            Assert.That(sut.Equals(null), Is.False);
+            sut.Equals(null).Should().BeFalse();
         }
 
         [Test]
@@ -87,7 +86,7 @@ namespace TodoStorage.Core.Tests
         {
             foreach (var otherTodo in someDiffering)
             {
-                Assert.That(sut.Equals(otherTodo), Is.False);
+                sut.Equals(otherTodo).Should().BeFalse();
             }
         }
 
@@ -110,7 +109,7 @@ namespace TodoStorage.Core.Tests
                 hash = (hash * multiplier) + sut.Color.GetHashCode();
             }
 
-            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
+            sut.GetHashCode().Should().Be(hash);
         }
     }
 }

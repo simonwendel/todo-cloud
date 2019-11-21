@@ -18,9 +18,11 @@
 
 namespace TodoStorage.Core.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using AutoFixture;
+    using FluentAssertions;
     using Moq;
     using NUnit.Framework;
     using TodoStorage.Core;
@@ -33,16 +35,11 @@ namespace TodoStorage.Core.Tests
     internal class TodoListObjectTests
     {
         private Mock<ITodoService> todoService;
-
         private CollectionKey key;
-
         private IList<Todo> todos;
-
-        private TodoList sut;
-
         private TodoList sameProperties;
-
         private TodoList someDiffering;
+        private TodoList sut;
 
         [SetUp]
         public void Setup()
@@ -74,25 +71,21 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Ctor_GivenNullTodoService_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new TodoList(null, key);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new TodoList(null, key);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void Ctor_GivenNullListKey_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new TodoList(todoService.Object, null);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new TodoList(todoService.Object, null);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void Ctor_GivenListKey_ConstructsListWithKey()
         {
-            Assert.That(sut.Key, Is.EqualTo(key));
+            sut.Key.Should().Be(key);
         }
 
         [Test]
@@ -106,31 +99,31 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Ctor_GivenTodoService_PopulatesTheList()
         {
-            Assert.That(sut.Items, Is.EquivalentTo(todos));
+            sut.Items.Should().BeEquivalentTo(todos);
         }
 
         [Test]
         public void Equals_GivenSameObject_ReturnsTrue()
         {
-            Assert.That(sut.Equals(sut), Is.True);
+            sut.Equals(sut).Should().BeTrue();
         }
 
         [Test]
         public void Equals_GivenObjectWithSameProperties_ReturnsTrue()
         {
-            Assert.That(sut.Equals(sameProperties), Is.True);
+            sut.Equals(sameProperties).Should().BeTrue();
         }
 
         [Test]
         public void Equals_GivenNull_ReturnsFalse()
         {
-            Assert.That(sut.Equals(null), Is.False);
+            sut.Equals(null).Should().BeFalse();
         }
 
         [Test]
         public void Equals_GivenObjectWithDifferingProperties_ReturnsFalse()
         {
-            Assert.That(sut.Equals(someDiffering), Is.False);
+            sut.Equals(someDiffering).Should().BeFalse();
         }
 
         [Test]
@@ -148,7 +141,7 @@ namespace TodoStorage.Core.Tests
                     (h, todo) => unchecked((h * multiplier) + todo.GetHashCode()));
             }
 
-            Assert.That(sut.GetHashCode(), Is.EqualTo(hash));
+            sut.GetHashCode().Should().Be(hash);
         }
     }
 }

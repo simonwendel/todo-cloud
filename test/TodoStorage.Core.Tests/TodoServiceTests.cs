@@ -18,30 +18,25 @@
 
 namespace TodoStorage.Core.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using AutoFixture;
+    using FluentAssertions;
     using Moq;
     using NUnit.Framework;
 
     [TestFixture]
     internal class TodoServiceTests
     {
-        private TodoService sut;
-
         private CollectionKey collectionKey;
-
         private CollectionKey notOwnersKey;
-
         private Mock<IAccessControlService> accessControlService;
-
         private Mock<ITodoRepository> todoRepository;
-
         private IList<Todo> listOfTodos;
-
         private Todo newTodo;
-
         private Todo persistedTodo;
+        private TodoService sut;
 
         [SetUp]
         public void Setup()
@@ -79,74 +74,52 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Ctor_GivenNullAccessControlRepository_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new TodoService(null, todoRepository.Object);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new TodoService(null, todoRepository.Object);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void Ctor_GivenNullTodoRepository_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new TodoService(accessControlService.Object, null);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new TodoService(accessControlService.Object, null);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void GetAll_GivenNullCollectionKey_ThrowsException()
         {
-            TestDelegate getAllCall =
-                () => sut.GetAll(null);
-
-            Assert.That(getAllCall, Throws.ArgumentNullException);
-            todoRepository.Verify(
-                r => r.GetAll(It.IsAny<CollectionKey>()),
-                Times.Never);
+            Action gettingAll = () => sut.GetAll(null);
+            gettingAll.Should().ThrowExactly<ArgumentNullException>();
+            todoRepository.Verify(r => r.GetAll(It.IsAny<CollectionKey>()), Times.Never);
         }
 
         [Test]
         public void GetAll_GivenCollectionKey_ReturnsFromRepo()
         {
-            var actualTodos = sut.GetAll(collectionKey);
-
-            Assert.That(actualTodos, Is.SameAs(listOfTodos));
-            todoRepository.Verify(
-                r => r.GetAll(It.Is<CollectionKey>(c => c.Equals(collectionKey))), 
-                Times.Once);
+            sut.GetAll(collectionKey).Should().BeSameAs(listOfTodos);
+            todoRepository.Verify(r => r.GetAll(It.Is<CollectionKey>(c => c.Equals(collectionKey))), Times.Once);
         }
 
         [Test]
         public void Add_GivenNullTodo_ThrowsException()
         {
-            TestDelegate addCall =
-                () => sut.Add(null, collectionKey);
-
-            Assert.That(addCall, Throws.ArgumentNullException);
-            todoRepository.Verify(
-                r => r.Add(It.IsAny<Todo>(), It.IsAny<CollectionKey>()),
-                Times.Never);
+            Action adding = () => sut.Add(null, collectionKey);
+            adding.Should().ThrowExactly<ArgumentNullException>();
+            todoRepository.Verify(r => r.Add(It.IsAny<Todo>(), It.IsAny<CollectionKey>()), Times.Never);
         }
 
         [Test]
         public void Add_GivenNullCollectionKey_ThrowsException()
         {
-            TestDelegate addCall =
-                () => sut.Add(newTodo, null);
-
-            Assert.That(addCall, Throws.ArgumentNullException);
-            todoRepository.Verify(
-                r => r.Add(It.IsAny<Todo>(), It.IsAny<CollectionKey>()),
-                Times.Never);
+            Action adding = () => sut.Add(newTodo, null);
+            adding.Should().ThrowExactly<ArgumentNullException>();
+            todoRepository.Verify(r => r.Add(It.IsAny<Todo>(), It.IsAny<CollectionKey>()), Times.Never);
         }
 
         [Test]
         public void Add_GivenTodoAndCollectionKey_PersistsToRepo()
         {
-            var actualTodo = sut.Add(newTodo, collectionKey);
-
-            Assert.That(actualTodo, Is.SameAs(newTodo));
+            sut.Add(newTodo, collectionKey).Should().BeSameAs(newTodo);
             todoRepository.Verify(
                 r => r.Add(It.Is<Todo>(t => t == newTodo), It.Is<CollectionKey>(k => k == collectionKey)),
                 Times.Once);
@@ -155,42 +128,30 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Update_GivenNullTodo_ThrowsException()
         {
-            TestDelegate updateCall =
-                () => sut.Update(null, collectionKey);
-
-            Assert.That(updateCall, Throws.ArgumentNullException);
-            todoRepository.Verify(
-                r => r.Update(It.IsAny<Todo>()),
-                Times.Never);
+            Action updating = () => sut.Update(null, collectionKey);
+            updating.Should().ThrowExactly<ArgumentNullException>();
+            todoRepository.Verify(r => r.Update(It.IsAny<Todo>()), Times.Never);
         }
 
         [Test]
         public void Update_GivenNullCollectionKey_ThrowsException()
         {
-            TestDelegate updateCall =
-                () => sut.Update(persistedTodo, null);
-
-            Assert.That(updateCall, Throws.ArgumentNullException);
-            todoRepository.Verify(
-                r => r.Update(It.IsAny<Todo>()),
-                Times.Never);
+            Action updating = () => sut.Update(persistedTodo, null);
+            updating.Should().ThrowExactly<ArgumentNullException>();
+            todoRepository.Verify(r => r.Update(It.IsAny<Todo>()), Times.Never);
         }
 
         [Test]
         public void Update_GivenNotAuthorisedKey_ThrowsException()
         {
-            TestDelegate updateCall =
-                () => sut.Update(persistedTodo, notOwnersKey);
+            Action updating = () => sut.Update(persistedTodo, notOwnersKey);
 
-            Assert.That(updateCall, Throws.TypeOf<AccessControlException>());
+            updating.Should().ThrowExactly<AccessControlException>();
 
+            todoRepository.Verify(r => r.Update(It.IsAny<Todo>()), Times.Never);
             accessControlService.Verify(
                 a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == notOwnersKey), It.IsAny<Todo>()), 
                 Times.Once);
-
-            todoRepository.Verify(
-                r => r.Update(It.IsAny<Todo>()),
-                Times.Never);
         }
 
         [Test]
@@ -200,18 +161,16 @@ namespace TodoStorage.Core.Tests
                 .Setup(r => r.Update(It.Is<Todo>(t => t == persistedTodo)))
                 .Returns(false);
 
-            TestDelegate updateCall =
-                () => sut.Update(persistedTodo, collectionKey);
+            Action updating = () => sut.Update(persistedTodo, collectionKey);
 
-            Assert.That(updateCall, Throws.TypeOf<UpdateFailedException>());
+            updating.Should().ThrowExactly<UpdateFailedException>();
 
             accessControlService.Verify(
                 a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()),
                 Times.Once);
 
             todoRepository.Verify(
-                r => r.Update(It.Is<Todo>(t => t == persistedTodo)),
-                Times.Once);
+                r => r.Update(It.Is<Todo>(t => t == persistedTodo)), Times.Once);
         }
 
         [Test]
@@ -228,49 +187,37 @@ namespace TodoStorage.Core.Tests
                 Times.Once);
 
             todoRepository.Verify(
-                r => r.Update(It.Is<Todo>(t => t == persistedTodo)),
-                Times.Once);
+                r => r.Update(It.Is<Todo>(t => t == persistedTodo)), Times.Once);
         }
 
         [Test]
         public void Delete_GivenNullTodo_ThrowsException()
         {
-            TestDelegate deleteCall =
-                () => sut.Delete(null, collectionKey);
-
-            Assert.That(deleteCall, Throws.ArgumentNullException);
-            todoRepository.Verify(
-                r => r.Delete(It.IsAny<Todo>()),
-                Times.Never);
+            Action deleting = () => sut.Delete(null, collectionKey);
+            deleting.Should().ThrowExactly<ArgumentNullException>();
+            todoRepository.Verify(r => r.Delete(It.IsAny<Todo>()), Times.Never);
         }
 
         [Test]
         public void Delete_GivenNullCollectionKey_ThrowsException()
         {
-            TestDelegate deleteCall =
-                () => sut.Delete(persistedTodo, null);
-
-            Assert.That(deleteCall, Throws.ArgumentNullException);
-            todoRepository.Verify(
-                r => r.Delete(It.IsAny<Todo>()),
-                Times.Never);
+            Action deleting = () => sut.Delete(persistedTodo, null);
+            deleting.Should().ThrowExactly<ArgumentNullException>();
+            todoRepository.Verify(r => r.Delete(It.IsAny<Todo>()), Times.Never);
         }
 
         [Test]
         public void Delete_GivenNotAuthorisedKey_ThrowsException()
         {
-            TestDelegate deleteCall =
-                () => sut.Delete(persistedTodo, notOwnersKey);
+            Action deleting = () => sut.Delete(persistedTodo, notOwnersKey);
 
-            Assert.That(deleteCall, Throws.TypeOf<AccessControlException>());
+            deleting.Should().ThrowExactly<AccessControlException>();
 
             accessControlService.Verify(
                 a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == notOwnersKey), It.IsAny<Todo>()),
                 Times.Once);
 
-            todoRepository.Verify(
-                r => r.Delete(It.IsAny<Todo>()),
-                Times.Never);
+            todoRepository.Verify(r => r.Delete(It.IsAny<Todo>()), Times.Never);
         }
 
         [Test]
@@ -280,18 +227,14 @@ namespace TodoStorage.Core.Tests
                 .Setup(r => r.Delete(It.Is<Todo>(t => t == persistedTodo)))
                 .Returns(false);
 
-            TestDelegate deleteCall =
-                () => sut.Delete(persistedTodo, collectionKey);
-
-            Assert.That(deleteCall, Throws.TypeOf<DeleteFailedException>());
+            Action deleting = () => sut.Delete(persistedTodo, collectionKey);
+            deleting.Should().ThrowExactly<DeleteFailedException>();
 
             accessControlService.Verify(
                 a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()),
                 Times.Once);
 
-            todoRepository.Verify(
-                r => r.Delete(It.Is<Todo>(t => t == persistedTodo)),
-                Times.Once);
+            todoRepository.Verify(r => r.Delete(It.Is<Todo>(t => t == persistedTodo)), Times.Once);
         }
 
         [Test]
@@ -307,9 +250,7 @@ namespace TodoStorage.Core.Tests
                 a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()),
                 Times.Once);
 
-            todoRepository.Verify(
-                r => r.Delete(It.Is<Todo>(t => t == persistedTodo)),
-                Times.Once);
+            todoRepository.Verify(r => r.Delete(It.Is<Todo>(t => t == persistedTodo)), Times.Once);
         }
     }
 }

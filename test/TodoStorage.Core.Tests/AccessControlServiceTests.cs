@@ -18,7 +18,9 @@
 
 namespace TodoStorage.Core.Tests
 {
+    using System;
     using AutoFixture;
+    using FluentAssertions;
     using Moq;
     using NUnit.Framework;
     using TodoStorage.Core;
@@ -27,12 +29,9 @@ namespace TodoStorage.Core.Tests
     internal class AccessControlServiceTests
     {
         private CollectionKey key;
-
         private Todo todo;
-
-        private AccessControlService sut;
-
         private Mock<IAccessControlRepository> accessControlRepository;
+        private AccessControlService sut;
 
         [SetUp]
         public void Setup()
@@ -49,19 +48,15 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Ctor_GivenNullAccessControlRepository_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new AccessControlService(null);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new AccessControlService(null);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void IsOwnerOf_GivenNullCollectionKey_ThrowsException()
         {
-            TestDelegate methodCall =
-                () => sut.IsOwnerOf(null, todo);
-
-            Assert.That(methodCall, Throws.ArgumentNullException);
+            Action checkingIfOwner = () => sut.IsOwnerOf(null, todo);
+            checkingIfOwner.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
@@ -72,7 +67,7 @@ namespace TodoStorage.Core.Tests
                 Id = null
             };
 
-            Assert.That(sut.IsOwnerOf(key, notPersistedTodo), Is.False);
+            sut.IsOwnerOf(key, notPersistedTodo).Should().BeFalse();
         }
 
         [Test]
@@ -80,7 +75,7 @@ namespace TodoStorage.Core.Tests
         {
             SetupIfOwner(true);
 
-            Assert.That(sut.IsOwnerOf(key, todo), Is.True);
+            sut.IsOwnerOf(key, todo).Should().BeTrue();
             accessControlRepository.VerifyAll();
         }
 
@@ -89,7 +84,7 @@ namespace TodoStorage.Core.Tests
         {
             SetupIfOwner(false);
 
-            Assert.That(sut.IsOwnerOf(key, todo), Is.False);
+            sut.IsOwnerOf(key, todo).Should().BeFalse();
             accessControlRepository.VerifyAll();
         }
 
