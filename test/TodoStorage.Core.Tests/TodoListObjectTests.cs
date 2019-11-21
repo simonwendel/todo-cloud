@@ -53,14 +53,8 @@ namespace TodoStorage.Core.Tests
             var otherTodos = fixture.CreateMany<Todo>().ToList();
 
             todoService = new Mock<ITodoService>();
-
-            todoService
-                .Setup(s => s.GetAll(It.Is<CollectionKey>(k => k == key)))
-                .Returns(todos);
-
-            todoService
-                .Setup(s => s.GetAll(It.Is<CollectionKey>(k => k == otherKey)))
-                .Returns(otherTodos);
+            todoService.Setup(s => s.GetAll(key)).Returns(todos);
+            todoService.Setup(s => s.GetAll(otherKey)).Returns(otherTodos);
 
             sut = new TodoList(todoService.Object, key);
 
@@ -91,9 +85,7 @@ namespace TodoStorage.Core.Tests
         [Test]
         public void Ctor_GivenTodoService_CallsTodoService()
         {
-            todoService.Verify(
-                s => s.GetAll(It.Is<CollectionKey>(k => k == key)),
-                Times.AtLeastOnce);
+            todoService.Verify(s => s.GetAll(key), Times.AtLeastOnce);
         }
 
         [Test]

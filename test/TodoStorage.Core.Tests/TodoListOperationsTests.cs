@@ -48,9 +48,7 @@ namespace TodoStorage.Core.Tests
             someTodo = fixture.Create<Todo>();
 
             todoService = new Mock<ITodoService>();
-            todoService
-                .Setup(s => s.GetAll(It.Is<CollectionKey>(k => k == key)))
-                .Returns(todos);
+            todoService.Setup(s => s.GetAll(key)).Returns(todos);
 
             sut = new TodoList(todoService.Object, key);
         }
@@ -66,24 +64,15 @@ namespace TodoStorage.Core.Tests
         public void Add_GivenTodo_AddsViaTodoService()
         {
             sut.Add(someTodo);
-
-            todoService.Verify(
-                s => s.Add(It.Is<Todo>(t => t == someTodo), It.Is<CollectionKey>(k => k == key)),
-                Times.Once);
+            todoService.Verify(s => s.Add(someTodo, key),Times.Once);
         }
 
         [Test]
         public void Add_GivenTodo_RefreshesFromTodoService()
         {
-            todoService.Verify(
-                s => s.GetAll(It.IsAny<CollectionKey>()),
-                Times.Once);
-
+            todoService.Verify(s => s.GetAll(It.IsAny<CollectionKey>()), Times.Once);
             sut.Add(someTodo);
-
-            todoService.Verify(
-                s => s.GetAll(It.IsAny<CollectionKey>()),
-                Times.Exactly(2));
+            todoService.Verify(s => s.GetAll(It.IsAny<CollectionKey>()), Times.Exactly(2));
         }
 
         [Test]
@@ -97,24 +86,15 @@ namespace TodoStorage.Core.Tests
         public void Update_GivenTodo_UpdatesViaTodoService()
         {
             sut.Update(someTodo);
-
-            todoService.Verify(
-                s => s.Update(It.Is<Todo>(t => t == someTodo), It.Is<CollectionKey>(k => k == key)),
-                Times.Once);
+            todoService.Verify(s => s.Update(someTodo, key), Times.Once);
         }
 
         [Test]
         public void Update_GivenTodo_RefreshesFromTodoService()
         {
-            todoService.Verify(
-                s => s.GetAll(It.IsAny<CollectionKey>()),
-                Times.Once);
-
+            todoService.Verify(s => s.GetAll(It.IsAny<CollectionKey>()), Times.Once);
             sut.Update(someTodo);
-
-            todoService.Verify(
-                s => s.GetAll(It.IsAny<CollectionKey>()),
-                Times.Exactly(2));
+            todoService.Verify(s => s.GetAll(It.IsAny<CollectionKey>()), Times.Exactly(2));
         }
 
         [Test]
@@ -128,24 +108,15 @@ namespace TodoStorage.Core.Tests
         public void Delete_GivenTodo_DeletesViaTodoService()
         {
             sut.Delete(someTodo);
-
-            todoService.Verify(
-                s => s.Delete(It.Is<Todo>(t => t == someTodo), It.Is<CollectionKey>(k => k == key)),
-                Times.Once);
+            todoService.Verify(s => s.Delete(someTodo, key), Times.Once);
         }
 
         [Test]
         public void Delete_GivenTodo_RefreshesFromTodoService()
         {
-            todoService.Verify(
-                s => s.GetAll(It.IsAny<CollectionKey>()),
-                Times.Once);
-
+            todoService.Verify(s => s.GetAll(It.IsAny<CollectionKey>()), Times.Once);
             sut.Delete(someTodo);
-
-            todoService.Verify(
-                s => s.GetAll(It.IsAny<CollectionKey>()),
-                Times.Exactly(2));
+            todoService.Verify(s => s.GetAll(It.IsAny<CollectionKey>()), Times.Exactly(2));
         }
     }
 }

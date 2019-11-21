@@ -91,7 +91,7 @@ namespace TodoStorage.Core.Tests
         private void SetupIfOwner(bool keyIsOwner)
         {
             accessControlRepository
-                .Setup(repo => repo.IsOwnerOf(It.IsAny<CollectionKey>(), It.Is<int>(i => i == todo.Id)))
+                .Setup(repo => repo.IsOwnerOf(It.IsAny<CollectionKey>(), todo.Id.Value))
                 .Returns(keyIsOwner);
         }
     }

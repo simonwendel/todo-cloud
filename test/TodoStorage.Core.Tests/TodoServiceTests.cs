@@ -52,11 +52,11 @@ namespace TodoStorage.Core.Tests
 
             accessControlService = new Mock<IAccessControlService>();
             accessControlService
-                .Setup(a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == notOwnersKey), It.IsAny<Todo>()))
+                .Setup(a => a.IsOwnerOf(notOwnersKey, It.IsAny<Todo>()))
                 .Returns(false);
 
             accessControlService
-                .Setup(a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()))
+                .Setup(a => a.IsOwnerOf(collectionKey, It.IsAny<Todo>()))
                 .Returns(true);
 
             todoRepository = new Mock<ITodoRepository>();
@@ -97,7 +97,7 @@ namespace TodoStorage.Core.Tests
         public void GetAll_GivenCollectionKey_ReturnsFromRepo()
         {
             sut.GetAll(collectionKey).Should().BeSameAs(listOfTodos);
-            todoRepository.Verify(r => r.GetAll(It.Is<CollectionKey>(c => c.Equals(collectionKey))), Times.Once);
+            todoRepository.Verify(r => r.GetAll(collectionKey), Times.Once);
         }
 
         [Test]
@@ -120,9 +120,7 @@ namespace TodoStorage.Core.Tests
         public void Add_GivenTodoAndCollectionKey_PersistsToRepo()
         {
             sut.Add(newTodo, collectionKey).Should().BeSameAs(newTodo);
-            todoRepository.Verify(
-                r => r.Add(It.Is<Todo>(t => t == newTodo), It.Is<CollectionKey>(k => k == collectionKey)),
-                Times.Once);
+            todoRepository.Verify(r => r.Add(newTodo, collectionKey), Times.Once);
         }
 
         [Test]
@@ -148,46 +146,34 @@ namespace TodoStorage.Core.Tests
 
             updating.Should().ThrowExactly<AccessControlException>();
 
+            accessControlService.Verify(a => a.IsOwnerOf(notOwnersKey, It.IsAny<Todo>()), Times.Once);
             todoRepository.Verify(r => r.Update(It.IsAny<Todo>()), Times.Never);
-            accessControlService.Verify(
-                a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == notOwnersKey), It.IsAny<Todo>()), 
-                Times.Once);
         }
 
         [Test]
         public void Update_WhenGettingFailureFromRepo_ThrowsException()
         {
-            todoRepository
-                .Setup(r => r.Update(It.Is<Todo>(t => t == persistedTodo)))
-                .Returns(false);
+            todoRepository.Setup(r => r.Update(persistedTodo)).Returns(false);
 
             Action updating = () => sut.Update(persistedTodo, collectionKey);
-
             updating.Should().ThrowExactly<UpdateFailedException>();
 
-            accessControlService.Verify(
-                a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()),
-                Times.Once);
-
-            todoRepository.Verify(
-                r => r.Update(It.Is<Todo>(t => t == persistedTodo)), Times.Once);
+            accessControlService.Verify(a => a.IsOwnerOf(collectionKey, It.IsAny<Todo>()), Times.Once);
+            todoRepository.Verify(r => r.Update(It.Is<Todo>(t => t == persistedTodo)), Times.Once);
         }
 
         [Test]
         public void Update_WhenGettingSuccessFromRepo_Continues()
         {
-            todoRepository
-                .Setup(r => r.Update(It.Is<Todo>(t => t == persistedTodo)))
-                .Returns(true);
+            todoRepository.Setup(r => r.Update(persistedTodo)).Returns(true);
 
             sut.Update(persistedTodo, collectionKey);
 
             accessControlService.Verify(
-                a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()),
+                a => a.IsOwnerOf(collectionKey, It.IsAny<Todo>()),
                 Times.Once);
 
-            todoRepository.Verify(
-                r => r.Update(It.Is<Todo>(t => t == persistedTodo)), Times.Once);
+            todoRepository.Verify(r => r.Update(persistedTodo), Times.Once);
         }
 
         [Test]
@@ -210,46 +196,32 @@ namespace TodoStorage.Core.Tests
         public void Delete_GivenNotAuthorisedKey_ThrowsException()
         {
             Action deleting = () => sut.Delete(persistedTodo, notOwnersKey);
-
             deleting.Should().ThrowExactly<AccessControlException>();
 
-            accessControlService.Verify(
-                a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == notOwnersKey), It.IsAny<Todo>()),
-                Times.Once);
-
+            accessControlService.Verify(a => a.IsOwnerOf(notOwnersKey, It.IsAny<Todo>()), Times.Once);
             todoRepository.Verify(r => r.Delete(It.IsAny<Todo>()), Times.Never);
         }
 
         [Test]
         public void Delete_WhenGettingFailureFromRepo_ThrowsException()
         {
-            todoRepository
-                .Setup(r => r.Delete(It.Is<Todo>(t => t == persistedTodo)))
-                .Returns(false);
+            todoRepository.Setup(r => r.Delete(persistedTodo)).Returns(false);
 
             Action deleting = () => sut.Delete(persistedTodo, collectionKey);
             deleting.Should().ThrowExactly<DeleteFailedException>();
 
-            accessControlService.Verify(
-                a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()),
-                Times.Once);
-
-            todoRepository.Verify(r => r.Delete(It.Is<Todo>(t => t == persistedTodo)), Times.Once);
+            accessControlService.Verify(a => a.IsOwnerOf(collectionKey, It.IsAny<Todo>()), Times.Once);
+            todoRepository.Verify(r => r.Delete(persistedTodo), Times.Once);
         }
 
         [Test]
         public void Delete_WhenGettingSuccessFromRepo_Continues()
         {
-            todoRepository
-                .Setup(r => r.Delete(It.Is<Todo>(t => t == persistedTodo)))
-                .Returns(true);
+            todoRepository.Setup(r => r.Delete(persistedTodo)).Returns(true);
 
             sut.Delete(persistedTodo, collectionKey);
 
-            accessControlService.Verify(
-                a => a.IsOwnerOf(It.Is<CollectionKey>(k => k == collectionKey), It.IsAny<Todo>()),
-                Times.Once);
-
+            accessControlService.Verify(a => a.IsOwnerOf(collectionKey, It.IsAny<Todo>()), Times.Once);
             todoRepository.Verify(r => r.Delete(It.Is<Todo>(t => t == persistedTodo)), Times.Once);
         }
     }
