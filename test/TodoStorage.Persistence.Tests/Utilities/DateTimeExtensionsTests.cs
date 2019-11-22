@@ -20,6 +20,7 @@ namespace TodoStorage.Persistence.Tests.Utilities
 {
     using System;
     using System.Data.SqlTypes;
+    using FluentAssertions;
     using NUnit.Framework;
 
     [TestFixture]
@@ -30,32 +31,23 @@ namespace TodoStorage.Persistence.Tests.Utilities
         {
             var date = DateTime.Now;
             var expected = new SqlDateTime(date).Value;
-
-            var actual = date.SqlNormalize();
-
-            Assert.That(actual, Is.EqualTo(expected));
+            date.SqlNormalize().Should().Be(expected);
         }
 
         [Test]
         public void SqlNormalize_GivenOutOfRangeDateTime_ThrowsException()
         {
             var date = new DateTime();
-
-            TestDelegate normalizeCall =
-                () => date.SqlNormalize();
-
-            Assert.That(normalizeCall, Throws.Exception);
+            Action normalizing = () => date.SqlNormalize();
+            normalizing.Should().Throw<Exception>();
         }
 
         [Test]
         public void SqlNormalize_GivenNullableDateTimeWithoutValue_ThrowsException()
         {
             DateTime? nullDateTime = null;
-
-            TestDelegate normalizeCall =
-                () => nullDateTime.SqlNormalize();
-
-            Assert.That(normalizeCall, Throws.ArgumentNullException);
+            Action normalizing = () => nullDateTime.SqlNormalize();
+            normalizing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
@@ -63,10 +55,7 @@ namespace TodoStorage.Persistence.Tests.Utilities
         {
             DateTime? date = DateTime.Now;
             var expected = new SqlDateTime(date.Value).Value;
-
-            var actual = date.SqlNormalize();
-
-            Assert.That(actual, Is.EqualTo(expected));
+            date.SqlNormalize().Should().Be(expected);
         }
     }
 }

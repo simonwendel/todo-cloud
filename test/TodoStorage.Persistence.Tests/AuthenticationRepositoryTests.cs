@@ -19,6 +19,7 @@
 namespace TodoStorage.Persistence.Tests
 {
     using System;
+    using FluentAssertions;
     using NUnit.Framework;
     using TodoStorage.Persistence.Tests.Seed;
 
@@ -46,26 +47,21 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Ctor_GivenNullConnectionFactory_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new AuthenticationRepository(null);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new AuthenticationRepository(null);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void GetSecret_GivenNonExistentAppId_ReturnsNull()
         {
-            var secretBytes = sut.GetSecret(Guid.NewGuid());
-
-            Assert.That(secretBytes, Is.Null);
+            sut.GetSecret(Guid.NewGuid()).Should().BeNull();
         }
 
         [Test]
         public void GetSecret_GivenAppId_ReturnsSecret()
         {
             var secretBytes = sut.GetSecret(Seed.Data.OtherAuth.AppId);
-
-            Assert.That(secretBytes, Is.EquivalentTo(Seed.Data.OtherAuth.Secret));
+            secretBytes.Should().BeEquivalentTo(Seed.Data.OtherAuth.Secret);
         }
     }
 }

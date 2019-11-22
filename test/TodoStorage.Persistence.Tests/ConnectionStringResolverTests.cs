@@ -18,6 +18,8 @@
 
 namespace TodoStorage.Persistence.Tests
 {
+    using System;
+    using FluentAssertions;
     using NUnit.Framework;
 
     [TestFixture]
@@ -26,37 +28,29 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Ctor_GivenNullConnectionStringName_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new ConnectionStringResolver(null);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new ConnectionStringResolver(null);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void Ctor_GivenNonExistentConnectionStringName_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new ConnectionStringResolver("Can'tFindThis");
-
-            Assert.That(constructorCall, Throws.ArgumentException);
+            Action constructing = () => new ConnectionStringResolver("Can'tFindThis");
+            constructing.Should().ThrowExactly<ArgumentException>();
         }
 
         [Test]
         public void Ctor_GivenConnectionStringName_SetsConnectionString()
         {
             var sut = new ConnectionStringResolver("ShouldFindThis");
-
-            Assert.That(sut.ConnectionString, Is.EqualTo("w00t!"));
+            sut.ConnectionString.Should().Be("w00t!");
         }
 
         [Test]
         public void Ctor_NullaryCtorCalled_SetsConnectionString()
         {
             var sut = new ConnectionStringResolver();
-
-            Assert.That(
-                sut.ConnectionString, 
-                Is.EqualTo("DefaultConnectionStringLikeThis!"));
+            sut.ConnectionString.Should().Be("DefaultConnectionStringLikeThis!");
         }
     }
 }

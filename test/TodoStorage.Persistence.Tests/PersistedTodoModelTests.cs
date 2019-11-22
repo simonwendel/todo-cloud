@@ -19,6 +19,7 @@
 namespace TodoStorage.Persistence.Tests
 {
     using AutoFixture;
+    using FluentAssertions;
     using NUnit.Framework;
     using SimonWendel.ObjectExtensions;
     using TodoStorage.Core;
@@ -37,8 +38,8 @@ namespace TodoStorage.Persistence.Tests
 
             var sut = new PersistedTodoModel(originalTodo);
             var reconstitutedTodo = PersistedTodoModel.Reconstitute(sut);
-
-            Assert.That(reconstitutedTodo, Is.EqualTo(originalTodo));
+            
+            reconstitutedTodo.Should().Be(originalTodo);
         }
     }
 }

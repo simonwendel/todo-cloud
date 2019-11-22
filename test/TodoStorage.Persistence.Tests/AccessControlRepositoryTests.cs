@@ -18,7 +18,9 @@
 
 namespace TodoStorage.Persistence.Tests
 {
+    using System;
     using System.Linq;
+    using FluentAssertions;
     using NUnit.Framework;
     using TodoStorage.Persistence.Tests.Seed;
 
@@ -46,19 +48,15 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Ctor_GivenNullDbConnectionFactory_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new AccessControlRepository(null);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new AccessControlRepository(null);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void IsOwnerOf_GivenNullCollectionKey_ThrowsException()
         {
-            TestDelegate methodCall =
-                 () => sut.IsOwnerOf(null, 0);
-
-            Assert.That(methodCall, Throws.ArgumentNullException);
+            Action checkingIfOwner = () => sut.IsOwnerOf(null, 0);
+            checkingIfOwner.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
@@ -66,21 +64,15 @@ namespace TodoStorage.Persistence.Tests
         {
             var ownerKey = Seed.Data.TestCollectionKey;
             var ownedTodoId = Seed.Data.OwnedByTestKey.First().Id.Value;
-
-            var ownsThatTodo = sut.IsOwnerOf(ownerKey, ownedTodoId);
-
-            Assert.That(ownsThatTodo, Is.True);
+            sut.IsOwnerOf(ownerKey, ownedTodoId).Should().BeTrue();
         }
 
         [Test]
         public void IsOwnerOf_GivenNonOwningCollectionKey_ReturnsFalse()
         {
             var ownerKey = Seed.Data.TestCollectionKey;
-            var ownedTodoId = Seed.Data.NotOwnedByTestKey.First().Id.Value;
-
-            var ownsThatTodo = sut.IsOwnerOf(ownerKey, ownedTodoId);
-
-            Assert.That(ownsThatTodo, Is.False);
+            var notOwnedTodoId = Seed.Data.NotOwnedByTestKey.First().Id.Value;
+            sut.IsOwnerOf(ownerKey, notOwnedTodoId).Should().BeFalse();
         }
     }
 }

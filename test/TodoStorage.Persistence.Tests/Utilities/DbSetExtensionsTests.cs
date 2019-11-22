@@ -18,8 +18,10 @@
 
 namespace TodoStorage.Persistence.Tests.Utilities
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using FluentAssertions;
     using Moq;
     using NUnit.Framework;
 
@@ -30,26 +32,23 @@ namespace TodoStorage.Persistence.Tests.Utilities
         public void Clear_GivenNullDbSet_ThrowsException()
         {
             DbSet<object> nullSet = null;
-
-            Assert.That(() => nullSet.Clear(), Throws.ArgumentNullException);
+            Action clearing = () => nullSet.Clear();
+            clearing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void Clear_GivenDbSet_CallsRemoveRangeWithSelf()
         {
             var dataSet = new Mock<DbSet<object>>();
-            IEnumerable<object> parameter = null;
 
+            IEnumerable<object> parameter = null;
             dataSet
                 .Setup(db => db.RemoveRange(It.IsAny<IEnumerable<object>>()))
-                .Callback((IEnumerable<object> param) =>
-                {
-                    parameter = param;
-                });
+                .Callback<IEnumerable<object>>(param => parameter = param);
 
             dataSet.Object.Clear();
 
-            Assert.That(parameter, Is.SameAs(dataSet.Object));
+            parameter.Should().BeSameAs(dataSet.Object);
             dataSet.VerifyAll();
         }
     }

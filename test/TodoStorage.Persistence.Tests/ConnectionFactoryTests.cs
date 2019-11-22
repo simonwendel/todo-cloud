@@ -18,7 +18,9 @@
 
 namespace TodoStorage.Persistence.Tests
 {
+    using System;
     using System.Data.SqlClient;
+    using FluentAssertions;
     using Moq;
     using NUnit.Framework;
 
@@ -28,19 +30,15 @@ namespace TodoStorage.Persistence.Tests
         [Test]
         public void Ctor_GivenNullConnectionStringResolver_ThrowsException()
         {
-            TestDelegate constructorCall =
-                () => new ConnectionFactory(null);
-
-            Assert.That(constructorCall, Throws.ArgumentNullException);
+            Action constructing = () => new ConnectionFactory(null);
+            constructing.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Test]
         public void Ctor_GivenConnectionStringResolver_GetsConnectionString()
         {
             var connectionStringResolver = new Mock<IConnectionStringResolver>();
-            connectionStringResolver
-                .SetupGet(r => r.ConnectionString)
-                .Returns("whatever");
+            connectionStringResolver.SetupGet(r => r.ConnectionString).Returns("whatever");
 
             var sut = new ConnectionFactory(connectionStringResolver.Object);
 
@@ -54,9 +52,8 @@ namespace TodoStorage.Persistence.Tests
             var sut = new ConnectionFactory(resolver);
 
             var connection = sut.GetConnection();
-
-            Assert.That(connection, Is.Not.Null);
-            Assert.That(connection, Is.TypeOf<SqlConnection>());
+            
+            connection.Should().BeOfType<SqlConnection>().And.NotBeNull();
         }
     }
 }
